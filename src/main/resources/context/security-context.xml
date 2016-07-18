@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+	http://www.springframework.org/schema/beans/spring-beans.xsd           
+	http://www.springframework.org/schema/security           
+	http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<!-- http://zgundam.tistory.com/category/프로그래밍/Spring%20Security 참조 -->
+	
+	<http pattern="/resources/**" security="none"></http>
+	<http pattern="/favicon.ico" security="none"></http>
+	
+    <http auto-config="true" use-expressions="true" authentication-manager-ref="userAuthnticationManager">    
+    	<csrf disabled="true"></csrf>
+    	
+    	<form-login login-page="/login/login" authentication-failure-url="/login/failure" default-target-url="/" login-processing-url="/login/logOk" username-parameter="userId" password-parameter="passwd"></form-login>
+    	<logout invalidate-session="true" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" logout-url="/login/logout" logout-success-url="/"></logout>
+    	<remember-me key="hyuns00" token-validity-seconds="2419200" remember-me-parameter="rememberMe"></remember-me><!-- 하루 86400초 * 28일 -->
+		<session-management> 
+			<concurrency-control max-sessions="1" expired-url="/login/duplicate"/> 
+		</session-management> 
+    	<intercept-url pattern="/login/login" access="isAnonymous()"></intercept-url>
+    	<intercept-url pattern="/login/failure" access="isAnonymous()"></intercept-url>
+    	<intercept-url pattern="/login/logout" access="hasAnyRole('ROLE_USER')"></intercept-url>
+    	<intercept-url pattern="/bbs/**" access="permitAll"></intercept-url>
+    	<intercept-url pattern="/home" access="permitAll"></intercept-url>
+        <intercept-url pattern="/**" access="permitAll"></intercept-url> 
+    </http> 
+	
+	<!-- #. Spring Security Login Custom -->
+	<beans:bean id="loginServiceImpl" class="com.home.app.login.service.impl.LoginServiceImpl" />
+	
+	<!-- #. Spring Security Authentication Manager -->	 	
+	<authentication-manager id="userAuthnticationManager" erase-credentials="false">
+		<authentication-provider user-service-ref="loginServiceImpl">
+			<password-encoder ref="bcryptPasswordEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+	
+ </beans:beans> 

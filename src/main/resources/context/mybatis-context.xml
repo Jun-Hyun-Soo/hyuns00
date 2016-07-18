@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <!-- http://www.mybatis.org/mybatis-3/ko/configuration.html 참조
+ 		- cacheEnabled 				: 설정에서 각 매퍼에 설정된 캐시를 전역적으로 사용할지 말지에 대한 여부 
+ 		- lazyLoadingEnabled 		: 지연로딩을 사용할지에 대한 여부. 사용하지 않는다면 모두 즉시 로딩할 것이다. 이 값은 fetchType 속성을 사용해서 대체할 수 있다. 
+ 		- multipleResultSetsEnabled : 한개의 구문에서 여러개의 ResultSet을 허용할지의 여부(드라이버가 해당 기능을 지원해야 함) 
+ 		- useColumnLabel 			: 칼럼명 대신에 칼럼라벨을 사용. 드라이버마다 조금 다르게 작동한다. 문서와 간단한 테스트를 통해 실제 기대하는 것처럼 작동하는지 확인해야 한다.
+ 		- useGeneratedKeys 			: 생성키에 대한 JDBC 지원을 허용. 지원하는 드라이버가 필요하다. true로 설정하면 생성키를 강제로 생성한다. 일부 드라이버(예를들면, Derby)에서는 이 설정을 무시한다.
+ 		- defaultExecutorType 		: 디폴트 실행자(executor) 설정. SIMPLE 실행자는 특별히 하는 것이 없다. REUSE 실행자는 PreparedStatement를 재사용한다. BATCH 실행자는 구문을 재사용하고 수정을 배치처리한다.
+ 		- defaultStatementTimeout 	: 데이터베이스로의 응답을 얼마나 오래 기다릴지를 판단하는 타임아웃을 설정
+ -->
+<configuration>
+    <settings>  
+        <setting name="cacheEnabled"              	value="true"/>  
+        <setting name="lazyLoadingEnabled"        	value="false"/>  
+        <setting name="multipleResultSetsEnabled" 	value="true"/>  
+        <setting name="useColumnLabel"            	value="true"/>  
+        <setting name="useGeneratedKeys"          	value="false"/>  
+        <setting name="defaultExecutorType"      	value="SIMPLE"/>  
+        <setting name="defaultStatementTimeout"  	value="25000"/>
+    </settings>
+</configuration>

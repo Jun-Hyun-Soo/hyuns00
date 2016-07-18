@@ -1,0 +1,350 @@
+.cssBbsTable
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+.cssBbsTable caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding-top: 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+.cssBbsTable th
+{
+	font-size: 12px;
+    width: 85px;
+    text-align: right;
+    line-height: 20px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssBbsTable td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssBbsButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#imgBtnList 		
+{  
+	background-image: url("/resources/images/button/btn_list.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnWrite 		
+{  
+	background-image: url("/resources/images/button/btn_write.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnEdit 		
+{  
+	background-image: url("/resources/images/button/btn_edit.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnDelete 		
+{  
+	background-image: url("/resources/images/button/btn_delete.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnReply 		
+{  
+	background-image: url("/resources/images/button/btn_reply.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnCommentWrite 	
+{  
+	background-image: url("/resources/images/button/btn_write.gif");
+	background-repeat: no-repeat;
+	width: 44px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnCommentReply 	
+{  
+	background-image: url("/resources/images/button/btn_reply.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	display: none;
+	vertical-align: middle;	
+}
+
+#imgBtnCommentEdit 		
+{  
+	background-image: url("/resources/images/button/btn_edit.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	display: none;
+	vertical-align: middle;	
+}
+
+#imgBtnCommentDelete 	
+{  
+	background-image: url("/resources/images/button/btn_delete.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	display: none;
+	vertical-align: middle;	
+}
+
+#tblBbsView
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: auto;
+}
+
+#tblBbsView caption
+{
+	font-size: 15px;
+    text-align: left;
+    border-bottom: 2px solid #d1d1d1;
+    padding-top: 5px;
+}
+
+#tblBbsView th
+{
+	font-size: 12px;
+    width: 85px;
+    height: 25px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tblBbsView td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssBbsView
+{
+	font-size: 12px;
+	font-family: ±¼¸²;
+	white-space: pre-wrap;
+	line-height: normal;
+	min-height: 150px;
+	margin-top: 10px;
+}
+
+#divBbsViewEmpty
+{
+ 	padding-top: 5px;
+}
+
+#tblBbsViewFileListTable
+{
+	font-size: 12px;
+    width: 600px;
+	border: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+    padding-top: 10px;
+}
+
+#tblBbsViewFileListTable th
+{
+	height: 20px;
+	border: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	text-align: center;
+	vertical-align: bottom;
+	background-color: #f3f3f3;
+}
+
+#thBbsViewFileListNo 			{ width: 50px;	}
+#thBbsViewFileListFileName 		{ width: 350px;	}
+#thBbsViewFileListFileSize 		{ width: 100px;	}
+#thBbsViewFileListDownCount		{ width: 80px; 	}
+
+#tblBbsFileListTable td
+{
+	height: 20px;
+	border: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	vertical-align: bottom;
+}
+
+#tdBbsViewFileListNo			{ text-align: center; 	}
+#tdBbsViewFileListFileName		{ text-align: left;	 text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+#tdBbsViewFileListFileSize 		{ text-align: center; 	}
+#tdBbsViewFileListDownCount 	{ text-align: center; 	}
+
+.cssBbsViewCommentTable
+{
+	font-size: 12px;
+    width: 600px;
+	border: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+    padding-top: 10px;
+}
+
+.cssBbsViewCommentTable th
+{
+	height: 20px;
+	border-bottom: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	vertical-align: bottom;
+	background-color: #f3f3f3;
+}
+
+.cssBbsViewCommentTableWriter		{ width: 80px; text-align: center; 	}
+.cssBbsViewCommentTableRegDate 		{ width: 200px; text-align: center; }
+.cssBbsViewCommentTableButton 		{ text-align: right; 	}
+
+.cssBbsViewCommentTable td
+{
+	height: 20px;
+	border-bottom: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	vertical-align: middle;
+}
+
+.cssBbsViewCommentTableContent 		{ width: 600px; text-align: left; 	}
+
+#tblBbsViewCommentContent
+{
+	font-size: 12px;
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing : 0px;
+}
+
+#tblBbsViewCommentContent td
+{
+	font-size: 12px;
+    text-align: left;
+}
+
+#tblBbsViewCommentWrite
+{
+	font-size: 12px;
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing : 0px;
+}
+
+#tblBbsViewCommentWrite th
+{
+	font-size: 12px;
+    width: 100px;
+    height: 25px;
+    padding: 2px 0px 0px 5px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tdBbsViewCommentWriteWriter
+{
+	font-size: 12px;
+	width: 105px;
+    padding: 2px 0px 0px 5px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tdBbsViewCommentWritePasswd
+{
+	font-size: 12px;
+	width: 105px;
+    padding: 2px 0px 0px 5px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tdBbsViewCommentWriteEmpty
+{
+	width: 100px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tdBbsViewCommentWriteButton
+{
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#imgBtnViewCommentTableReply 	
+{  
+	background-image: url("/resources/images/icon/icon_arrow.gif");
+	background-repeat: no-repeat;
+	width: 9px;
+	height: 9px;
+	vertical-align: middle;	
+}
+
+#imgBtnViewCommentTableEdit 	
+{  
+	background-image: url("/resources/images/icon/icon_plus.gif");
+	background-repeat: no-repeat;
+	width: 9px;
+	height: 9px;
+	vertical-align: middle;	
+}
+
+#imgBtnViewCommentTableDelete 	
+{  
+	background-image: url("/resources/images/icon/icon_delete.gif");
+	background-repeat: no-repeat;
+	width: 9px;
+	height: 9px;
+	vertical-align: middle;	
+}
+
+#divBbsViewCommentTotal
+{
+	font-size: 12px;
+    height: 15px;
+}
+
+#tdBbsViewCommentWriteWriter 	#writer 	{ width: 169px; }
+#tdBbsViewCommentWritePasswd 	#passwd 	{ width: 169px; }
+#tdBbsViewCommentContent 		#content	{ width: 600px; height: 100px; font-size: 10.6px;}

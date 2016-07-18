@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.home.app.login.dao.LoginDao"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
+    <resultMap id="loginResultMap" type="com.home.app.login.dto.LoginDto">
+        <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="userId" 		column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userPw" 		column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userName"		column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userRole"		column="USER_ROLE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userEmail"	column="USER_EMAIL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="nickName"		column="NICK_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="imageUrl"		column="IMAGE_URL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="question"		column="QUESTION"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="answer"		column="ANSWER"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="joinDate"		column="JOIN_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="lastDate"		column="LAST_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="exitDate"		column="EXIT_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="exitYn"		column="EXIT_YN"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="visitCount"	column="VISIT_COUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+	</resultMap>
+	
+    <select id="selectCheckUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)		         
+		  FROM LOGIN 
+		 WHERE USER_ID = #{userId} 
+    </select>
+	
+    <select id="selectLoginUserId" parameterType="java.lang.String" resultMap="loginResultMap">
+		SELECT NO, 
+		       USER_ID, 
+		       USER_PW,
+		       USER_NAME,
+		       USER_ROLE,
+		       USER_EMAIL,
+		       NICK_NAME,
+		       IMAGE_URL,
+		       QUESTION,
+		       ANSWER,
+		       JOIN_DATE,
+		       LAST_DATE,
+		       EXIT_DATE,
+		       EXIT_YN,
+		       VISIT_COUNT  
+		  FROM LOGIN 
+		 WHERE USER_ID = #{userId} 
+    </select>
+
+    <insert id="insertJoin" parameterType="com.home.app.login.dto.LoginDto">    	
+		INSERT INTO LOGIN 
+		       ( 
+		           NO, 
+		           USER_ID,
+		           USER_PW,
+		           USER_NAME,
+		           USER_ROLE,
+		           USER_EMAIL,
+		           NICK_NAME,
+		           IMAGE_URL,
+		           QUESTION,
+		           ANSWER,
+		           JOIN_DATE,
+		           LAST_DATE,
+		           EXIT_DATE,
+		           EXIT_YN,
+		           VISIT_COUNT
+		       ) 
+		       VALUES 
+		       ( 
+		           LOGIN_NO.NEXTVAL, 
+		           #{userId},
+		           #{userPw},
+		           #{userName},
+		           #{userRole},
+		           #{userEmail},
+		           #{nickName},
+		           #{imageUrl},
+		           #{question},
+		           #{answer},
+		           SYSDATE,
+		           NULL,
+		           NULL,
+		           'N',
+		           0
+		       )
+		<selectKey keyProperty="no" resultType="java.lang.Integer" order="AFTER">
+			SELECT LOGIN_NO.CURRVAL FROM DUAL
+		</selectKey>		       
+    </insert>
+
+    <update id="updateEdit" parameterType="com.home.app.login.dto.LoginDto">
+		UPDATE LOGIN 
+		   SET USER_PW = #{userPw}
+		 WHERE USER_ID = #{userId}  
+    </update>
+
+</mapper>

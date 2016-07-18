@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- #. DataBase Properties -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="location" value="classpath:/properties/database.properties"></property>
+	</bean>	
+ 	
+ 	<!-- #. DataBase DataSource : http://d2.naver.com/helloworld/5102792 참조
+ 			- initialSize	: 8		: 풀의 초기 커넥션 갯수
+ 			- maxActive		: 8		: 최대 커넥션 갯수
+ 			- maxWait		: -1	: 커넥션이 존재하지 않을 때, 커넥션을 얻기까지 대기하는 최대 대기시간
+ 			- maxIdle		: 8		: Idle상태에 풀이 소유한 최대 커넥션 갯수
+ 			- minIdle		: 0		: Idle상태에 풀이 소유한 최소 커넥션 갯수
+ 	-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" 	value="${jdbc.driverClassName}" />
+		<property name="url" 				value="${jdbc.url}" 			/>
+		<property name="username" 			value="${jdbc.username}" 		/>
+		<property name="password" 			value="${jdbc.password}" 		/>
+		<property name="initialSize" 		value="${jdbc.initialSize}" 	/>
+		<property name="maxActive" 			value="${jdbc.maxActive}" 		/>
+		<property name="maxWait" 			value="${jdbc.maxWait}" 		/>
+		<property name="maxIdle" 			value="${jdbc.maxIdle}" 		/>
+		<property name="minIdle" 			value="${jdbc.minIdle}" 		/>
+	</bean>
+
+	<!-- #. sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" 		ref="dataSource" 									/>
+		<property name="configLocation" 	value="classpath:/context/mybatis-context.xml" 		/>
+		<property name="mapperLocations" 	value="classpath:com/home/app/**/mapper/**/*.xml" 	/>
+	</bean>
+	
+	<!-- #. sqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- #. transactionManager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- #. transactionAdvice
+			- name				: * 					: 트랜잭션이 적용될 Method 명
+			- propagation(전파)	: REQUIRED 				: 트랜잭션이 있으면 그 상황에서 발생, 없으면 새로운 트랙잭션 실행  
+			- isolation(격리)   	: READ_COMMITTED		: 커밋된 데이터에 대해 읽기 허용
+			- timeout			: -1					: 트랜잭션 타임아웃 초단위
+			- read-only			: false					: true 인 경우 insert, update, delete 실행시 예외 발생
+			- rollback-for		: java.lang.Exception	: 예외 발생시 롤백 처리
+	-->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="-1" read-only="false" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- #. tx:annotation-driven transactionManager -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+  		
+  	<!-- #. Aop Transaction
+  			- 파일명이 service/impl 폴더에 파일명이 *Impl.* 로 끝나는  파일명에 트랙잭션 발생
+  	-->	
+	<aop:config>
+		<aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.home.app..service.impl.*Impl.*(..))"></aop:advisor>
+	</aop:config>	
+
+	<!-- #. Component Scan -->
+	<context:component-scan base-package="com.home.app">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>			
+
+</beans>

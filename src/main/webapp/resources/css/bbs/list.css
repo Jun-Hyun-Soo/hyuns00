@@ -1,0 +1,140 @@
+.cssBbsTable
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+.cssBbsTable caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding-top: 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+.cssBbsTable th
+{
+	font-size: 12px;
+    width: 85px;
+    text-align: right;
+    line-height: 20px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssBbsTable td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssBbsButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#imgBtnSearch
+{
+	background-image: url("/resources/images/button/btn_search.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+#imgBtnList 		
+{  
+	background-image: url("/resources/images/button/btn_list.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnWrite 		
+{  
+	background-image: url("/resources/images/button/btn_write.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#divBbsListSearch
+{
+    width: 600px;
+    height: 22px;
+    padding-top: 4px;
+}
+
+#divBbsListSearch #searchKeyword
+{
+	font-size: 12px;	
+}
+
+#tblBbsListTable
+{
+	font-size: 12px;
+    width: 600px;
+	border: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+#tblBbsListTable th
+{
+	height: 20px;
+	border-bottom: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	text-align: center;
+	vertical-align: bottom;
+	background-color: #f3f3f3;
+}
+
+#thBbsListNo 			{ width: 50px;	}
+#thBbsListSubject 		{ width: 360px;	}
+#thBbsListWriter 		{ width: 60px; 	}
+#thBbsListRegDate 		{ width: 80px; 	}
+#thBbsListVisitCount 	{ width: 40px; 	}
+
+#tblBbsListTable td
+{
+	height: 20px;
+	border-bottom: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	vertical-align: bottom;
+}
+
+.cssBbsListNo			{ text-align: center; 	}
+.cssBbsListSubject		{ text-align: left;	 text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.cssBbsListWriter 		{ text-align: center; 	}
+.cssBbsListRegDate 		{ text-align: center; 	}
+.cssBbsListVisitCount 	{ text-align: center; 	}
+
+#divBbsListPage
+{
+	font-size: 12px;
+    width: 600px;
+    height: 30px;
+    border: 0px;
+    text-align: center;
+    padding-top: 10px;
+    border-collapse: collapse;
+    border-spacing: 100px;
+}
+
+.cssBbsListCurrPage
+{
+	font-size: 12px;
+	font-family: ±¼¸²;
+	font-weight: bold;
+}

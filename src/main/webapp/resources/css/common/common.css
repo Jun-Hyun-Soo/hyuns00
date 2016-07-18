@@ -1,0 +1,36 @@
+/***################################################ 기본 스타일 시작 ################################################***/
+a  
+{ 
+	text-decoration: none; 
+	color:#666666; 
+}
+
+a:link  
+{ 
+	text-decoration: none; 
+	color: #333333; 
+}
+
+a:visited  
+{ 
+	text-decoration: none; 
+	color: #333333; 
+}
+
+a:hover  
+{ 
+	color:#FF6600; 
+	text-decoration: none;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+}
+
+form 
+{ 
+    display : inline;
+}
+/***################################################ 기본 스타일 종료 ################################################***/

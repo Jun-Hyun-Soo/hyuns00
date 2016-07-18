@@ -1,0 +1,69 @@
+.cssLoginTable
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+.cssLoginTable caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding-top: 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+.cssLoginTable th
+{
+	font-size: 12px;
+    width: 130px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssLoginTable td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#userId 		{ width: 149px; }
+#userName 		{ width: 149px; }
+#passwd 		{ width: 149px; }
+#passwd1 		{ width: 149px; }
+#passwd2 		{ width: 149px; }
+#userTel 		{ width: 149px; }
+#facId 			{ width: 149px; }
+#deptId 		{ width: 149px; }
+#deptName 		{ width: 149px; }
+
+.cssLoginButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#imgBtnLogin 		
+{  
+	background-image: url("/resources/images/button/btn_login.gif");
+	background-repeat: no-repeat;
+	width: 80px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+
+#imgBtnEdit 		
+{  
+	background-image: url("/resources/images/button/btn_login_edit.gif");
+	background-repeat: no-repeat;
+	width: 85px;
+	height: 21px;
+	vertical-align: middle;	
+}
+

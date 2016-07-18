@@ -1,0 +1,178 @@
+/***################################################ 메인페이지 로그인 시작 ################################################***/
+#divLogin
+{
+    margin-left: 3px;
+    margin-top: 3px;
+}
+/***################################################ 메인페이지 로그인 종료 ################################################***/
+/***################################################ 메인페이지 로그인 전 시작 ################################################***/
+#tblLoginLeftNo
+{
+    width: 172px;
+    height: 50px;
+}
+
+#tblLoginLeftNo caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding: 2px 0px 0px 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+#tblLoginLeftNo th
+{
+	font-size: 12px;
+    width: 60px;
+    padding: 2px 0px 0px 5px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tblLoginLeftNo td
+{
+	font-size: 12px;
+    padding: 2px 0px 0px 5px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tblLoginLeftButtonNo
+{
+    width: 172px;
+    height: 55px;
+}
+
+#tblLoginLeftButtonNo td
+{
+    text-align: center;
+}
+/***################################################ 메인페이지 로그인 전 종료 ################################################***/
+/***################################################ 메인페이지 로그인 후 시작 ################################################***/
+#tblLoginLeftYes
+{
+    width: 172px;
+    height: 50px;
+}
+
+#tblLoginLeftYes caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding: 2px 0px 0px 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+#tblLoginLeftYes td
+{
+	font-size: 12px;
+    padding: 2px 0px 0px 5px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+
+#tblLoginLeftButtonYes
+{
+    width: 172px;
+    height: 30px;
+}
+
+#tblLoginLeftButtonYes td
+{
+    text-align: center;
+}
+/***################################################ 메인페이지 로그인 후 종료 ################################################***/
+/***################################################ 메인페이지 로그인 시작 ################################################***/
+#divMenu
+{
+    margin-left: 0px;
+    margin-top: 10px;
+}
+/***################################################ 메인페이지 로그인 종료 ################################################***/
+/***################################################ 메인페이지 IRC채팅 메뉴 시작 ################################################***/
+#tblChat
+{
+    width: 172px;
+    height: 30px;
+    margin-left: 3px;
+    margin-top: 10px;
+}
+
+#tblChat caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding: 2px 0px 0px 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+#tblChat th
+{
+	font-size: 12px;
+    width: 100px;
+    padding: 2px 0px 0px 5px;
+    text-align: center;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tblChat td
+{
+	font-size: 12px;
+    padding: 2px 0px 0px 5px;
+    text-align: center;
+    border-bottom: 1px solid #d1d1d1;
+}
+/***################################################ 메인페이지 IRC채팅 메뉴 종료 ################################################***/
+/***################################################ 메인페이지 웹로그 시작 ################################################***/
+#divWebLog
+{
+}
+
+#tblWebLog
+{
+    width: 172px;
+    height: 50px;
+    margin-left: 3px;
+    margin-top: 10px;
+}
+
+#tblWebLog caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding: 2px 0px 0px 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+#tblWebLog th
+{
+	font-size: 12px;
+    width: 100px;
+    padding: 2px 0px 0px 5px;
+    text-align: center;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tblWebLog td
+{
+	font-size: 12px;
+    padding: 2px 0px 0px 5px;
+    text-align: center;
+    border-bottom: 1px solid #d1d1d1;
+}
+/***################################################ 메인페이지 웹로그 종료 ################################################***/
+/***################################################ 메인페이지 웹로그 메뉴 시작 ################################################***/
+#divWebLogMenu
+{
+    margin-left: 3px;
+    margin-top: 10px;
+}
+/***################################################ 메인페이지 웹로그 메뉴 종료 ################################################***/
+/***################################################ 메인페이지 Copyright 시작 ################################################***/
+#divCopyRight
+{
+	text-align: center;
+	vertical-align: middle;
+}
+/***################################################ 메인페이지 Copyright 종료 ################################################***/

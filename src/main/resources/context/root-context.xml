@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- #. Import Resource -->
+    <import resource="classpath:/context/datasource-context.xml"/>
+    <import resource="classpath:/context/security-context.xml"/>
+	
+	<!-- #. bcryptPasswordEncoder -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />	
+ 	
+ 	<!-- #. Messages Define 경로 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">	
+	   <property name="basenames">	
+	       <list>	
+	           <value>classpath:/messages/spring_security_messages</value>	<!-- Spring Security Messages -->
+	       </list>	
+	   </property>	
+	   <property name="defaultEncoding" value="UTF-8"/>	
+	   <property name="cacheSeconds" value="5"/>	
+	</bean>
+			
+</beans>
+
