@@ -42,15 +42,6 @@
 	
 	<form:hidden path="deleteFileName" value="" />
 	<form:hidden path="userId" value="${userId}" />	
-	
-	<form:hidden path="testFileName" value="${testFileName}" />
-	
-	<script>
-	$(function() {	
-		//var arrTestFileName = $("#testFileName").val();
-		alert($("#deleteFileName").val());
-	});
-	</script>
 	    
     <table class="cssBbsTable">	
         <caption>※  글 수정</caption>    
