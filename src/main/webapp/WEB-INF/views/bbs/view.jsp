@@ -7,28 +7,28 @@
 <link rel="stylesheet" href="/resources/css/bbs/view.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 
-<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">		
+<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">		
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 </c:url>
 
-<c:url var="editUrl" value="/bbs/edit/${bbsSearchDto.board}/${bbsSearchDto.no}">
+<c:url var="editUrl" value="/bbs/edit/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 </c:url>
 
-<c:url var="deleteUrl" value="/bbs/delete/${bbsSearchDto.board}/${bbsSearchDto.no}">
+<c:url var="deleteUrl" value="/bbs/delete/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 </c:url>
 	
-<c:url var="replyUrl" value="/bbs/reply/${bbsSearchDto.board}/${bbsSearchDto.no}">
+<c:url var="replyUrl" value="/bbs/reply/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -45,7 +45,7 @@
 	<sec:authentication property="principal.userId" var="userId" />
 </sec:authorize>
 
-<form:form commandName="bbsCommentDto" method="post" action="/bbs/commentOk/${bbsSearchDto.board}/${bbsSearchDto.no}">			
+<form:form commandName="bbsCommentDto" method="post" action="/bbs/commentOk/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">			
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true" />	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -78,7 +78,7 @@
 	    </tr>
 	    <tr>
 	        <th> 작성자 :</th>
-	        <td>${bbsDto.writer}</td>
+	        <td>${bbsDto.userName}</td>
 	        <th>작성일 :</th>
 	        <td>${bbsDto.regDate}</td>
 	        <th> 조회수 :</th>
@@ -125,15 +125,15 @@
 			
 			<table id="tblBbsViewCommentTable${bbsCommentDto.no}" class="cssBbsViewCommentTable" style="margin-left: ${marginLeft}px; width: ${tableWidth}px;">
 				<tr>
-					<th id="thBbsViewCommentTableWriter${bbsCommentDto.no}" class="cssBbsViewCommentTableWriter">
+					<th id="thBbsViewCommentTableUserName${bbsCommentDto.no}" class="cssBbsViewCommentTableUserName">
 						<c:out value="${func.getReplyImage(bbsCommentDto.depNo, 'Comment')}" escapeXml="false"></c:out>
-						<c:out value="${bbsCommentDto.writer}" escapeXml="true"></c:out>
+						<c:out value="${bbsCommentDto.userName}" escapeXml="true"></c:out>
 					</th>
 					<th id="thBbsViewCommentTableRegDate${bbsCommentDto.no}" class="cssBbsViewCommentTableRegDate"><c:out value="${bbsCommentDto.regDate}" escapeXml="true"></c:out></th>
 					<th id="thBbsViewCommentTableButton${bbsCommentDto.no}" class="cssBbsViewCommentTableButton">
-						<input type="image" id="imgBtnViewCommentTableReply" onclick="imgBtnViewCommentTableReply_Click(form, '${isAuthenticated}', '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.subNo}', '${bbsCommentDto.depNo}'); return false;" />
-						<input type="image" id="imgBtnViewCommentTableEdit" onclick="imgBtnViewCommentTableEdit_Click(form, '${isAuthenticated}', '${bbsCommentDto.no}'); return false;" />
-						<input type="image" id="imgBtnViewCommentTableDelete" onclick="imgBtnViewCommentTableDelete_Click(form, '${isAuthenticated}', '${bbsCommentDto.no}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableReply" onclick="imgBtnViewCommentTableReply_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.subNo}', '${bbsCommentDto.depNo}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableEdit" onclick="imgBtnViewCommentTableEdit_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.userName}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableDelete" onclick="imgBtnViewCommentTableDelete_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.userName}'); return false;" />
 					</th>
 				</tr>
 				<tr>					
@@ -153,22 +153,22 @@
 	
 	<table id="tblBbsViewCommentWrite">			
 		<tr>				
-			<td id="tdBbsViewCommentWriterEmpty"></td>
+			<td id="tdBbsViewCommentUserNameEmpty"></td>
 			<sec:authorize access="isAnonymous()">
 		    <th>* 작성자 :</th>
-		    <td id="tdBbsViewCommentWriteWriter">
-		        <form:input path="writer" maxlength="20" />
+		    <td id="tdBbsViewCommentWriteUserName">
+		        <form:input path="userName" maxlength="20" />
 		    </td>
 		    <th>* 비밀번호 :</th>
-		    <td id="tdBbsViewCommentWritePasswd">
-		        <form:password path="passwd" maxlength="20" />
+		    <td id="tdBbsViewCommentWriteUserPw">
+		        <form:password path="userPw" maxlength="20" />
 		    </td>
 		    </sec:authorize>
 		    <td id="tdBbsViewCommentWriteButton">
-		    	<input type="image" id="imgBtnCommentWrite" onclick="imgBtnBbsCommentWrite_Click(form, '${isAuthenticated}', 'Write'); return false;" /> 
-		    	<input type="image" id="imgBtnCommentReply" onclick="imgBtnBbsCommentWrite_Click(form, '${isAuthenticated}', 'Reply'); return false;" />
-		    	<input type="image" id="imgBtnCommentEdit" onclick="imgBtnBbsCommentWrite_Click(form, '${isAuthenticated}', 'Edit'); return false;" />
-		    	<input type="image" id="imgBtnCommentDelete" onclick="imgBtnBbsCommentWrite_Click(form, '${isAuthenticated}', 'Delete'); return false;" />
+		    	<input type="image" id="imgBtnCommentWrite" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Write'); return false;" /> 
+		    	<input type="image" id="imgBtnCommentReply" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Reply'); return false;" />
+		    	<input type="image" id="imgBtnCommentEdit" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Edit'); return false;" />
+		    	<input type="image" id="imgBtnCommentDelete" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Delete'); return false;" />
 		    </td>
 		</tr>
 	</table>

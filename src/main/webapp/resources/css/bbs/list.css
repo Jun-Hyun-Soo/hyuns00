@@ -101,7 +101,7 @@
 
 #thBbsListNo 			{ width: 50px;	}
 #thBbsListSubject 		{ width: 360px;	}
-#thBbsListWriter 		{ width: 60px; 	}
+#thBbsListUserName 		{ width: 60px; 	}
 #thBbsListRegDate 		{ width: 80px; 	}
 #thBbsListVisitCount 	{ width: 40px; 	}
 
@@ -116,7 +116,7 @@
 
 .cssBbsListNo			{ text-align: center; 	}
 .cssBbsListSubject		{ text-align: left;	 text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.cssBbsListWriter 		{ text-align: center; 	}
+.cssBbsListUserName 		{ text-align: center; 	}
 .cssBbsListRegDate 		{ text-align: center; 	}
 .cssBbsListVisitCount 	{ text-align: center; 	}
 

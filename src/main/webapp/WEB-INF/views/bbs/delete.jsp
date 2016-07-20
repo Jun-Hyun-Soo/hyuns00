@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/resources/css/bbs/delete.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 
-<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">		
+<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">		
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -24,7 +24,7 @@
 	<sec:authentication property="principal.userId" var="userId" />
 </sec:authorize>
 
-<form:form commandName="bbsDto" method="post" action="/bbs/deleteOk/${bbsSearchDto.board}/${bbsSearchDto.no}">
+<form:form commandName="bbsDto" method="post" action="/bbs/deleteOk/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true" />	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -41,7 +41,7 @@
 	<form:hidden path="listSize" value="${bbsSearchDto.listSize}" />
 	
 	<form:hidden path="subject" value="${bbsDto.subject}" />
-	<form:hidden path="writer" value="${bbsDto.writer}" />
+	<form:hidden path="userName" value="${bbsDto.userName}" />
 	<form:hidden path="regDate" value="${bbsDto.regDate}" />
 	<form:hidden path="content" value="${bbsDto.content}" />
 
@@ -55,18 +55,18 @@
 	    </tr>
 	    <tr>
 		    <th>* 작성자 :</th>
-		    <td>${bbsDto.writer}</td>
+		    <td>${bbsDto.userName}</td>
 	    </tr>
 	    <sec:authorize access="isAnonymous()">
 	    <tr>
 		    <th>* 비밀번호 :</th>
-		    <td><form:password path="passwd" size="15" /></td>
+		    <td><form:password path="userPw" size="15" /></td>
 	    </tr>
 	    </sec:authorize>
     </table>
     
     <div class="cssBbsButton">
-	    <input type="image" id="imgBtnDelete" onclick="imgBtnBbsDelete_click(form, '${isAuthenticated}'); return false;" /> 
+	    <input type="image" id="imgBtnDelete" onclick="imgBtnBbsDelete_click(form, ${isAuthenticated}); return false;" /> 
 	    <input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
     </div>
     

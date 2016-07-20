@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="/resources/css/jquery/jquery-ui.css"></link>
 	<link rel="stylesheet" href="/resources/css/common/common.css"></link>
 	<link rel="stylesheet" href="/resources/css/layouts/layout.css"></link>
-	<link rel="stylesheet" href="/resources/css/main/main.css"></link>
 	<script type="text/javascript" src="/resources/js/jquery/jquery-2.2.0.js"></script>
 	<script type="text/javascript" src="/resources/js/jquery/jquery-ui.js"></script>
 	<script type="text/javascript" src="/resources/js/function/function.js"></script>

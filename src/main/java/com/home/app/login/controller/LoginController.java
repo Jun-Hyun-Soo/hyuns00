@@ -1,5 +1,6 @@
 package com.home.app.login.controller;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+	
 	@RequestMapping(value = "/login", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String login(Model model) throws Exception 
 	{
@@ -53,19 +57,22 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/join", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
-	public String join(Model model) throws Exception {
+	public String join(Model model) throws Exception 
+	{
 		model.addAttribute("loginDto", new LoginDto());
 		
 		return "/login/join";
 	}
 
 	@RequestMapping(value = "/joinOk", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
-	public String joinOk(RedirectAttributes redirectAttributes, @Valid LoginDto loginDto, BindingResult result, Model model) throws Exception {
+	public String joinOk(RedirectAttributes redirectAttributes, @Valid LoginDto loginDto, BindingResult result, Model model) throws Exception 
+	{
 		if (result.hasErrors()) 
 		{
 			return "/login/join";
 		}
 		
+		loginDto.setUploadPath(uploadPath + "\\" + "login" + "\\");
 		loginDto.setUserPw(bcryptPasswordEncoder.encode(loginDto.getUserPw1()));	
 		loginDto.setUserRole("ROLE_USER");
 		
@@ -102,6 +109,7 @@ public class LoginController {
 			loginDto.setUserPw(bcryptPasswordEncoder.encode(loginDto.getUserPw()));
 		}
 
+		loginDto.setUploadPath(uploadPath + "\\" + "login" + "\\");
 		//loginDto.setUserRole("ROLE_USER");
 		//loginDto.setRegStat("N");
 		

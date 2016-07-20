@@ -88,6 +88,13 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.selectBbsFileNo(no);
 	}
 
+	public BbsCommentDto selectBbsCommentNo(int no) throws Exception
+	{	
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.selectBbsCommentNo(no);
+	}
+
 	public int insertBbs(BbsDto bbsDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);

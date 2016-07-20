@@ -47,7 +47,7 @@
 
 	<!-- #. FileUpload uploadPath -->
     <beans:bean id="uploadPath" class="java.lang.String">
-        <beans:constructor-arg value="C:\\Users\\hyuns00\\git\\spring\\hyuns00\\src\\main\\webapp\\WEB-INF\\upload\\"></beans:constructor-arg>
+        <beans:constructor-arg value="D:\\upload"></beans:constructor-arg>
     </beans:bean>
 
 	<!-- #. jsonView -->

@@ -71,6 +71,11 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.selectBbsFileNo(no);
 	}
 
+	public BbsCommentDto selectBbsCommentNo(int no) throws Exception
+	{
+		return bbsDao.selectBbsCommentNo(no);
+	}
+
 	public int insertBbs(BbsDto bbsDto) throws Exception 
 	{
 		int intReturn = bbsDao.insertBbs(bbsDto);

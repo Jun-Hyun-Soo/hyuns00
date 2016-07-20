@@ -34,10 +34,12 @@
 #userName 		{ width: 169px; }
 #userPw1 		{ width: 169px; }
 #userPw2 		{ width: 169px; }
-#userTel 		{ width: 169px; }
-#facId 			{ width: 169px; }
-#deptId 		{ width: 169px; }
-#deptName 		{ width: 169px; }
+#nickName 		{ width: 110px; }
+#userEmail		{ width: 110px; }
+#question 		{ width: 169px; }
+#answer 		{ width: 169px; }
+#imageUrl 		{ width: 469px; }
+#imgPreview		{ width: 80px; height: 80px; border: 1px solid #f3f3f3; }
 
 .cssLoginButton
 {
@@ -48,6 +50,24 @@
 }
 
 #imgBtnCheckUserId	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnCheckNickName	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnCheckUserEmail	
 {  
 	background-image: url("/resources/images/button/btn_duplicate.gif");
 	background-repeat: no-repeat;

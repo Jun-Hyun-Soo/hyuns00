@@ -1,4 +1,4 @@
-package com.home.app.bbs.function;
+package com.home.app.login.function;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,29 +14,29 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.home.app.bbs.dto.BbsDto;
-import com.home.app.bbs.dto.BbsFileDto;
+import com.home.app.login.dto.LoginDto;
+import com.home.app.login.dto.LoginFileDto;
 
 public class Upload 
 {	
-	public static List<BbsFileDto> saveFileList(BbsDto bbsDto) throws Exception 
+	public static List<LoginFileDto> saveFileList(LoginDto loginDto) throws Exception 
 	{
-		List<BbsFileDto> bbsFileDtoList = new ArrayList<BbsFileDto>();
+		List<LoginFileDto> loginFileDtoList = new ArrayList<LoginFileDto>();
 		
 		String fileSaveName = "";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy\\MM\\dd\\");
 		
-		String fileCurrPath = sdf.format(new Date());
+		String fileCurrPath = "login\\" + sdf.format(new Date());
 		
-		File dirPath = new File(bbsDto.getUploadPath(), fileCurrPath);
+		File dirPath = new File(loginDto.getUploadPath(), fileCurrPath);
 		
 		if (!dirPath.exists())
 		{
 			dirPath.mkdirs();
 		}
 		
-		List<MultipartFile> fileNameList = bbsDto.getFileNameList();
+		List<MultipartFile> fileNameList = loginDto.getFileNameList();
 		
 		if (fileNameList != null && fileNameList.size() > 0)
 		{
@@ -46,49 +46,49 @@ public class Upload
 				{
 					fileSaveName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 					
-					BbsFileDto bbsFileDto = new BbsFileDto();
+					LoginFileDto loginFileDto = new LoginFileDto();
 					
-					bbsFileDto.setPno(bbsDto.getNo());
-					bbsFileDto.setFilePath(bbsDto.getUploadPath() + fileCurrPath);
-					bbsFileDto.setFileName(file.getOriginalFilename());
-					bbsFileDto.setFileSize((int) file.getSize());					
-					bbsFileDto.setSaveName(fileSaveName);
+					loginFileDto.setPno(loginDto.getNo());
+					loginFileDto.setFilePath(loginDto.getUploadPath() + fileCurrPath);
+					loginFileDto.setFileName(file.getOriginalFilename());
+					loginFileDto.setFileSize((int) file.getSize());					
+					loginFileDto.setSaveName(fileSaveName);
 					
-					bbsFileDtoList.add(bbsFileDto);
+					loginFileDtoList.add(loginFileDto);
 					
-					file.transferTo(new File(bbsDto.getUploadPath() + fileCurrPath, fileSaveName));
+					file.transferTo(new File(loginDto.getUploadPath() + fileCurrPath, fileSaveName));
 					
 					String[] imgContentType = new String[] {"image/jpeg", "image/png", "image/gif", "image/tiff"};
 					
-					if (bbsDto.isThumbnailFlag())
+					if (loginDto.isThumbnailFlag())
 					{
 						if (Arrays.asList(imgContentType).contains(file.getContentType()))
 						{
-							createThumbnail(bbsDto.getUploadPath(), fileCurrPath, fileSaveName, bbsDto.getThumbnailHeight());
+							createThumbnail(loginDto.getUploadPath(), fileCurrPath, fileSaveName, loginDto.getThumbnailHeight());
 						}
 					}
 				}
 			}
 		}
 		
-		return bbsFileDtoList;
+		return loginFileDtoList;
 	}
 
-	public static void deleteFileList(List<BbsFileDto> bbsFileDtoList) throws Exception 
+	public static void deleteFileList(List<LoginFileDto> loginFileDtoList) throws Exception 
 	{
-		for (BbsFileDto bbsFileDto : bbsFileDtoList)
+		for (LoginFileDto loginFileDto : loginFileDtoList)
 		{
-			File deleteFile = new File(bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
-			File deleteThumb = new File(bbsFileDto.getFilePath(), "s_" + bbsFileDto.getSaveName());
+			File deleteFile = new File(loginFileDto.getFilePath(), loginFileDto.getSaveName());
+			File deleteThumb = new File(loginFileDto.getFilePath(), "s_" + loginFileDto.getSaveName());
 			
 			if (deleteFile.exists()) deleteFile.delete();	
 			if (deleteThumb.exists()) deleteThumb.delete();
 		}		
 	}
 
-	public static void deleteFile(BbsFileDto bbsFileDto) throws Exception 
+	public static void deleteFile(LoginFileDto loginFileDto) throws Exception 
 	{
-		File deleteFile = new File(bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
+		File deleteFile = new File(loginFileDto.getFilePath(), loginFileDto.getSaveName());
 		
 		if (deleteFile.exists()) deleteFile.delete();
 	}

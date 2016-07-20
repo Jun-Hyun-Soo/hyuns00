@@ -26,6 +26,18 @@
 		 WHERE USER_ID = #{userId} 
     </select>
 	
+    <select id="selectCheckUserEmail" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)		         
+		  FROM LOGIN 
+		 WHERE USER_EMAIL = #{userEmail} 
+    </select>
+	
+    <select id="selectCheckNickName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)		         
+		  FROM LOGIN 
+		 WHERE NICK_NAME = #{nickName} 
+    </select>
+	
     <select id="selectLoginUserId" parameterType="java.lang.String" resultMap="loginResultMap">
 		SELECT NO, 
 		       USER_ID, 
@@ -90,7 +102,13 @@
 
     <update id="updateEdit" parameterType="com.home.app.login.dto.LoginDto">
 		UPDATE LOGIN 
-		   SET USER_PW = #{userPw}
+		   SET USER_PW = #{userPw}, 
+		       userName = #{userName}, 
+		       userEmail = #{userEmail}, 
+		       nickName = #{nickName}, 
+		       imageUrl = #{imageUrl},
+		       question = #{question},
+		       answer = #{answer}
 		 WHERE USER_ID = #{userId}  
     </update>
 

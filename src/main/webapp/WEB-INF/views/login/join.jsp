@@ -9,7 +9,7 @@
 <c:url value="/login/login" var="loginUrl"></c:url>
 <c:url value="/login/joinOk" var="joinUrl"></c:url>
 
-<form:form commandName="loginDto" method="post" action="${joinUrl}">
+<form:form commandName="loginDto" method="post" enctype="multipart/form-data" action="${joinUrl}">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true"/>	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -21,6 +21,10 @@
 	</spring:bind>
 	
 	<form:hidden path="checkUserId" value="N" />
+	<form:hidden path="checkNickName" value="N" />
+	<form:hidden path="checkUserEmail" value="N" />
+	
+	<form:hidden path="deleteImageName" value="" />	
 	
     <table class="cssLoginTable">
         <caption>※  회원가입</caption>    
@@ -49,26 +53,29 @@
 		    <th>* 닉네임 :</th>
 		    <td>
 		        <form:input path="nickName" maxlength="20" />
+		        <input type="image" id="imgBtnCheckNickName" onclick="imgBtnCheckNickName_click(form); return false;" />
 		    </td>
 		    <th>* 이메일 :</th>
 		    <td>		        
-		        <form:input path="userEmail" maxlength="20" />
+		        <form:input path="userEmail" maxlength="100" />
+		        <input type="image" id="imgBtnCheckUserEmail" onclick="imgBtnCheckUserEmail_click(form); return false;" />
 		    </td>
 	    </tr>
 	    <tr>
 		    <th>* 보안질문 :</th>
 		    <td>
-		        <form:input path="question" maxlength="20" />
+		        <form:input path="question" maxlength="100" />
 		    </td>
 		    <th>* 보안대답 :</th>
 		    <td>
-		        <form:input path="answer" maxlength="20" />
+		        <form:input path="answer" maxlength="100" />
 		    </td>
 	    </tr>
 	    <tr>
 		    <th>* 이미지 :</th>
 		    <td colspan="3">
-		        <input type="file" id="imageUrl" name="imageUrl" />
+		    	<img src="" id="imgPreview" /><br />
+		        <input type="file" id="imageName" name="fileNameList" onchange="imageUrl_change(this);" />
 		    </td>
 	    </tr>
     </table>

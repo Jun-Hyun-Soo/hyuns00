@@ -20,6 +20,7 @@ public interface BbsService {
 	public BbsDto selectBbsReply(int no) throws Exception;
 	public BbsDto selectBbsDelete(int no) throws Exception;
 	public BbsFileDto selectBbsFileNo(int no) throws Exception;
+	public BbsCommentDto selectBbsCommentNo(int no) throws Exception;
 	
 	public int insertBbs(BbsDto bbsDto) throws Exception;	
 	public int insertBbsReply(BbsDto bbsDto) throws Exception;

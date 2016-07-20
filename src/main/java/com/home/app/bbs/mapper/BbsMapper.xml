@@ -3,48 +3,50 @@
 
 <mapper namespace="com.home.app.bbs.dao.BbsDao"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
     <resultMap id="bbsResultMap" type="com.home.app.bbs.dto.BbsDto">
-        <id     property="no"    		column="NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="viewNo" 		column="VIEWNO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="preNo" 		column="PRENO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="subNo" 		column="SUBNO"		jdbcType="FLOAT" 	javaType="java.lang.Float" />
-        <result property="depNo" 		column="DEPNO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="comCount" 	column="COMCOUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="viewCount" 	column="VIEWCOUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="totalCount" 	column="TOTALCOUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="board" 		column="BOARD"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userId" 		column="USERID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="passwd" 		column="PASSWD"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="writer" 		column="WRITER"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="email" 		column="EMAIL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="subject" 		column="SUBJECT"	jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userIp" 		column="USERIP"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="noticeYn" 	column="NOTICEYN"	jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="regDate" 		column="REGDATE"	jdbcType="VARCHAR" 	javaType="java.lang.String" />        
-        <result property="content" 		column="CONTENT"	jdbcType="CLOB" 	javaType="java.lang.String" />
+        <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="viewNo" 		column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="preNo" 		column="PRE_NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="subNo" 		column="SUB_NO"			jdbcType="FLOAT" 	javaType="java.lang.Float" />
+        <result property="depNo" 		column="DEP_NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="comCount" 	column="COM_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="viewCount" 	column="VIEW_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="totalCount" 	column="TOTAL_COUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="bbsName" 		column="BBS_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userId" 		column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userPw" 		column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userName" 	column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userEmail" 	column="USER_EMAIL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="subject" 		column="SUBJECT"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userIp" 		column="USER_IP"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="noticeYn" 	column="NOTICE_YN"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="regDate" 		column="REG_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />        
+        <result property="content" 		column="CONTENT"		jdbcType="CLOB" 	javaType="java.lang.String" />
 	</resultMap>
 	
     <resultMap id="bbsFileResultMap" type="com.home.app.bbs.dto.BbsFileDto">
-        <id     property="no"    		column="NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="pno" 			column="PNO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="filePath" 	column="FILEPATH"	jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="fileName" 	column="FILENAME"	jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="saveName" 	column="SAVENAME"	jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="fileSize" 	column="FILESIZE"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="downCount"	column="DOWNCOUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="pno" 			column="PNO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="viewNo" 		column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="filePath" 	column="FILE_PATH"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="fileName" 	column="FILE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="saveName" 	column="SAVE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="editName" 	column="EDIT_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="fileSize" 	column="FILE_SIZE"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="downCount"	column="DOWN_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
 	</resultMap>
 	
     <resultMap id="bbsCommentResultMap" type="com.home.app.bbs.dto.BbsCommentDto">
-        <id     property="no"    		column="NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="preNo" 		column="PRENO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="subNo" 		column="SUBNO"		jdbcType="FLOAT" 	javaType="java.lang.Float" />
-        <result property="depNo" 		column="DEPNO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="board" 		column="BOARD"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userId" 		column="USERID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="passwd" 		column="PASSWD"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="writer" 		column="WRITER"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userIp" 		column="USERIP"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="regDate" 		column="REGDATE"	jdbcType="VARCHAR" 	javaType="java.lang.String" />        
-        <result property="content" 		column="CONTENT"	jdbcType="CLOB" 	javaType="java.lang.String" />
+        <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="preNo" 		column="PRE_NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="subNo" 		column="SUB_NO"			jdbcType="FLOAT" 	javaType="java.lang.Float" />
+        <result property="depNo" 		column="DEP_NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="bbsName" 		column="BBS_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userId" 		column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userPw" 		column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userName" 	column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userIp" 		column="USER_IP"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="regDate" 		column="REG_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />        
+        <result property="content" 		column="CONTENT"		jdbcType="CLOB" 	javaType="java.lang.String" />
 	</resultMap>
 	
 	
@@ -52,13 +54,13 @@
 		<choose>
 			<when test="searchClass == 'ALL' and searchKeyword != null and searchKeyword != ''">
 		       AND (
-		       			B.WRITER LIKE #{searchKeyword} || '%' 
+		       			B.USER_NAME LIKE #{searchKeyword} || '%' 
 		        	 OR B.SUBJECT LIKE #{searchKeyword} || '%' 
 		        	 OR B.CONTENT LIKE #{searchKeyword} || '%'
 		           )
 			</when> 
-			<when test="searchClass == 'WRITER' and searchKeyword != null and searchKeyword != ''">
-		       AND B.WRITER LIKE #{searchKeyword} || '%'  
+			<when test="searchClass == 'USER_NAME' and searchKeyword != null and searchKeyword != ''">
+		       AND B.USER_NAME LIKE #{searchKeyword} || '%'  
 			</when> 
 			<when test="searchClass == 'SUBJECT' and searchKeyword != null and searchKeyword != ''">
 		       AND B.SUBJECT LIKE #{searchKeyword} || '%'  
@@ -71,62 +73,62 @@
 
 	<select id="selectBbsCount" parameterType="com.home.app.bbs.dto.BbsSearchDto" resultType="java.lang.Integer">
 		SELECT 
-		       /*+ INDEX_FFS(BBS, IX_BOARD_NOTICEYN) */ 
-		       COUNT( *) TOTALCOUNT
+		       /*+ INDEX_FFS(BBS, IX_BBS_NAME_NOTICE_YN) */ 
+		       COUNT( *) TOTAL_COUNT
 		  FROM BBS B
 		 WHERE 1 = 1 
-		   AND BOARD = #{board} 
-		   AND NOTICEYN = 'N'  		
+		   AND BBS_NAME = #{bbsName} 
+		   AND NOTICE_YN = 'N'  		
 		<include refid="searchBbs" />
     </select>
 
 	<select id="selectBbsDeleteCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		SELECT COUNT( *) TOTALCOUNT
+		SELECT COUNT( *) TOTAL_COUNT
 		  FROM BBS 
 		 WHERE 1 = 1 
-		   AND PRENO = #{no} 
+		   AND PRE_NO = #{no} 
     </select>
     
 	<select id="selectBbsList" parameterType="com.home.app.bbs.dto.BbsSearchDto" resultMap="bbsResultMap">
 		SELECT B.NO, 
-		       0 AS VIEWNO,
-		       B.SUBNO, 
-		       B.DEPNO,
-		       B.COMCOUNT, 
-		       B.VIEWCOUNT, 
-		       B.USERID, 
-		       B.WRITER, 
+		       0 AS VIEW_NO,
+		       B.SUB_NO, 
+		       B.DEP_NO,
+		       B.COM_COUNT, 
+		       B.VIEW_COUNT, 
+		       B.USER_ID, 
+		       B.USER_NAME, 
 		       B.SUBJECT, 
-		       TO_CHAR(B.REGDATE, 'YYYY-MM-DD') AS REGDATE, 
-		       B.NOTICEYN, 
+		       TO_CHAR(B.REG_DATE, 'YYYY-MM-DD') AS REG_DATE, 
+		       B.NOTICE_YN, 
 		       B.CONTENT 
 		  FROM 
 		       ( 
 		       SELECT 
-		              /*+ INDEX_DESC(BBS, IX_BOARD_NOTICEYN) */ 
+		              /*+ INDEX_DESC(BBS, IX_BBS_NAME_NOTICE_YN) */ 
 		              ROWNUM RN, 
 		              ROWID RI 
 		         FROM BBS 
-		        WHERE BOARD = #{board} 
-		          AND NOTICEYN = 'Y' 
+		        WHERE BBS_NAME = #{bbsName} 
+		          AND NOTICE_YN = 'Y' 
 		       ) A, 
 		       BBS B 
 		 WHERE 1 = 1 
 		   AND A.RI = B.ROWID 
 	     UNION ALL
 		SELECT 
-		       /*+ INDEX_DESC(BBS, IX_BOARD_NO) */ 
+		       /*+ INDEX_DESC(BBS, IX_BBS_NAME_NO) */ 
 		       B.NO, 
-		       ROW_NUMBER() OVER (ORDER BY B.NO DESC) AS VIEWNO,
-		       B.SUBNO,
-		       B.DEPNO,
-		       B.COMCOUNT, 
-		       B.VIEWCOUNT, 
-		       B.USERID, 
-		       B.WRITER, 
+		       ROW_NUMBER() OVER (ORDER BY B.NO DESC) AS VIEW_NO,
+		       B.SUB_NO,
+		       B.DEP_NO,
+		       B.COM_COUNT, 
+		       B.VIEW_COUNT, 
+		       B.USER_ID, 
+		       B.USER_NAME, 
 		       B.SUBJECT, 
-		       TO_CHAR(B.REGDATE, 'YYYY-MM-DD') AS REGDATE, 
-		       B.NOTICEYN, 
+		       TO_CHAR(B.REG_DATE, 'YYYY-MM-DD') AS REG_DATE, 
+		       B.NOTICE_YN, 
 		       B.CONTENT 
 		  FROM BBS B
 		 WHERE NO <![CDATA[<=]]> 
@@ -137,8 +139,8 @@
 		              SELECT ROW_NUMBER() OVER(ORDER BY NO DESC, ROWID DESC) RN, 
 		                     NO 
 		                FROM BBS B
-		               WHERE BOARD = #{board}
-		                 AND NOTICEYN = 'N' 
+		               WHERE BBS_NAME = #{bbsName}
+		                 AND NOTICE_YN = 'N' 
 					<include refid="searchBbs" />		                 
 		              ) 
 		        WHERE 1 = 1 
@@ -146,22 +148,23 @@
 		          AND ROWNUM = 1 
 		       ) 
 		   AND ROWNUM <![CDATA[<=]]> ${listSize} 
+		   AND NOTICE_YN = 'N'
 		<include refid="searchBbs" />
-		 ORDER BY NOTICEYN DESC, SUBNO DESC 		   
+		 ORDER BY NOTICE_YN DESC, SUB_NO DESC 		   
     </select>
 	
     <select id="selectBbsView" parameterType="java.lang.Integer" resultMap="bbsResultMap">
 		SELECT NO, 
-		       PRENO,
-		       SUBNO,
-		       DEPNO,
-		       COMCOUNT,
-		       VIEWCOUNT,	
-		       USERID, 
-		       WRITER, 
-		       EMAIL, 
+		       PRE_NO,
+		       SUB_NO,
+		       DEP_NO,
+		       COM_COUNT,
+		       VIEW_COUNT,	
+		       USER_ID, 
+		       USER_NAME, 
+		       USER_EMAIL, 
 		       SUBJECT, 
-		       TO_CHAR(REGDATE, 'YYYY-MM-DD HH:MI:SS') AS REGDATE, 
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE, 
 		       CONTENT 
 		  FROM BBS 
 		 WHERE NO = #{no} 
@@ -169,13 +172,13 @@
 
     <select id="selectBbsEdit" parameterType="java.lang.Integer" resultMap="bbsResultMap">
 		SELECT NO, 
-		       USERID, 
-		       PASSWD, 
-		       WRITER, 
-		       EMAIL, 
+		       USER_ID, 
+		       USER_PW, 
+		       USER_NAME, 
+		       USER_EMAIL, 
 		       SUBJECT, 
-		       NOTICEYN,
-		       TO_CHAR(REGDATE, 'YYYY-MM-DD HH:MI:SS') AS REGDATE, 
+		       NOTICE_YN,
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE, 
 		       CONTENT 
 		  FROM BBS 
 		 WHERE NO = #{no} 
@@ -183,15 +186,15 @@
 
     <select id="selectBbsReply" parameterType="java.lang.Integer" resultMap="bbsResultMap">
 		SELECT NO, 
-		       PRENO,
-		       SUBNO,
-		       DEPNO,
-		       '' AS USERID, 
-		       '' AS WRITER, 
-		       '' AS EMAIL, 
+		       PRE_NO,
+		       SUB_NO,
+		       DEP_NO,
+		       '' AS USER_ID, 
+		       '' AS USER_NAME, 
+		       '' AS USER_EMAIL, 
 		       'RE: ' || SUBJECT AS SUBJECT, 
-		       'N' AS NOTICEYN,
-		       '' AS REGDATE, 
+		       'N' AS NOTICE_YN,
+		       '' AS REG_DATE, 
 		       '' AS CONTENT
 		  FROM BBS 
 		 WHERE NO = #{no} 
@@ -199,27 +202,27 @@
 
     <select id="selectBbsDelete" parameterType="java.lang.Integer" resultMap="bbsResultMap">
 		SELECT NO, 
-		       COMCOUNT, 
-		       PASSWD,
-		       WRITER, 
+		       COM_COUNT, 
+		       USER_PW,
+		       USER_NAME, 
 		       SUBJECT, 
-		       TO_CHAR(REGDATE, 'YYYY-MM-DD HH:MI:SS') AS REGDATE, 
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE, 
 		       CONTENT  
 		  FROM BBS 
 		 WHERE NO = #{no} 
     </select>
 	
     <select id="selectBbsFilePnoList" parameterType="java.lang.Integer" resultMap="bbsFileResultMap">
-		SELECT ROWNUM VIEWNO, 
+		SELECT ROWNUM VIEW_NO, 
 		       NO, 
 		       PNO,	
-		       FILEPATH, 
-		       FILENAME, 
-		       '/' || FILENAME AS EDITNAME, 
-		       SAVENAME, 
-		       FILESIZE, 
-		       DOWNCOUNT 
-		  FROM BBSFILE 
+		       FILE_PATH, 
+		       FILE_NAME, 
+		       '/' || FILE_NAME AS EDIT_NAME, 
+		       SAVE_NAME, 
+		       FILE_SIZE, 
+		       DOWN_COUNT 
+		  FROM BBS_FILE 
 		 WHERE PNO = #{pno} 
 		 ORDER BY NO ASC
     </select>
@@ -227,67 +230,83 @@
     <select id="selectBbsFileNo" parameterType="java.lang.Integer" resultMap="bbsFileResultMap">
 		SELECT NO, 
 		       PNO,	
-		       FILEPATH, 
-		       FILENAME, 
-		       SAVENAME, 
-		       FILESIZE, 
-		       DOWNCOUNT 
-		  FROM BBSFILE 
+		       FILE_PATH, 
+		       FILE_NAME, 
+		       SAVE_NAME, 
+		       FILE_SIZE, 
+		       DOWN_COUNT 
+		  FROM BBS_FILE 
 		 WHERE NO = #{no} 
-		 ORDER BY NO ASC
     </select>
 	
     <select id="selectBbsCommentPnoList" parameterType="java.lang.Integer" resultMap="bbsCommentResultMap">
 		SELECT NO, 
 		       PNO,	
-		       PRENO, 
-		       SUBNO, 
-		       DEPNO, 
-		       BOARD, 
-		       USERID, 
-		       PASSWD, 
-		       WRITER, 
-		       USERIP, 
-		       TO_CHAR(REGDATE, 'YYYY-MM-DD HH:MI:SS') AS REGDATE,
+		       PRE_NO, 
+		       SUB_NO, 
+		       DEP_NO, 
+		       BBS_NAME, 
+		       USER_ID, 
+		       USER_PW, 
+		       USER_NAME, 
+		       USER_IP, 
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
 		       CONTENT 
-		  FROM BBSCOMMENT
+		  FROM BBS_COMMENT
 		 WHERE PNO = #{pno} 
-		 ORDER BY PRENO DESC, SUBNO DESC
+		 ORDER BY PRE_NO DESC, SUB_NO DESC
+    </select>
+	
+    <select id="selectBbsCommentNo" parameterType="java.lang.Integer" resultMap="bbsCommentResultMap">
+		SELECT NO, 
+		       PNO,	
+		       PRE_NO, 
+		       SUB_NO, 
+		       DEP_NO, 
+		       BBS_NAME, 
+		       USER_ID, 
+		       USER_PW, 
+		       USER_NAME, 
+		       USER_IP, 
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
+		       CONTENT 
+		  FROM BBS_COMMENT
+		 WHERE NO = #{no} 
     </select>
 
     <insert id="insertBbs" parameterType="com.home.app.bbs.dto.BbsDto">    	
 		INSERT INTO BBS 
 		       ( 
 		           NO, 
-		           PRENO,
-		           SUBNO,
-		           DEPNO,
-		           COMCOUNT,
-		           VIEWCOUNT,
-		           BOARD,
-		           USERID,
-		           PASSWD,
-		           WRITER,
-		           EMAIL,
+		           PRE_NO,
+		           SUB_NO,
+		           DEP_NO,
+		           COM_COUNT,
+		           VIEW_COUNT,
+		           BBS_NAME,
+		           USER_ID,
+		           USER_PW,
+		           USER_NAME,
+		           USER_EMAIL,
 		           SUBJECT,
-		           USERIP,
-		           NOTICEYN, 
-		           REGDATE, 
+		           USER_IP,
+		           NOTICE_YN, 
+		           REG_DATE, 
 		           CONTENT 
 		       ) 
 		       VALUES 
 		       ( 
 		           BBS_NO.NEXTVAL, 
 		           BBS_NO.CURRVAL,
-		           BBS_SUBNO.NEXTVAL,
+		           BBS_SUB_NO.NEXTVAL,
 		           0,
 		           0,
 		           0,
-		           #{board},
+		           #{bbsName},
 		           #{userId},
-		           #{passwd},
-		           #{writer},
-		           #{email},
+		           #{userPw},
+		           #{userName},
+		           #{userEmail},
 		           #{subject},
 		           #{userIp},
 		           #{noticeYn}, 
@@ -306,141 +325,141 @@
 		INSERT INTO BBS 
 		       ( 
 		           NO, 
-		           PRENO,
-		           SUBNO,
-		           DEPNO,
-		           COMCOUNT,
-		           VIEWCOUNT,
-		           BOARD,
-		           USERID,
-		           PASSWD,
-		           WRITER,
-		           EMAIL,
+		           PRE_NO,
+		           SUB_NO,
+		           DEP_NO,
+		           COM_COUNT,
+		           VIEW_COUNT,
+		           BBS_NAME,
+		           USER_ID,
+		           USER_PW,
+		           USER_NAME,
+		           USER_EMAIL,
 		           SUBJECT,
-		           USERIP,
-		           NOTICEYN, 
-		           REGDATE, 
+		           USER_IP,
+		           NOTICE_YN, 
+		           REG_DATE, 
 		           CONTENT 
 		       ) 
 		SELECT #{no}, 
 		       #{preNo}, 
-		       NVL((#{subNo} + MAX(SUBNO)) / 2.0, #{subNo} / 2.0), 
+		       NVL((#{subNo} + MAX(SUB_NO)) / 2.0, #{subNo} / 2.0), 
 		       #{depNo} + 1, 
 		       0, 
 		       0, 
-		       #{board}, 
+		       #{bbsName}, 
 		       #{userId}, 
-		       #{passwd}, 
-		       #{writer}, 
-		       #{email}, 
+		       #{userPw}, 
+		       #{userName}, 
+		       #{userEmail}, 
 		       #{subject}, 
 		       #{userIp}, 
 		       #{noticeYn}, 
 		       SYSDATE, 
 		       #{content} 
 		  FROM BBS 
-		 WHERE SUBNO <![CDATA[<]]> #{subNo}
+		 WHERE SUB_NO <![CDATA[<]]> #{subNo}
     </insert>
 
     <insert id="insertBbsComment" parameterType="com.home.app.bbs.dto.BbsCommentDto">    	
-		INSERT INTO BBSCOMMENT 
+		INSERT INTO BBS_COMMENT 
 		       ( 
 		           NO, 
 		           PNO,
-		           PRENO,
-		           SUBNO,
-		           DEPNO,
-		           BOARD,
-		           USERID,
-		           PASSWD,
-		           WRITER,
-		           USERIP,
-		           REGDATE, 
+		           PRE_NO,
+		           SUB_NO,
+		           DEP_NO,
+		           BBS_NAME,
+		           USER_ID,
+		           USER_PW,
+		           USER_NAME,
+		           USER_IP,
+		           REG_DATE, 
 		           CONTENT 
 		       ) 
 		       VALUES 
 		       ( 
-		           BBSCOMMENT_NO.NEXTVAL, 
+		           BBS_COMMENT_NO.NEXTVAL, 
 		           #{pno},
-		           BBSCOMMENT_NO.CURRVAL,
-		           BBSCOMMENT_SUBNO.NEXTVAL,
+		           BBS_COMMENT_NO.CURRVAL,
+		           BBS_COMMENT_SUB_NO.NEXTVAL,
 		           0,
-		           #{board},
+		           #{bbsName},
 		           #{userId},
-		           #{passwd},
-		           #{writer},
+		           #{userPw},
+		           #{userName},
 		           #{userIp},
 		           SYSDATE, 
 		           #{content}
 		       )
 		<selectKey keyProperty="no" resultType="java.lang.Integer" order="AFTER">
-			SELECT BBSCOMMENT_NO.CURRVAL FROM DUAL
+			SELECT BBS_COMMENT_NO.CURRVAL FROM DUAL
 		</selectKey>		       
     </insert>
 
     <insert id="insertBbsCommentReply" parameterType="com.home.app.bbs.dto.BbsCommentDto">    	
 		<selectKey keyProperty="no" resultType="java.lang.Integer" order="BEFORE">
-			SELECT BBSCOMMENT_NO.NEXTVAL FROM DUAL
+			SELECT BBS_COMMENT_NO.NEXTVAL FROM DUAL
 		</selectKey>		       
-		INSERT INTO BBSCOMMENT 
+		INSERT INTO BBS_COMMENT 
 		       ( 
 		           NO, 
 		           PNO,
-		           PRENO,
-		           SUBNO,
-		           DEPNO,
-		           BOARD,
-		           USERID,
-		           PASSWD,
-		           WRITER,
-		           USERIP,
-		           REGDATE, 
+		           PRE_NO,
+		           SUB_NO,
+		           DEP_NO,
+		           BBS_NAME,
+		           USER_ID,
+		           USER_PW,
+		           USER_NAME,
+		           USER_IP,
+		           REG_DATE, 
 		           CONTENT 
 		       ) 
 		SELECT #{no}, 
 		       #{pno},
 		       #{preNo}, 
-		       NVL((#{subNo} + MAX(SUBNO)) / 2.0, #{subNo} / 2.0), 
+		       NVL((#{subNo} + MAX(SUB_NO)) / 2.0, #{subNo} / 2.0), 
 		       #{depNo} + 1, 
-		       #{board}, 
+		       #{bbsName}, 
 		       #{userId}, 
-		       #{passwd}, 
-		       #{writer}, 
+		       #{userPw}, 
+		       #{userName}, 
 		       #{userIp}, 
 		       SYSDATE, 
 		       #{content} 
 		  FROM BBS 
-		 WHERE SUBNO <![CDATA[<]]> #{subNo}
+		 WHERE SUB_NO <![CDATA[<]]> #{subNo}
     </insert>
 
     <insert id="insertBbsFile" parameterType="java.util.List">    	
 		INSERT 
-		  INTO BBSFILE 
+		  INTO BBS_FILE 
 		       ( 
 		           NO, 
 		           PNO, 
-		           FILEPATH, 
-		           FILENAME, 
-		           SAVENAME, 
-		           FILESIZE, 
-		           DOWNCOUNT 
+		           FILE_PATH, 
+		           FILE_NAME, 
+		           SAVE_NAME, 
+		           FILE_SIZE, 
+		           DOWN_COUNT 
 		       ) 
-		SELECT BBSFILE_NO.NEXTVAL AS NO, 
+		SELECT BBS_FILE_NO.NEXTVAL AS NO, 
 		       A.PNO,
-		       A.FILEPATH,
-		       A.FILENAME,
-		       A.SAVENAME,
-		       A.FILESIZE,
-		       A.DOWNCOUNT
+		       A.FILE_PATH,
+		       A.FILE_NAME,
+		       A.SAVE_NAME,
+		       A.FILE_SIZE,
+		       A.DOWN_COUNT
 		  FROM 
 		       ( 
 			<foreach item="bbsFileDto" index="index" collection="list" open="" separator=" UNION ALL " close="">		  
 		       SELECT #{bbsFileDto.pno} AS PNO, 
-		              #{bbsFileDto.filePath} AS FILEPATH, 
-		              #{bbsFileDto.fileName} AS FILENAME, 
-		              #{bbsFileDto.saveName} AS SAVENAME, 
-		              #{bbsFileDto.fileSize} AS FILESIZE, 
-		              0 DOWNCOUNT 
+		              #{bbsFileDto.filePath} AS FILE_PATH, 
+		              #{bbsFileDto.fileName} AS FILE_NAME, 
+		              #{bbsFileDto.saveName} AS SAVE_NAME, 
+		              #{bbsFileDto.fileSize} AS FILE_SIZE, 
+		              0 DOWN_COUNT 
 		         FROM DUAL 
 			</foreach>		         
 		       ) A
@@ -448,49 +467,49 @@
 
     <update id="updateBbs" parameterType="com.home.app.bbs.dto.BbsDto">
 		UPDATE BBS 
-		   SET WRITER = #{writer}, 
-		       EMAIL = #{email}, 
+		   SET USER_NAME = #{userName}, 
+		       USER_EMAIL = #{userEmail}, 
 		       SUBJECT = #{subject}, 
-		       USERIP = #{userIp}, 
-		       NOTICEYN = #{noticeYn},
-		       REGDATE = SYSDATE, 
+		       USER_IP = #{userIp}, 
+		       NOTICE_YN = #{noticeYn},
+		       REG_DATE = SYSDATE, 
 		       CONTENT = #{content} 
 		 WHERE NO = #{no}  
     </update>
 
     <update id="updateBbsDelete" parameterType="com.home.app.bbs.dto.BbsDto">
 		UPDATE BBS 
-		   SET SUBJECT = #{writer} + '님이 글을 삭제하였습니다.', 
-		       USERIP = #{userIp}, 
-		       REGDATE = SYSDATE, 
-		       CONTENT = #{writer} + '님이 글을 삭제하였습니다.' 
+		   SET SUBJECT = #{userName} + '님이 글을 삭제하였습니다.', 
+		       USER_IP = #{userIp}, 
+		       REG_DATE = SYSDATE, 
+		       CONTENT = #{userName} + '님이 글을 삭제하였습니다.' 
 		 WHERE NO = #{no}  
     </update>
 
     <update id="updateBbsComment" parameterType="com.home.app.bbs.dto.BbsCommentDto">
-		UPDATE BBSCOMMENT 
-		   SET WRITER = #{writer}, 
-		       USERIP = #{userIp}, 
-		       REGDATE = SYSDATE, 
+		UPDATE BBS_COMMENT 
+		   SET USER_NAME = #{userName}, 
+		       USER_IP = #{userIp}, 
+		       REG_DATE = SYSDATE, 
 		       CONTENT = #{content} 
 		 WHERE NO = #{no}  
     </update>
 
     <update id="updateBbsViewCount" parameterType="java.lang.Integer">
 		UPDATE BBS
-		   SET VIEWCOUNT = VIEWCOUNT + 1		
+		   SET VIEW_COUNT = VIEW_COUNT + 1		
 		 WHERE NO = #{no} 
     </update>
 
     <update id="updateBbsComCount" parameterType="java.lang.Integer">
 		UPDATE BBS
-		   SET COMCOUNT = COMCOUNT + 1		
+		   SET COM_COUNT = COM_COUNT + 1		
 		 WHERE NO = #{pno} 
     </update>
 
     <update id="updateBbsFileDownCount" parameterType="java.lang.Integer">
-		UPDATE BBSFILE
-		   SET DOWNCOUNT = DOWNCOUNT + 1		
+		UPDATE BBS_FILE
+		   SET DOWN_COUNT = DOWN_COUNT + 1		
 		 WHERE NO = #{no} 
     </update>
 
@@ -500,22 +519,22 @@
     </delete>
 
     <delete id="deleteBbsComment" parameterType="java.lang.Integer">
-		DELETE FROM BBSCOMMENT
+		DELETE FROM BBS_COMMENT
 		 WHERE NO = #{no} 
     </delete>
 
     <delete id="deleteBbsCommentPno" parameterType="java.lang.Integer">
-		DELETE FROM BBSCOMMENT
+		DELETE FROM BBS_COMMENT
 		 WHERE NO = #{pno} 
     </delete>
 
     <delete id="deleteBbsFilePno" parameterType="java.lang.Integer">
-		DELETE FROM BBSFILE
+		DELETE FROM BBS_FILE
 		 WHERE PNO = #{pno} 
     </delete>
 
     <delete id="deleteBbsFileNo" parameterType="java.lang.Integer">
-		DELETE FROM BBSFILE
+		DELETE FROM BBS_FILE
 		 WHERE NO = #{no} 
     </delete>
 </mapper>

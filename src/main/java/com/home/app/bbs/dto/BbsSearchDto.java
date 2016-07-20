@@ -8,7 +8,7 @@ public class BbsSearchDto {
 	private int pageSize = 5;
 	private int totalCount = 0;
 	
-	private String board;
+	private String bbsName;
 
 	private String searchClass;
 	
@@ -64,14 +64,14 @@ public class BbsSearchDto {
 		this.totalCount = totalCount;
 	}
 
-	public String getBoard() 
+	public String getBbsName() 
 	{
-		return board;
+		return bbsName;
 	}
 
-	public void setBoard(String board) 
+	public void setBbsName(String bbsName) 
 	{
-		this.board = board;
+		this.bbsName = bbsName;
 	}
 
 	public String getSearchClass()

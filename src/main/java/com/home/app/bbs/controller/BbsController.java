@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,7 +45,7 @@ public class BbsController
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	
-	@RequestMapping(value = "/list/{board}", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value = "/list/{bbsName}", produces = "text/plain; charset=UTF-8")
 	public String list(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		bbsSearchDto.setTotalCount(bbsService.selectBbsCount(bbsSearchDto));
@@ -57,7 +58,7 @@ public class BbsController
 		return "/bbs/list";
 	}
 
-	@RequestMapping(value = "/view/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/view/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String view(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsDto", bbsService.selectBbsView(bbsSearchDto.getNo()));
@@ -86,7 +87,7 @@ public class BbsController
 		return new FileSystemResource(downFile);
 	}
 	
-	@RequestMapping(value = "/write/{board}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/write/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String write(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
@@ -95,7 +96,7 @@ public class BbsController
 		return "/bbs/write";
 	}
 	
-	@RequestMapping(value = "/writeOk/{board}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/writeOk/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String writeOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
@@ -109,26 +110,27 @@ public class BbsController
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			
-			bbsDto.setWriter(customUserDetails.getUserName());
-			bbsDto.setPasswd(customUserDetails.getUserPw());
-			bbsDto.setEmail(customUserDetails.getUserEmail());
+			bbsDto.setUserName(customUserDetails.getUserName());
+			bbsDto.setUserPw(customUserDetails.getUserPw());
+			bbsDto.setUserEmail(customUserDetails.getUserEmail());
 		}
 		else
 		{
-			bbsDto.setPasswd(bcryptPasswordEncoder.encode(bbsDto.getPasswd()));			
+			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
 		}
 		
-		bbsDto.setUploadPath(uploadPath);
+		bbsDto.setUploadPath(uploadPath + "\\" + "bbs" + "\\" + bbsDto.getBbsName() + "\\");
+		bbsDto.setThumbnailFlag(false);
 		bbsDto.setUserIp(Func.getUserIp());				
 
 		bbsService.insertBbs(bbsDto);		
 		
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBoard();		
+		return "redirect:/bbs/list/" + bbsDto.getBbsName();		
 	}
 	
-	@RequestMapping(value = "/edit/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String edit(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
@@ -138,9 +140,9 @@ public class BbsController
 		return "/bbs/edit";
 	}
 
-	@RequestMapping(value = "/editOk/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/editOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String editOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
-	{
+	{		
 		BbsDto passwdDto = bbsService.selectBbsEdit(bbsDto.getNo());
 		
 		model.addAttribute("bbsSearchDto", bbsDto);
@@ -154,9 +156,9 @@ public class BbsController
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			
-			bbsDto.setWriter(customUserDetails.getUserName());
-			bbsDto.setPasswd(customUserDetails.getUserPw());
-			bbsDto.setEmail(customUserDetails.getUserEmail());
+			bbsDto.setUserName(customUserDetails.getUserName());
+			bbsDto.setUserPw(customUserDetails.getUserPw());
+			bbsDto.setUserEmail(customUserDetails.getUserEmail());
 			
 			if (!customUserDetails.getUserId().equals(bbsDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
 			{
@@ -167,27 +169,28 @@ public class BbsController
 		}
 		else
 		{
-			if (!bbsDto.getPasswd().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getPasswd(), passwdDto.getPasswd())) 
+			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw())) 
 			{
-				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
-				
+				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");				
+				//model.addAttribute("bbsFileDtoList", bbsService.selectBbsFilePnoList(bbsDto.getNo()));
+
 				return "/bbs/edit";	
 			}				
 			
-			bbsDto.setPasswd(bcryptPasswordEncoder.encode(bbsDto.getPasswd()));			
+			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
 		}
 
-		bbsDto.setUploadPath(uploadPath);
+		bbsDto.setUploadPath(uploadPath + "\\" + "bbs" + "\\" + bbsDto.getBbsName() + "\\");
 		bbsDto.setUserIp(Func.getUserIp());		
 
 		bbsService.updateBbs(bbsDto);
-		
-		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBoard();
+		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
+		
+		return "redirect:/bbs/list/" + bbsDto.getBbsName();
 	}
 	
-	@RequestMapping(value = "/delete/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String delete(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
@@ -196,7 +199,7 @@ public class BbsController
 		return "/bbs/delete";
 	}
 
-	@RequestMapping(value = "/deleteOk/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String deleteOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
 	{		
 		BbsDto passwdDto = bbsService.selectBbsDelete(bbsDto.getNo());
@@ -221,7 +224,7 @@ public class BbsController
 		}
 		else
 		{
-			if (!bbsDto.getPasswd().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getPasswd(), passwdDto.getPasswd())) 
+			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw())) 
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
 				
@@ -244,10 +247,10 @@ public class BbsController
 		
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 		
-		return "redirect:/bbs/list/" + bbsDto.getBoard();
+		return "redirect:/bbs/list/" + bbsDto.getBbsName();
 	}
 	
-	@RequestMapping(value = "/reply/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/reply/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String reply(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
@@ -256,7 +259,7 @@ public class BbsController
 		return "/bbs/reply";
 	}
 	
-	@RequestMapping(value = "/replyOk/{board}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/replyOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String replyOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
@@ -270,13 +273,13 @@ public class BbsController
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			
-			bbsDto.setWriter(customUserDetails.getUserName());
-			bbsDto.setPasswd(customUserDetails.getUserPw());
-			bbsDto.setEmail(customUserDetails.getUserEmail());
+			bbsDto.setUserName(customUserDetails.getUserName());
+			bbsDto.setUserPw(customUserDetails.getUserPw());
+			bbsDto.setUserEmail(customUserDetails.getUserEmail());
 		}
 		else
 		{
-			bbsDto.setPasswd(bcryptPasswordEncoder.encode(bbsDto.getPasswd()));			
+			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
 		}
 		
 		bbsDto.setUploadPath(uploadPath);
@@ -286,10 +289,10 @@ public class BbsController
 		
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBoard();		
+		return "redirect:/bbs/list/" + bbsDto.getBbsName();		
 	}
 	
-	@RequestMapping(value = "/commentOk/{board}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
@@ -300,42 +303,112 @@ public class BbsController
 		}
 
 		bbsCommentDto.setUserIp(Func.getUserIp());				
-
-		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
-		{
-			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsCommentDto.setWriter(customUserDetails.getUserName());
-			bbsCommentDto.setPasswd(customUserDetails.getUserPw());
-		}
-		else
-		{
-			bbsCommentDto.setPasswd(bcryptPasswordEncoder.encode(bbsCommentDto.getPasswd()));			
-		}
 		
 		if (bbsCommentDto.getCommentType().equals("Write"))
 		{
+			if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+			{
+				CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				bbsCommentDto.setUserName(customUserDetails.getUserName());
+				bbsCommentDto.setUserPw(customUserDetails.getUserPw());
+			}
+			else
+			{
+				bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));			
+			}
+
 			bbsService.insertBbsComment(bbsCommentDto);	
 		} 
 		else if (bbsCommentDto.getCommentType().equals("Reply"))
 		{
+			if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+			{
+				CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				bbsCommentDto.setUserName(customUserDetails.getUserName());
+				bbsCommentDto.setUserPw(customUserDetails.getUserPw());
+			}
+			else
+			{
+				bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));			
+			}
+			
 			bbsService.insertBbsCommentReply(bbsCommentDto);	
 		}
 		else if (bbsCommentDto.getCommentType().equals("Edit"))
 		{
+			if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+			{
+				CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				if (!customUserDetails.getUserId().equals(bbsCommentDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
+				{
+					model.addAttribute("alertMsg", "등록자가 아닙니다!");
+					
+					return "/bbs/view";					
+				}
+			}
+			else
+			{
+				BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
+				
+				if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw())) 
+				{
+					model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
+					
+					return "/bbs/view";	
+				}				
+			}
+
+			if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+			{
+				CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				bbsCommentDto.setUserName(customUserDetails.getUserName());
+				bbsCommentDto.setUserPw(customUserDetails.getUserPw());
+			}
+			else
+			{
+				bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));			
+			}
+
 			bbsService.updateBbsComment(bbsCommentDto);	
 		}
 		else if (bbsCommentDto.getCommentType().equals("Delete"))
 		{
+			if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+			{
+				CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				if (!customUserDetails.getUserId().equals(bbsCommentDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
+				{
+					model.addAttribute("alertMsg", "등록자가 아닙니다!");
+					
+					return "/bbs/view";					
+				}
+			}
+			else
+			{
+				BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
+				
+				if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw())) 
+				{
+					model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
+					
+					return "/bbs/view";	
+				}				
+			}
+
 			bbsService.deleteBbsComment(bbsCommentDto.getNo());	
 		}			
 		
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBoard() + "/" + bbsCommentDto.getPno();		
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();		
 	}
 
-	@RequestMapping(value = "/jsonView/{board}", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value = "/jsonView/{bbsName}", produces = "text/plain; charset=UTF-8")
 	public ModelAndView jsonView(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -347,7 +420,7 @@ public class BbsController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/jsonBody/{board}", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value = "/jsonBody/{bbsName}", produces = "text/plain; charset=UTF-8")
 	public @ResponseBody List<BbsDto> jsonBody(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		List<BbsDto> bbsDtoList = bbsService.selectBbsList(bbsSearchDto);

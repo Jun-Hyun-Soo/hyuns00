@@ -20,6 +20,7 @@ public interface BbsDao {
 	BbsDto selectBbsReply(int no) throws Exception;
 	BbsDto selectBbsDelete(int no) throws Exception;
 	BbsFileDto selectBbsFileNo(int no) throws Exception;
+	BbsCommentDto selectBbsCommentNo(int no) throws Exception;
 
 	int insertBbs(BbsDto bbsDto) throws Exception;	
 	int insertBbsReply(BbsDto bbsDto) throws Exception;	

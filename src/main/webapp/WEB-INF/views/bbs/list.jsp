@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/resources/css/bbs/list.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 	
-<c:url var="writeUrl" value="/bbs/write/${bbsSearchDto.board}">
+<c:url var="writeUrl" value="/bbs/write/${bbsSearchDto.bbsName}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -13,10 +13,10 @@
 </c:url>
 
 <div id="divBbsListSearch">	
-	<form:form commandName="bbsSearchDto" method="post" action="/bbs/list/${bbsSearchDto.board}">		
+	<form:form commandName="bbsSearchDto" method="post" action="/bbs/list/${bbsSearchDto.bbsName}">		
 		<form:select path="searchClass">
 			<form:option value="ALL" label="전체"></form:option>
-			<form:option value="WRITER" label="글쓴이"></form:option>
+			<form:option value="USER_NAME" label="글쓴이"></form:option>
 			<form:option value="SUBJECT" label="제목"></form:option>
 			<form:option value="CONTENT" label="내용"></form:option>
 		</form:select>
@@ -30,13 +30,13 @@
 	<tr>
 		<th id="thBbsListNo">번호</th>
 		<th id="thBbsListSubject">제목</th>
-		<th id="thBbsListWriter">작성자</th>
+		<th id="thBbsListUserName">작성자</th>
 		<th id="thBbsListRegDate">작성일</th>
 		<th id="thBbsListVisitCount">조회수</th>
 	</tr>
 <c:set value="${bbsSearchDto.totalCount - (bbsSearchDto.listSize * (bbsSearchDto.page - 1))}" var="pageFirstNo"></c:set>
 <c:forEach var="bbsDto" items="${bbsDtoList}">
-	<c:url var="viewUrl" value="/bbs/view/${bbsSearchDto.board}/${bbsDto.no}">
+	<c:url var="viewUrl" value="/bbs/view/${bbsSearchDto.bbsName}/${bbsDto.no}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${bbsSearchDto.page}" />
@@ -56,7 +56,7 @@
 				<c:out value="${bbsDto.subject}" escapeXml="true"></c:out>
 			</a>
 		</td>
-		<td class="cssBbsListWriter"><c:out value="${bbsDto.writer}" escapeXml="true"></c:out></td>
+		<td class="cssBbsListUserName"><c:out value="${bbsDto.userName}" escapeXml="true"></c:out></td>
 		<td class="cssBbsListRegDate"><c:out value="${bbsDto.regDate}" escapeXml="true"></c:out></td>
 		<td class="cssBbsListVisitCount"><c:out value="${bbsDto.viewCount}" escapeXml="true"></c:out></td>
 		</tr>					
@@ -65,7 +65,7 @@
 
 <div id="divBbsListPage">	
 	<!-- 처음페이지 시작 -->			
-	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="1" />
@@ -76,7 +76,7 @@
 	<!-- 처음페이지 종료 -->
 	
 	<!-- -pageSize페이지 시작 -->
-	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${page.startPage - bbsSearchDto.pageSize}" />
@@ -87,7 +87,7 @@
 	<!-- -pageSize페이지 종료 -->
 	
 	<!-- 이전페이지 시작 -->
-	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${bbsSearchDto.page - 1}" />
@@ -99,7 +99,7 @@
 	
 	<!-- 현재페이지 시작 -->
 	<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}" step="1">
-		<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+		<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 			<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 			<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 			<c:param name="page" value="${i}" />
@@ -115,7 +115,7 @@
 	<!-- 현재페이지 종료 -->
 
 	<!-- 다음페이지 시작 -->
-	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${bbsSearchDto.page + 1}" />
@@ -126,7 +126,7 @@
 	<!-- 다음페이지 종료 -->
 	
 	<!-- +pageSize페이지 시작 -->
-	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${page.startPage + bbsSearchDto.pageSize}" />
@@ -137,7 +137,7 @@
 	<!-- +pageSize페이지 종료 -->
 
 	<!-- 끝페이지 시작 -->			
-	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+	<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 		<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${page.totalPage}" />

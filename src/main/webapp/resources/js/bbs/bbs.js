@@ -13,18 +13,18 @@ function imgBtnBbsWrite_click(form, isAuthenticated)
 	
 	if (!isAuthenticated)
 	{
-		if (checkEmpty(form.writer.value)) 
+		if (checkEmpty(form.userName.value)) 
 		{
 			alert("작성자를 입력해 주세요!");
-			form.writer.focus();
+			form.userName.focus();
 			
 			return false;
 		}
 		
-		if (checkEmpty(form.passwd.value)) 
+		if (checkEmpty(form.userPw.value)) 
 		{
 			alert("비밀번호를 입력해 주세요!");
-			form.passwd.focus();
+			form.userPw.focus();
 			
 			return false;
 		}
@@ -56,18 +56,18 @@ function imgBtnBbsCommentWrite_Click(form, isAuthenticated, commentType)
 {
 	if (!isAuthenticated)
 	{
-		if (checkEmpty(form.writer.value)) 
+		if (checkEmpty(form.userName.value)) 
 		{
 			alert("작성자를 입력해 주세요!");
-			form.writer.focus();
+			form.userName.focus();
 			
 			return false;
 		}
 		
-		if (checkEmpty(form.passwd.value)) 
+		if (checkEmpty(form.userPw.value)) 
 		{
 			alert("비밀번호를 입력해 주세요!");
-			form.passwd.focus();
+			form.userPw.focus();
 			
 			return false;
 		}
@@ -91,11 +91,6 @@ function imgBtnBbsCommentWrite_Click(form, isAuthenticated, commentType)
 // ***********************************************************************************************************  
 function imgBtnViewCommentTableReply_Click(form, isAuthenticated, commentNo, preNo, subNo, depNo) 
 {
-	if (!isAuthenticated)
-	{
-		form.writer.value = $("#thBbsViewCommentTableWriter" + commentNo).html();
-	}
-	
 	//form.content.value = replaceBR($("#tdBbsViewCommentTableContent" + commentNo).html());
 	
 	$("#preNo").val(preNo);
@@ -111,13 +106,10 @@ function imgBtnViewCommentTableReply_Click(form, isAuthenticated, commentNo, pre
 // ***********************************************************************************************************  
 // 덧글수정에서 체크하는 부분
 // ***********************************************************************************************************  
-function imgBtnViewCommentTableEdit_Click(form, isAuthenticated, commentNo)
+function imgBtnViewCommentTableEdit_Click(form, isAuthenticated, commentNo, commentUserName)
 {
-	if (!isAuthenticated)
-	{
-		form.writer.value = $("#thBbsViewCommentTableWriter" + commentNo).html();
-	}
-	
+	form.userName.value = commentUserName;
+
 	form.content.value = replaceBR($("#tdBbsViewCommentTableContent" + commentNo).html());
 	
 	$("#no").val(commentNo);
@@ -131,12 +123,9 @@ function imgBtnViewCommentTableEdit_Click(form, isAuthenticated, commentNo)
 //***********************************************************************************************************  
 //덧글삭제에서 체크하는 부분
 //***********************************************************************************************************  
-function imgBtnViewCommentTableDelete_Click(form, isAuthenticated, commentNo)
+function imgBtnViewCommentTableDelete_Click(form, isAuthenticated, commentNo, commentUserName)
 {
-	if (!isAuthenticated)
-	{
-		form.writer.value = $("#thBbsViewCommentTableWriter" + commentNo).html();
-	}
+	form.userName.value = commentUserName;
 	
 	form.content.value = replaceBR($("#tdBbsViewCommentTableContent" + commentNo).html());
 	
@@ -153,10 +142,10 @@ function imgBtnBbsDelete_click(form, isAuthenticated)
 {
 	if (!isAuthenticated)
 	{
-		if (checkEmpty(form.passwd.value)) 
+		if (checkEmpty(form.userPw.value)) 
 		{
 			alert("비밀번호를 입력해 주세요!");
-			form.passwd.focus();
+			form.userPw.focus();
 			
 			return false;
 		}
@@ -200,7 +189,7 @@ function fileName_change(obj, intCount)
 // ***********************************************************************************************************  
 // 추가한 파일을 삭제
 // ***********************************************************************************************************  
-function imgBtnDelFileName_click()
+function imgBtnDeleteFileName_click()
 {
 	try
 	{
@@ -209,7 +198,7 @@ function imgBtnDelFileName_click()
 		
 		for (var i = 0, li_size = $("#selectFileName option").size(); i < li_size; i++)
 		{
-			if ($("#selectFileName option:eq(" + i + ")").val().substring(0, 1) == "/") intCount++;
+			if ($("#selectFileName option:eq(" + i + ")").text().substring(0, 1) == "/") intCount++;
 		}
 		
 		$("#selectFileName option").each(function(i, objId) {
@@ -261,17 +250,17 @@ function selectFileName_click()
 {
 	if ($("#selectFileName option:selected").text().substring(0, 1) != "/")
 	{
-		$("#imgBtnDelFileName").val("삭제");
+		$("#imgBtnDeleteFileName").css({"background" : "url(/resources/images/button/btn_delete.gif)"});
 	}
 	else
 	{
 		if ($("#deleteFileName").val().indexOf($("#selectFileName option:selected").val()) != -1)
 		{
-			$("#imgBtnDelFileName").val("취소");
+			$("#imgBtnDeleteFileName").css({"background" : "url(/resources/images/button/btn_cancel.gif)"});
 		}
 		else
 		{
-			$("#imgBtnDelFileName").val("삭제");
+			$("#imgBtnDeleteFileName").css({"background" : "url(/resources/images/button/btn_delete.gif)"});
 		}
 	}	
 }

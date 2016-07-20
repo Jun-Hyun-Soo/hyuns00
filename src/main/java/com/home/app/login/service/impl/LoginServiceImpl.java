@@ -1,5 +1,7 @@
 package com.home.app.login.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.home.app.login.custom.CustomUserDetails;
 import com.home.app.login.dao.LoginDao;
 import com.home.app.login.dto.LoginDto;
+import com.home.app.login.dto.LoginFileDto;
+import com.home.app.login.function.Upload;
 import com.home.app.login.service.LoginService;
 
 @Service
@@ -18,38 +22,63 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 	@Autowired
 	private LoginDao loginDao;
 
-	public int selectCheckUserId(String userId) throws Exception {
+	public int selectCheckUserId(String userId) throws Exception 
+	{
 		return loginDao.selectCheckUserId(userId);
 	}
 
-	public LoginDto selectUserId(String userId) throws Exception {
+	public int selectCheckUserEmail(String userEmail) throws Exception 
+	{
+		return loginDao.selectCheckUserEmail(userEmail);
+	}
+
+	public int selectCheckNickName(String nickName) throws Exception 
+	{
+		return loginDao.selectCheckNickName(nickName);
+	}
+
+	public LoginDto selectUserId(String userId) throws Exception 
+	{		
 		return loginDao.selectUserId(userId);
 	}
 	
-	public int insertJoin(LoginDto loginDto) throws Exception {
+	public int insertJoin(LoginDto loginDto) throws Exception 
+	{
+		List<LoginFileDto> loginFileDtoList = Upload.saveFileList(loginDto);	
+		
+		if (loginFileDtoList.size() > 0) loginDao.insertLoginFile(loginFileDtoList);	
+
 		return loginDao.insertJoin(loginDto);
 	}
 	
-	public int updateEdit(LoginDto loginDto) throws Exception {
+	public int updateEdit(LoginDto loginDto) throws Exception
+	{
 		return loginDao.updateEdit(loginDto);
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException, DataAccessException {
+	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException, DataAccessException 
+	{
 		LoginDto loginDto = null;
 		
-		try {
+		try 
+		{
 			loginDto = loginDao.selectUserId(userId);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 		
-		if (loginDto != null) {		
+		if (loginDto != null) 
+		{		
 			//UserDetails userDetails = new User(loginDto.getUserId(), loginDto.getUserPw(), loginDto.getAuthorities());
 			CustomUserDetails customUserDetails = new CustomUserDetails(loginDto.getUserId(), loginDto.getUserPw(), loginDto.getAuthorities(), loginDto);
 			
 			return customUserDetails;		
-		} else {
+		} 
+		else 
+		{
 			throw new UsernameNotFoundException("'" + userId + "' 를 찾을수 없습니다!");
         }
 	}

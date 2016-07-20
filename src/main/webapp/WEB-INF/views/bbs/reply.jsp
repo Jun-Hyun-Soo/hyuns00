@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/resources/css/bbs/reply.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 	
-<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.board}">
+<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -24,7 +24,7 @@
 	<sec:authentication property="principal.userId" var="userId" />
 </sec:authorize>
 
-<form:form commandName="bbsDto" method="post" enctype="multipart/form-data" action="/bbs/replyOk/${bbsSearchDto.board}/${bbsDto.no}">
+<form:form commandName="bbsDto" method="post" enctype="multipart/form-data" action="/bbs/replyOk/${bbsSearchDto.bbsName}/${bbsDto.no}">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true" />	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -59,17 +59,17 @@
 	    <tr>
 		    <th>* 작성자 :</th>
 		    <td>
-		        <form:input path="writer" maxlength="20" />
+		        <form:input path="userName" maxlength="20" />
 		    </td>
 		    <th>* 비밀번호 :</th>
 		    <td>
-		        <form:password path="passwd" maxlength="20" />
+		        <form:password path="userPw" maxlength="20" />
 		    </td>
 	    </tr>
 	    <tr>
 		    <th> 이메일 :</th>
 		    <td colspan="3">
-		        <form:input path="email" maxlength="200" />
+		        <form:input path="userEmail" maxlength="200" />
 		    </td>
 	    </tr>
 	    </sec:authorize>
@@ -89,16 +89,16 @@
 		    <th> 파일 :</th>
 		    <td colspan="3">
 		    	<span id="spnFileName0">
-		    		<input type="file" id="fileName_0" name="fileNameList" class="cssFileName" onchange="fileName_change(this, 0);" />
+		    		<input type="file" id="fileName_0" name="fileNameList" class="cssFileName" onchange="fileName_change(this, 0); return false;" />
 		    	</span>
-		    	<span id="spnNextFileName_1"></span><input type="image" id="imgBtnDelFileName" onclick="imgBtnDelFileName_click(); return false;" /><br>
+		    	<span id="spnNextFileName_1"></span><input type="image" id="imgBtnDeleteFileName" onclick="imgBtnDelFileName_click(); return false;" /><br>
 		    	<form:select path="selectFileName" multiple="multiple"></form:select>
 		    </td>
 	    </tr>
     </table>
     
     <div class="cssBbsButton">
-	    <input type="image" id="imgBtnReply" onclick="imgBtnBbsWrite_click(form, '${isAuthenticated}'); return false;" /> 
+	    <input type="image" id="imgBtnReply" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}); return false;" /> 
 	    <input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
     </div>
     
