@@ -94,7 +94,7 @@
     </table>
     
     <div class="cssBbsButton">
-	    <input type="image" id="imgBtnWrite" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}); return false;" /> 
+	    <input type="image" id="imgBtnWrite" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}, 'Write'); return false;" /> 
 	    <input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
     </div>
     

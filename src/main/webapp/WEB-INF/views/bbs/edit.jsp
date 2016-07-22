@@ -40,6 +40,8 @@
 	<form:hidden path="page" value="${bbsSearchDto.page}" />
 	<form:hidden path="listSize" value="${bbsSearchDto.listSize}" />
 	
+	<form:hidden path="no" value="${bbsDto.no}" />
+	
 	<form:hidden path="deleteFileName" value="" />
 	<form:hidden path="userId" value="${userId}" />	
 	    
@@ -96,7 +98,7 @@
     </table>
     
     <div class="cssBbsButton">
-	    <input type="image" id="imgBtnEdit" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}); return false;" /> 
+	    <input type="image" id="imgBtnEdit" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}, 'Edit'); return false;" /> 
 	    <input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
     </div>
     

@@ -32,6 +32,13 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.selectBbsDeleteCount(no);		
 	}
 	
+	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);		
+	}
+	
 	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception
 	{	
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
@@ -150,6 +157,13 @@ public class BbsDaoImpl implements BbsDao
 		
 		return bbsDao.updateBbsComment(bbsCommentDto);		
 	}
+	
+	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.updateBbsCommentDelete(bbsCommentDto);		
+	}
 
 	public int updateBbsViewCount(int no) throws Exception
 	{
@@ -158,11 +172,18 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.updateBbsViewCount(no);		
 	}
 
-	public int updateBbsComCount(int no) throws Exception
+	public int updateBbsComCountPlus(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.updateBbsComCount(no);		
+		return bbsDao.updateBbsComCountPlus(no);		
+	}
+
+	public int updateBbsComCountMinus(int no) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.updateBbsComCountMinus(no);		
 	}
 
 	public int updateBbsFileDownCount(int no) throws Exception
@@ -179,25 +200,25 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.deleteBbs(no);		
 	}
 
-	public int deleteBbsComment(int no) throws Exception
+	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsComment(no);		
+		return bbsDao.deleteBbsComment(bbsCommentDto);		
 	}
 
 	public int deleteBbsCommentPno(int pno) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsComment(pno);		
+		return bbsDao.deleteBbsCommentPno(pno);		
 	}
 
-	public int deleteBbsFilePno(int no) throws Exception
+	public int deleteBbsFilePno(int pno) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsFilePno(no);		
+		return bbsDao.deleteBbsFilePno(pno);		
 	}
 
 	public int deleteBbsFileNo(int no) throws Exception

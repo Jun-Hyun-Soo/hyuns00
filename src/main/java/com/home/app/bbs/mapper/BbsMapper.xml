@@ -47,8 +47,7 @@
         <result property="userIp" 		column="USER_IP"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="regDate" 		column="REG_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />        
         <result property="content" 		column="CONTENT"		jdbcType="CLOB" 	javaType="java.lang.String" />
-	</resultMap>
-	
+	</resultMap>	
 	
 	<sql id="searchBbs">
 		<choose>
@@ -87,6 +86,14 @@
 		  FROM BBS 
 		 WHERE 1 = 1 
 		   AND PRE_NO = #{no} 
+    </select>
+
+	<select id="selectBbsCommentDeleteCount" parameterType="com.home.app.bbs.dto.BbsCommentDto" resultType="java.lang.Integer">
+		SELECT COUNT( *) TOTAL_COUNT
+		  FROM BBS_COMMENT 
+		 WHERE 1 = 1 
+		   AND PRE_NO = #{preNo} 
+		   AND DEP_NO <![CDATA[>]]> #{depNo}
     </select>
     
 	<select id="selectBbsList" parameterType="com.home.app.bbs.dto.BbsSearchDto" resultMap="bbsResultMap">
@@ -479,10 +486,10 @@
 
     <update id="updateBbsDelete" parameterType="com.home.app.bbs.dto.BbsDto">
 		UPDATE BBS 
-		   SET SUBJECT = #{userName} + '님이 글을 삭제하였습니다.', 
+		   SET SUBJECT = #{userName} || '님이 글을 삭제하였습니다.', 
 		       USER_IP = #{userIp}, 
 		       REG_DATE = SYSDATE, 
-		       CONTENT = #{userName} + '님이 글을 삭제하였습니다.' 
+		       CONTENT = #{userName} || '님이 글을 삭제하였습니다.' 
 		 WHERE NO = #{no}  
     </update>
 
@@ -495,13 +502,27 @@
 		 WHERE NO = #{no}  
     </update>
 
+    <update id="updateBbsCommentDelete" parameterType="com.home.app.bbs.dto.BbsCommentDto">
+		UPDATE BBS_COMMENT 
+		   SET USER_IP = #{userIp}, 
+		       REG_DATE = SYSDATE, 
+		       CONTENT = #{userName} || '님이 글을 삭제하였습니다.' 
+		 WHERE NO = #{no}  
+    </update>
+
     <update id="updateBbsViewCount" parameterType="java.lang.Integer">
 		UPDATE BBS
 		   SET VIEW_COUNT = VIEW_COUNT + 1		
 		 WHERE NO = #{no} 
     </update>
 
-    <update id="updateBbsComCount" parameterType="java.lang.Integer">
+    <update id="updateBbsComCountPlus" parameterType="java.lang.Integer">
+		UPDATE BBS
+		   SET COM_COUNT = COM_COUNT + 1		
+		 WHERE NO = #{pno} 
+    </update>
+
+    <update id="updateBbsComCountMinus" parameterType="java.lang.Integer">
 		UPDATE BBS
 		   SET COM_COUNT = COM_COUNT + 1		
 		 WHERE NO = #{pno} 
@@ -518,14 +539,14 @@
 		 WHERE NO = #{no} 
     </delete>
 
-    <delete id="deleteBbsComment" parameterType="java.lang.Integer">
+    <delete id="deleteBbsComment" parameterType="com.home.app.bbs.dto.BbsCommentDto">
 		DELETE FROM BBS_COMMENT
 		 WHERE NO = #{no} 
     </delete>
 
     <delete id="deleteBbsCommentPno" parameterType="java.lang.Integer">
 		DELETE FROM BBS_COMMENT
-		 WHERE NO = #{pno} 
+		 WHERE PNO = #{pno} 
     </delete>
 
     <delete id="deleteBbsFilePno" parameterType="java.lang.Integer">

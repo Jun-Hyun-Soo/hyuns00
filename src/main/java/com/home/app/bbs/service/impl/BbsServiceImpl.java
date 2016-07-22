@@ -29,6 +29,11 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.selectBbsDeleteCount(no);		
 	}
 
+	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);		
+	}
+
 	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		return bbsDao.selectBbsList(bbsSearchDto);
@@ -102,7 +107,7 @@ public class BbsServiceImpl implements BbsService
 	{
 		int intReturn = bbsDao.insertBbsComment(bbsCommentDto);
 		
-		bbsDao.updateBbsComCount(bbsCommentDto.getPno());
+		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
 		
 		return intReturn;
 	}
@@ -111,7 +116,7 @@ public class BbsServiceImpl implements BbsService
 	{
 		int intReturn = bbsDao.insertBbsCommentReply(bbsCommentDto);
 		
-		bbsDao.updateBbsComCount(bbsCommentDto.getPno());
+		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
 		
 		return intReturn;
 	}
@@ -147,15 +152,25 @@ public class BbsServiceImpl implements BbsService
 	{
 		return bbsDao.updateBbsComment(bbsCommentDto);
 	}
+
+	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception 
+	{
+		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
+	}
 	
 	public int updateBbsViewCount(int no) throws Exception
 	{
 		return bbsDao.updateBbsViewCount(no);
 	}
 	
-	public int updateBbsComCount(int no) throws Exception
+	public int updateBbsComCountPlus(int no) throws Exception
 	{
-		return bbsDao.updateBbsComCount(no);
+		return bbsDao.updateBbsComCountPlus(no);
+	}
+	
+	public int updateBbsComCountMinus(int no) throws Exception
+	{
+		return bbsDao.updateBbsComCountMinus(no);
 	}
 	
 	public int updateBbsFileDownCount(int no) throws Exception
@@ -175,9 +190,11 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.deleteBbs(no);
 	}
 
-	public int deleteBbsComment(int no) throws Exception
+	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception
 	{
-		return bbsDao.deleteBbsComment(no);
+		bbsDao.updateBbsComCountMinus(bbsCommentDto.getPno());
+		
+		return bbsDao.deleteBbsComment(bbsCommentDto);
 	}
 
 }

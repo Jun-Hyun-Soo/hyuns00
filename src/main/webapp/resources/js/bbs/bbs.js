@@ -1,12 +1,12 @@
 // ***********************************************************************************************************  
 // 글쓰기, 글수정에서 체크하는 부분
 // ***********************************************************************************************************  
-function imgBtnBbsWrite_click(form, isAuthenticated) 
+function imgBtnBbsWrite_click(form, isAuthenticated, modeType) 
 {
 	if (checkEmpty(form.subject.value)) 
 	{
-		alert("제목을 입력해 주세요!");
 		form.subject.focus();
+		createDialog({"title" : "경고", "alertMsg" : "제목을 입력해 주세요!"});
 		
 		return false;
 	}
@@ -15,24 +15,38 @@ function imgBtnBbsWrite_click(form, isAuthenticated)
 	{
 		if (checkEmpty(form.userName.value)) 
 		{
-			alert("작성자를 입력해 주세요!");
 			form.userName.focus();
+			createDialog({"title" : "경고", "alertMsg" : "작성자를 입력해 주세요!"});
+			
 			
 			return false;
 		}
 		
-		if (checkEmpty(form.userPw.value)) 
+		if (checkUserPw(form.userPw.value)) 
 		{
-			alert("비밀번호를 입력해 주세요!");
 			form.userPw.focus();
+			createDialog({"title" : "경고", "alertMsg" : "비밀번호를 입력해 주세요!"});
+			
 			
 			return false;
+		}
+		
+		if (modeType == "Edit") 
+		{			
+			if (!checkBbsUserPw("/bbs/checkBbsUserPw", form.no.value, form.userPw.value))
+			{
+				form.userPw.focus();
+				createDialog({"title" : "경고", "alertMsg" : "비밀번호가 일치하지 않습니다!"});				
+				
+				return false;				
+			}
 		}
 		
 		if (!checkEmpty(form.email.value) && !checkEmail(form.email.value)) 
 		{
-			alert("올바른 이메일 주소를 입력해 주세요!");
 			form.email.focus();
+			createDialog({"title" : "경고", "alertMsg" : "올바른 이메일 주소를 입력해 주세요!"});
+			
 			
 			return false;
 		}
@@ -40,8 +54,9 @@ function imgBtnBbsWrite_click(form, isAuthenticated)
 	
 	if (checkEmpty(form.content.value)) 
 	{
-		alert("내용을 입력해 주세요!");
 		form.content.focus();
+		createDialog({"title" : "경고", "alertMsg" : "내용을 입력해 주세요!"});
+		
 		
 		return false;
 	}
@@ -58,30 +73,51 @@ function imgBtnBbsCommentWrite_Click(form, isAuthenticated, commentType)
 	{
 		if (checkEmpty(form.userName.value)) 
 		{
-			alert("작성자를 입력해 주세요!");
 			form.userName.focus();
+			createDialog({"title" : "경고", "alertMsg" : "작성자를 입력해 주세요!"});
+			
 			
 			return false;
 		}
 		
-		if (checkEmpty(form.userPw.value)) 
+		if (!checkUserPw(form.userPw.value)) 
 		{
-			alert("비밀번호를 입력해 주세요!");
 			form.userPw.focus();
-			
+			createDialog({"title" : "경고", "alertMsg" : "4자 이상 12자 이하로 비밀번호를 입력해 주세요!"});
+						
 			return false;
+		}
+		
+		if (commentType == "Edit") 
+		{
+			if (!checkBbsUserPw("/bbs/checkBbsCommentUserPw", form.no.value, form.userPw.value))
+			{
+				form.userPw.focus();
+				createDialog({"title" : "경고", "alertMsg" : "비밀번호가 일치하지 않습니다!"});			
+				
+				return false;				
+			}
 		}
 	}
 	
 	if (checkEmpty(form.content.value)) 
 	{
-		alert("내용을 입력해 주세요!");
 		form.content.focus();
-		
+		createDialog({"title" : "경고", "alertMsg" : "내용을 입력해 주세요!"});
+				
 		return false;
 	}
 	
 	$("#commentType").val(commentType);
+	
+	switch (commentType)
+	{
+		case "Write" : form.action = "/bbs/commentWriteOk/" + form.bbsName.value + "/" + form.pno.value; break;
+		case "Edit" : form.action = "/bbs/commentEditOk/" + form.bbsName.value + "/" + form.pno.value; break;
+		case "Reply" : form.action = "/bbs/commentReplyOk/" + form.bbsName.value + "/" + form.pno.value; break;
+		case "Delete" : form.action = "/bbs/commentDeleteOk/" + form.bbsName.value + "/" + form.pno.value; break;
+		default : form.action = "/bbs/commentWriteOk/" + form.bbsName.value + "/" + form.pno.value; break;
+	}	
 	
 	form.submit();
 }
@@ -93,6 +129,7 @@ function imgBtnViewCommentTableReply_Click(form, isAuthenticated, commentNo, pre
 {
 	//form.content.value = replaceBR($("#tdBbsViewCommentTableContent" + commentNo).html());
 	
+	$("#no").val(commentNo);
 	$("#preNo").val(preNo);
 	$("#subNo").val(subNo);
 	$("#depNo").val(depNo);
@@ -123,12 +160,16 @@ function imgBtnViewCommentTableEdit_Click(form, isAuthenticated, commentNo, comm
 //***********************************************************************************************************  
 //덧글삭제에서 체크하는 부분
 //***********************************************************************************************************  
-function imgBtnViewCommentTableDelete_Click(form, isAuthenticated, commentNo, commentUserName)
+function imgBtnViewCommentTableDelete_Click(form, isAuthenticated, commentNo, preNo, depNo, commentUserName)
 {
 	form.userName.value = commentUserName;
 	
 	form.content.value = replaceBR($("#tdBbsViewCommentTableContent" + commentNo).html());
 	
+	$("#no").val(commentNo);
+	$("#preNo").val(preNo);
+	$("#depNo").val(depNo);
+
 	$("#imgBtnCommentWrite").hide();
 	$("#imgBtnCommentReply").hide();
 	$("#imgBtnCommentEdit").hide();
@@ -144,9 +185,9 @@ function imgBtnBbsDelete_click(form, isAuthenticated)
 	{
 		if (checkEmpty(form.userPw.value)) 
 		{
-			alert("비밀번호를 입력해 주세요!");
 			form.userPw.focus();
-			
+			createDialog({"title" : "경고", "alertMsg" : "비밀번호를 입력해 주세요!"});
+						
 			return false;
 		}
 	}
@@ -182,7 +223,7 @@ function fileName_change(obj, intCount)
 	}
 	catch (ex)
 	{
-		alert(ex.description);
+		createDialog({"title" : "경고", "alertMsg" : ex.description});				
 	}
 }
 
@@ -239,7 +280,7 @@ function imgBtnDeleteFileName_click()
 	}
 	catch (ex)
 	{
-		alert(ex.description);
+		createDialog({"title" : "경고", "alertMsg" : ex.description});
 	}
 }
 
@@ -263,4 +304,28 @@ function selectFileName_click()
 			$("#imgBtnDeleteFileName").css({"background" : "url(/resources/images/button/btn_delete.gif)"});
 		}
 	}	
+}
+
+// ***********************************************************************************************************  
+// 비밀번호가 일치하는지 체크
+// ***********************************************************************************************************  
+function checkBbsUserPw(url, no, userPw)
+{
+	var checkUserPw = true;
+	
+	$.ajax({
+		type		: "POST",  	
+        url			: url,
+ 	   	dataType	: "json",
+ 	    data		: "no=" + no + "&userPw=" + userPw + "&date=" + $.now(),
+ 	   	async		: false,
+        success		: function(data) {
+            if (data > 0) 
+            {
+            	checkUserPw = false;
+            } 
+        }
+    });
+	
+	return checkUserPw;
 }

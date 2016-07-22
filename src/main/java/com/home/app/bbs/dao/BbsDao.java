@@ -7,9 +7,11 @@ import com.home.app.bbs.dto.BbsDto;
 import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
 
-public interface BbsDao {
+public interface BbsDao 
+{
 	int selectBbsCount(BbsSearchDto bbsSearchDto) throws Exception;
 	int selectBbsDeleteCount(int no) throws Exception;
+	int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception;
 	
 	List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception;
 	List<BbsFileDto> selectBbsFilePnoList(int pno) throws Exception;
@@ -31,13 +33,15 @@ public interface BbsDao {
 	int updateBbs(BbsDto bbsDto) throws Exception;
 	int updateBbsDelete(BbsDto bbsDto) throws Exception;
 	int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception;
+	int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception;
 	int updateBbsViewCount(int no) throws Exception;
-	int updateBbsComCount(int no) throws Exception;
+	int updateBbsComCountPlus(int no) throws Exception;
+	int updateBbsComCountMinus(int no) throws Exception;
 	int updateBbsFileDownCount(int no) throws Exception;
 
 	int deleteBbs(int no) throws Exception;
-	int deleteBbsComment(int no) throws Exception;
+	int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception;
 	int deleteBbsCommentPno(int pno) throws Exception;
-	int deleteBbsFilePno(int no) throws Exception;
+	int deleteBbsFilePno(int pno) throws Exception;
 	int deleteBbsFileNo(int no) throws Exception;
 }

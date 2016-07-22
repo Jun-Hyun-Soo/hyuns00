@@ -64,6 +64,9 @@
 	<form:hidden path="userId" value="${userId}" />
 	<form:hidden path="commentType" value="Write" />
 	
+	<form:hidden path="bbsName" value="${bbsSearchDto.bbsName}" />
+	
+	<form:hidden path="pno" value="${bbsSearchDto.no}" />
 	<form:hidden path="no" value="0" />
 		
 	<form:hidden path="preNo" value="0" />
@@ -133,7 +136,7 @@
 					<th id="thBbsViewCommentTableButton${bbsCommentDto.no}" class="cssBbsViewCommentTableButton">
 						<input type="image" id="imgBtnViewCommentTableReply" onclick="imgBtnViewCommentTableReply_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.subNo}', '${bbsCommentDto.depNo}'); return false;" />
 						<input type="image" id="imgBtnViewCommentTableEdit" onclick="imgBtnViewCommentTableEdit_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.userName}'); return false;" />
-						<input type="image" id="imgBtnViewCommentTableDelete" onclick="imgBtnViewCommentTableDelete_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.userName}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableDelete" onclick="imgBtnViewCommentTableDelete_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.depNo}', '${bbsCommentDto.userName}'); return false;" />
 					</th>
 				</tr>
 				<tr>					

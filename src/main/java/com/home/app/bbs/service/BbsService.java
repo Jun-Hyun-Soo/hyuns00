@@ -7,9 +7,11 @@ import com.home.app.bbs.dto.BbsDto;
 import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
 
-public interface BbsService {
+public interface BbsService 
+{
 	public int selectBbsCount(BbsSearchDto bbsSearchDto) throws Exception;
 	public int selectBbsDeleteCount(int no) throws Exception;
+	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception;
 	
 	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception;
 	public List<BbsFileDto> selectBbsFilePnoList(int pno) throws Exception;
@@ -30,10 +32,12 @@ public interface BbsService {
 	public int updateBbs(BbsDto bbsDto) throws Exception;
 	public int updateBbsDelete(BbsDto bbsDto) throws Exception;
 	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception;
+	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception;
 	public int updateBbsViewCount(int no) throws Exception;
-	public int updateBbsComCount(int no) throws Exception;
+	public int updateBbsComCountPlus(int no) throws Exception;
+	public int updateBbsComCountMinus(int no) throws Exception;
 	public int updateBbsFileDownCount(int no) throws Exception;
 	
 	public int deleteBbs(int no) throws Exception;	
-	public int deleteBbsComment(int no) throws Exception;
+	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception;
 }

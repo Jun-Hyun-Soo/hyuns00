@@ -126,4 +126,16 @@ public class LoginController {
 		return loginService.selectCheckUserId(loginDto.getUserId());
 	}
 
+	@RequestMapping(value = "/checkNickName", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody int checkNickName(LoginDto loginDto) throws Exception 
+	{
+		return loginService.selectCheckNickName(loginDto.getNickName());
+	}
+
+	@RequestMapping(value = "/checkUserEmail", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody int checkUserEmail(LoginDto loginDto) throws Exception 
+	{
+		return loginService.selectCheckUserEmail(loginDto.getUserEmail());
+	}
+
 }

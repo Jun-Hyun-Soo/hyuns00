@@ -3,18 +3,18 @@
 // ***********************************************************************************************************  
 function imgBtnLogin_click(form) 
 {
-	if (checkEmpty(form.userId.value)) 
+	if (checkUserId(form.userId.value)) 
 	{
-		alert("아이디를 입력해 주세요!");
 		form.userId.focus();
+		createDialog({"title" : "경고", "alertMsg" : "아이디를 입력해 주세요!"});
 		
 		return false;
 	}
 	
-	if (checkEmpty(form.userPw.value)) 
+	if (checkUserPw(form.userPw.value)) 
 	{
-		alert("비밀번호를 입력해 주세요!");
 		form.userPw.focus();
+		createDialog({"title" : "경고", "alertMsg" : "비밀번호를 입력해 주세요!"});
 		
 		return false;
 	}
@@ -88,8 +88,8 @@ function imgBtnCheckNickName_click(form)
 	   			createDialog({"title" : "알림", "alertMsg" : "사용 가능한 닉네임입니다."});         	
 	   			form.checkNickName.value = "Y";         
 	   		}
-     }
- });
+	   	}
+	});
 }
 
 //***********************************************************************************************************  
@@ -165,7 +165,7 @@ function imgBtnJoin_click(form)
 		return false;
 	}
 	
-	if (checkEmpty(form.userPw1.value)) 
+	if (checkUserPw(form.userPw1.value)) 
 	{
 		form.userPw1.focus();
 		createDialog({"title" : "경고", "alertMsg" : "비밀번호를 입력해 주세요!"});
@@ -173,7 +173,7 @@ function imgBtnJoin_click(form)
 		return false;
 	}
 	
-	if (checkEmpty(form.userPw2.value)) 
+	if (checkUserPw(form.userPw2.value)) 
 	{
 		form.userPw2.focus();
 		createDialog({"title" : "경고", "alertMsg" : "비밀번호 확인을 입력해 주세요!"});
@@ -255,7 +255,7 @@ function imgBtnEdit_click(form)
 		return false;
 	}
 	
-	if (checkEmpty(form.userPw.value)) 
+	if (checkUserPw(form.userPw.value)) 
 	{
 		form.userPw.focus();
 		createDialog({"title" : "경고", "alertMsg" : "비밀번호를 입력해 주세요!"});
@@ -263,7 +263,7 @@ function imgBtnEdit_click(form)
 		return false;
 	}
 	
-	if (!checkEmpty(form.userPw1.value) && !checkEmpty(form.userPw2.value)) 
+	if (!checkUserPw(form.userPw1.value) && !checkUserPw(form.userPw2.value)) 
 	{
 		if (form.userPw1.value != form.userPw2.value) {
 			form.userPw2.focus();
