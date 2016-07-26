@@ -6,8 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.home.app.bbs.dao.BbsDao;
-import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.login.dao.LoginDao;
 import com.home.app.login.dto.LoginDto;
 import com.home.app.login.dto.LoginFileDto;

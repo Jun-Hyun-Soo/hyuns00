@@ -77,18 +77,18 @@
 		<caption>※ 글 보기</caption>
 	    <tr>
 	        <th> 제목 :</th>
-	        <td colspan="6">${bbsDto.subject}</td>
+	        <td colspan="6"><c:out value="${bbsDto.subject}" escapeXml="true"></c:out></td>
 	    </tr>
 	    <tr>
 	        <th> 작성자 :</th>
-	        <td>${bbsDto.userName}</td>
+	        <td><c:out value="${bbsDto.userName}" escapeXml="true"></c:out></td>
 	        <th>작성일 :</th>
-	        <td>${bbsDto.regDate}</td>
+	        <td><c:out value="${bbsDto.regDate}" escapeXml="true"></c:out></td>
 	        <th> 조회수 :</th>
-	        <td>${bbsDto.viewCount}</td>
+	        <td><c:out value="${bbsDto.viewCount}" escapeXml="true"></c:out></td>
 	    </tr>
 	    <tr>
-	        <td colspan="6" class="cssBbsView">${bbsDto.content}</td>
+	        <td colspan="6" class="cssBbsView"><c:out value="${bbsDto.content}" escapeXml="false"></c:out></td>
 	    </tr>
 	</table>
 	

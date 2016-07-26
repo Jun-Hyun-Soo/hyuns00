@@ -1,0 +1,20 @@
+/***################################################ TOP 메뉴 시작 ################################################***/
+#ulMenu li { 
+	display: inline-block; 
+	width: auto; 
+}
+
+#ulMenu li.sub { 
+	display: inline-block; 
+	width: auto; 
+}
+
+.ui-menu .ui-icon {	
+	display: none; 
+}
+
+.ui-menu .ui-menu-item { 
+	position: static; 
+	font-size: 0.8em;
+}
+/***################################################ TOP 메뉴 종료 ################################################***/

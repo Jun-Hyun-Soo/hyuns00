@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.home.app.common.dao.MenuDao"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
+    <resultMap id="menuResultMap" type="com.home.app.common.dto.MenuDto">
+        <result property="no" 			column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="menuId" 		column="MENU_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="menuName" 	column="MENU_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="menuPno" 		column="MENU_PNO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="menuOrder" 	column="MENU_ORDER"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="MenuUseYn" 	column="MENU_USE_YN"	jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="subCount" 	column="SUB_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+	</resultMap>
+	
+    <select id="selectMenuList" parameterType="com.home.app.common.dto.MenuDto" resultMap="menuResultMap">
+		SELECT NO, 
+		       MENU_ID, 
+		       MENU_NAME, 
+		       MENU_PNO, 
+		       MENU_ORDER, 
+		       (SELECT COUNT( * ) 
+		         FROM MENU Z 
+		        WHERE Z.MENU_PNO = A.NO 
+		       ) AS SUB_COUNT 
+		  FROM MENU A 
+		 WHERE MENU_USE_YN != 'N' 
+		ORDER BY MENU_ORDER ASC
+    </select>
+
+</mapper>
