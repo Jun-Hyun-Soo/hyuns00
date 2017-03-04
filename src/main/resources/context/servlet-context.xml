@@ -45,9 +45,14 @@
         <beans:property name="defaultEncoding" value="utf-8"/>
     </beans:bean>
 
-	<!-- #. FileUpload uploadPath -->
-    <beans:bean id="uploadPath" class="java.lang.String">
-        <beans:constructor-arg value="D:\\upload"></beans:constructor-arg>
+	<!-- #. FileUpload uploadPath Bbs -->
+    <beans:bean id="uploadPathBbs" class="java.lang.String">
+        <beans:constructor-arg value="D:\\upload\\bbs\\"></beans:constructor-arg>
+    </beans:bean>
+
+	<!-- #. FileUpload uploadPath Login -->
+    <beans:bean id="uploadPathLogin" class="java.lang.String">
+        <beans:constructor-arg value="D:\\upload\\login\\"></beans:constructor-arg>
     </beans:bean>
 
 	<!-- #. jsonView -->

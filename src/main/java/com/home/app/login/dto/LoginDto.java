@@ -17,13 +17,13 @@ public class LoginDto implements UserDetails
 {
 	private static final long serialVersionUID = 1L;
 
-	private int no;
+	private int userNo;
 	private int visitCount;
 	
 	@Pattern(regexp = "^[a-zA-Z0-9_]{4,12}$", message = "올바른 아이디를 입력해 주세요!")
 	private String userId;
 	
-	@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
+	//@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
 	private String userPw;
 	//@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
 	private String userPw1;
@@ -35,7 +35,10 @@ public class LoginDto implements UserDetails
 	
 	private String userRole;	
 	private String userEmail;
-	private String nickName;
+	private String userNick;
+	private String imagePath;
+	private String imageName;
+	private String imageUrl;
 	private String question;
 	private String answer;
 	
@@ -44,167 +47,161 @@ public class LoginDto implements UserDetails
 	private String exitDate;
 	private String exitYn;	
 	
-	private String checkUserId;
-	private String checkNickName;
-	private String checkUserEmail;
+	private String userIdYn;
+	private String userNickYn;
+	private String userEmailYn;
 
 	private Boolean rememberMe;
 	
 	private List<MultipartFile> fileNameList;
 	
 	private String uploadPath;
-	private String deleteFileName;
+	private String deleteImageName;
 	
 	private boolean thumbnailFlag;
 	private int thumbnailHeight;
 
-	public int getNo() 
-	{
-		return no;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setNo(int no) 
-	{
-		this.no = no;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public int getVisitCount() 
-	{
+	public int getVisitCount() {
 		return visitCount;
 	}
 
-	public void setVisitCount(int visitCount) 
-	{
+	public void setVisitCount(int visitCount) {
 		this.visitCount = visitCount;
 	}
 
-	public String getUserId()
-	{
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) 
-	{
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public String getUserPw() 
-	{
+	public String getUserPw() {
 		return userPw;
 	}
 
-	public void setUserPw(String userPw) 
-	{
+	public void setUserPw(String userPw) {
 		this.userPw = userPw;
 	}
 
-	public String getUserPw1() 
-	{
+	public String getUserPw1() {
 		return userPw1;
 	}
 
-	public void setUserPw1(String userPw1) 
-	{
+	public void setUserPw1(String userPw1) {
 		this.userPw1 = userPw1;
 	}
 
-	public String getUserPw2()
-	{
+	public String getUserPw2() {
 		return userPw2;
 	}
 
-	public void setUserPw2(String userPw2) 
-	{
+	public void setUserPw2(String userPw2) {
 		this.userPw2 = userPw2;
 	}
 
-	public String getUserName() 
-	{
+	public String getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName) 
-	{
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public String getUserRole() 
-	{
+	public String getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(String userRole) 
-	{
+	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 
-	public String getUserEmail()
-	{
+	public String getUserEmail() {
 		return userEmail;
 	}
 
-	public void setUserEmail(String userEmail) 
-	{
+	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
 
-	public String getNickName() 
-	{
-		return nickName;
+	public String getUserNick() {
+		return userNick;
 	}
 
-	public void setNickName(String nickName) 
-	{
-		this.nickName = nickName;
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
 
-	public String getQuestion() 
-	{
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(String question) 
-	{
+	public void setQuestion(String question) {
 		this.question = question;
 	}
 
-	public String getAnswer()
-	{
+	public String getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(String answer) 
-	{
+	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
 
-	public String getJoinDate()
-	{
+	public String getJoinDate() {
 		return joinDate;
 	}
 
-	public void setJoinDate(String joinDate) 
-	{
+	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
 
-	public String getLastDate() 
-	{
+	public String getLastDate() {
 		return lastDate;
 	}
 
-	public void setLastDate(String lastDate) 
-	{
+	public void setLastDate(String lastDate) {
 		this.lastDate = lastDate;
 	}
 
-	public String getExitDate() 
-	{
+	public String getExitDate() {
 		return exitDate;
 	}
 
-	public void setExitDate(String exitDate)
-	{
+	public void setExitDate(String exitDate) {
 		this.exitDate = exitDate;
 	}
 
@@ -212,48 +209,39 @@ public class LoginDto implements UserDetails
 		return exitYn;
 	}
 
-	public void setExitYn(String exitYn) 
-	{
+	public void setExitYn(String exitYn) {
 		this.exitYn = exitYn;
 	}
 
-	public String getCheckUserId() 
-	{
-		return checkUserId;
+	public String getUserIdYn() {
+		return userIdYn;
 	}
 
-	public void setCheckUserId(String checkUserId) 
-	{
-		this.checkUserId = checkUserId;
+	public void setUserIdYn(String userIdYn) {
+		this.userIdYn = userIdYn;
 	}
 
-	public String getCheckNickName() 
-	{
-		return checkNickName;
+	public String getUserNickYn() {
+		return userNickYn;
 	}
 
-	public void setCheckNickName(String checkNickName) 
-	{
-		this.checkNickName = checkNickName;
+	public void setUserNickYn(String userNickYn) {
+		this.userNickYn = userNickYn;
 	}
 
-	public String getCheckUserEmail() 
-	{
-		return checkUserEmail;
+	public String getUserEmailYn() {
+		return userEmailYn;
 	}
 
-	public void setCheckUserEmail(String checkUserEmail) 
-	{
-		this.checkUserEmail = checkUserEmail;
+	public void setUserEmailYn(String userEmailYn) {
+		this.userEmailYn = userEmailYn;
 	}
 
-	public Boolean getRememberMe() 
-	{
+	public Boolean getRememberMe() {
 		return rememberMe;
 	}
 
-	public void setRememberMe(Boolean rememberMe) 
-	{
+	public void setRememberMe(Boolean rememberMe) {
 		this.rememberMe = rememberMe;
 	}
 
@@ -261,58 +249,47 @@ public class LoginDto implements UserDetails
 		return fileNameList;
 	}
 
-	public void setFileNameList(List<MultipartFile> fileNameList) 
-	{
+	public void setFileNameList(List<MultipartFile> fileNameList) {
 		this.fileNameList = fileNameList;
 	}
 
-	public String getUploadPath() 
-	{
+	public String getUploadPath() {
 		return uploadPath;
 	}
 
-	public void setUploadPath(String uploadPath) 
-	{
+	public void setUploadPath(String uploadPath) {
 		this.uploadPath = uploadPath;
 	}
 
-	public String getDeleteFileName() 
-	{
-		return deleteFileName;
+	public String getDeleteImageName() {
+		return deleteImageName;
 	}
 
-	public void setDeleteFileName(String deleteFileName) 
-	{
-		this.deleteFileName = deleteFileName;
+	public void setDeleteImageName(String deleteImageName) {
+		this.deleteImageName = deleteImageName;
 	}
 
-	public boolean isThumbnailFlag() 
-	{
+	public boolean isThumbnailFlag() {
 		return thumbnailFlag;
 	}
 
-	public void setThumbnailFlag(boolean thumbnailFlag) 
-	{
+	public void setThumbnailFlag(boolean thumbnailFlag) {
 		this.thumbnailFlag = thumbnailFlag;
 	}
 
-	public int getThumbnailHeight() 
-	{
+	public int getThumbnailHeight() {
 		return thumbnailHeight;
 	}
 
-	public void setThumbnailHeight(int thumbnailHeight) 
-	{
+	public void setThumbnailHeight(int thumbnailHeight) {
 		this.thumbnailHeight = thumbnailHeight;
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() 
-	{
+	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> userRoleList = new ArrayList<GrantedAuthority>();
 		
-		for (int i = 0, li_size = this.getUserRole().split(",").length; i < li_size; i++)
-		{
+		for (int i = 0, li_size = this.getUserRole().split(",").length; i < li_size; i++) {
 			userRoleList.add(new SimpleGrantedAuthority(this.getUserRole().split(",")[i]));
 		}
 
@@ -320,38 +297,32 @@ public class LoginDto implements UserDetails
 	}
 
 	@Override
-	public String getPassword() 
-	{
+	public String getPassword() {
 		return this.getUserPw();
 	}
 
 	@Override
-	public String getUsername() 
-	{
+	public String getUsername() {
 		return this.getUserId();
 	}
 
 	@Override
-	public boolean isAccountNonExpired() 
-	{
+	public boolean isAccountNonExpired() {
 		return true;
 	}
 
 	@Override
-	public boolean isAccountNonLocked() 
-	{
+	public boolean isAccountNonLocked() {
 		return true;
 	}
 
 	@Override
-	public boolean isCredentialsNonExpired() 
-	{
+	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
 	@Override
-	public boolean isEnabled()
-	{
+	public boolean isEnabled() {
 		return true;
 	}
 	

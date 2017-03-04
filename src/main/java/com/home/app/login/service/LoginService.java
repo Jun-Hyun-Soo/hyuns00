@@ -6,13 +6,13 @@ public interface LoginService
 {
 	public LoginDto selectUserId(String userId) throws Exception;
 	
-	public int selectCheckUserId(String userId) throws Exception;
-	public int selectCheckUserEmail(String userEmail) throws Exception;
-	public int selectCheckNickName(String nickName) throws Exception;
+	public int selectUserIdYn(String userId) throws Exception;
+	public int selectUserEmailYn(String userEmail) throws Exception;
+	public int selectUserNickYn(String userNick) throws Exception;
 	
 	public int insertJoin(LoginDto loginDto) throws Exception;	
 	
-	public int updateEdit(LoginDto loginDto) throws Exception;
+	public int updateModify(LoginDto loginDto) throws Exception;
 }
 
 

@@ -14,6 +14,7 @@ public class CustomUserDetails extends User {
 	private String userId;
 	private String userPw;
 	private String userName;
+	private String userNick;
 	private String userEmail;
 	private Collection<? extends GrantedAuthority> userRoles;
 	
@@ -26,6 +27,7 @@ public class CustomUserDetails extends User {
 		this.userId = username;
 		this.userPw = password;
 		this.userName = loginDto.getUserName();
+		this.userNick = loginDto.getUserNick();
 		this.userEmail = loginDto.getUserEmail();
 		this.userRoles = loginDto.getAuthorities();
 	}
@@ -37,6 +39,7 @@ public class CustomUserDetails extends User {
 		this.userId = username;
 		this.userPw = password;
 		this.userName = loginDto.getUserName();
+		this.userNick = loginDto.getUserNick();
 		this.userEmail = loginDto.getUserEmail();
 	}
 		
@@ -62,6 +65,14 @@ public class CustomUserDetails extends User {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
 
 	public String getUserEmail() {

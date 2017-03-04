@@ -20,7 +20,7 @@ ${serverTime} <br />
 	
 	<p>principal : <sec:authentication property="principal"/></p> 
 	
-	<p>principal.email : <sec:authentication property="principal.email"/></p> 
+	<p>principal.userEmail : <sec:authentication property="principal.userEmail"/></p> 
 	
 	<p>principal.userName : <sec:authentication property="principal.userName"/></p> 
 
@@ -40,12 +40,13 @@ ${serverTime} <br />
 <script type="text/javascript">
 	function pageLoad() {
 		createDatePicker({"id" : "txtDate"});
-		
+		/*
 		createComboBox({"id" : "loginYn", "url" : "/common/comboJson?comboType=code&groupCode=LOGIN_YN", "type" : "", "selectedId" : "", "multipleSelect" : false});
 		
 		var init = {};
 
 		createJsTree(init);
+		*/
 	}
 
 	// 트리 생성

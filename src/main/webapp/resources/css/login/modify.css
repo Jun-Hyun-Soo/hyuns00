@@ -32,9 +32,9 @@
 
 #userId 		{ width: 149px; }
 #userName 		{ width: 149px; }
-#passwd 		{ width: 149px; }
-#passwd1 		{ width: 149px; }
-#passwd2 		{ width: 149px; }
+#userPw 		{ width: 149px; }
+#userPw1 		{ width: 149px; }
+#userPw2 		{ width: 149px; }
 #userTel 		{ width: 149px; }
 #facId 			{ width: 149px; }
 #deptId 		{ width: 149px; }
@@ -58,9 +58,9 @@
 }
 
 
-#imgBtnEdit 		
+#imgBtnModify 		
 {  
-	background-image: url("/resources/images/button/btn_login_edit.gif");
+	background-image: url("/resources/images/button/btn_login_modify.gif");
 	background-repeat: no-repeat;
 	width: 85px;
 	height: 21px;

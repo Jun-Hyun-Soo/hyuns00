@@ -5,7 +5,7 @@
 -- 상태 : VALID
 ------------------------------------------------------------------------------*/
 CREATE SEQUENCE HYUNS00.BBS_COMMENT_NO
-    START WITH 61
+    START WITH 1
     INCREMENT BY 1
     MAXVALUE 9999999999999999999999999999
     MINVALUE 0
@@ -21,7 +21,7 @@ CREATE SEQUENCE HYUNS00.BBS_COMMENT_NO
 -- 상태 : VALID
 ------------------------------------------------------------------------------*/
 CREATE SEQUENCE HYUNS00.BBS_COMMENT_SUB_NO
-    START WITH 61
+    START WITH 1
     INCREMENT BY 1
     MAXVALUE 9999999999999999999999999999
     MINVALUE 0
@@ -37,7 +37,7 @@ CREATE SEQUENCE HYUNS00.BBS_COMMENT_SUB_NO
 -- 상태 : VALID
 ------------------------------------------------------------------------------*/
 CREATE SEQUENCE HYUNS00.BBS_FILE_NO
-    START WITH 21
+    START WITH 1
     INCREMENT BY 1
     MAXVALUE 9999999999999999999999999999
     MINVALUE 0
@@ -53,7 +53,7 @@ CREATE SEQUENCE HYUNS00.BBS_FILE_NO
 -- 상태 : VALID
 ------------------------------------------------------------------------------*/
 CREATE SEQUENCE HYUNS00.BBS_NO
-    START WITH 21
+    START WITH 1
     INCREMENT BY 1
     MAXVALUE 9999999999999999999999999999
     MINVALUE 0
@@ -69,7 +69,7 @@ CREATE SEQUENCE HYUNS00.BBS_NO
 -- 상태 : VALID
 ------------------------------------------------------------------------------*/
 CREATE SEQUENCE HYUNS00.BBS_SUB_NO
-    START WITH 21
+    START WITH 1
     INCREMENT BY 1
     MAXVALUE 9999999999999999999999999999
     MINVALUE 0

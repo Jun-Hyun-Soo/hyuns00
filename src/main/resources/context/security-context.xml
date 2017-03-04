@@ -16,7 +16,7 @@
     <http auto-config="true" use-expressions="true" authentication-manager-ref="userAuthnticationManager">    
     	<csrf disabled="true"></csrf>
     	
-    	<form-login login-page="/login/login" authentication-failure-url="/login/failure" default-target-url="/" login-processing-url="/login/logOk" username-parameter="userId" password-parameter="passwd"></form-login>
+    	<form-login login-page="/login/login" authentication-failure-url="/login/failure" default-target-url="/" login-processing-url="/login/logOk" username-parameter="userId" password-parameter="userPw"></form-login>
     	<logout invalidate-session="true" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" logout-url="/login/logout" logout-success-url="/"></logout>
     	<remember-me key="hyuns00" token-validity-seconds="2419200" remember-me-parameter="rememberMe"></remember-me><!-- 하루 86400초 * 28일 -->
 		<session-management> 

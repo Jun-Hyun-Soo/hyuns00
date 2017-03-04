@@ -34,7 +34,7 @@
 #userName 		{ width: 169px; }
 #userPw1 		{ width: 169px; }
 #userPw2 		{ width: 169px; }
-#nickName 		{ width: 110px; }
+#userNick 		{ width: 110px; }
 #userEmail		{ width: 110px; }
 #question 		{ width: 169px; }
 #answer 		{ width: 169px; }
@@ -49,7 +49,7 @@
 	padding-top: 20px;    
 }
 
-#imgBtnCheckUserId	
+#imgBtnUserIdYn	
 {  
 	background-image: url("/resources/images/button/btn_duplicate.gif");
 	background-repeat: no-repeat;
@@ -58,7 +58,7 @@
 	vertical-align: top;	
 }
 
-#imgBtnCheckNickName	
+#imgBtnUserNickYn	
 {  
 	background-image: url("/resources/images/button/btn_duplicate.gif");
 	background-repeat: no-repeat;
@@ -67,7 +67,7 @@
 	vertical-align: top;	
 }
 
-#imgBtnCheckUserEmail	
+#imgBtnUserEmailYn	
 {  
 	background-image: url("/resources/images/button/btn_duplicate.gif");
 	background-repeat: no-repeat;

@@ -41,8 +41,8 @@ public class BbsController
 	@Autowired
 	private BbsService bbsService;
 	
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+	@Resource(name = "uploadPathBbs")
+	private String uploadPathBbs;
 	
 	@RequestMapping(value = "/list/{bbsName}", produces = "text/plain; charset=UTF-8")
 	public String list(BbsSearchDto bbsSearchDto, Model model) throws Exception
@@ -118,7 +118,7 @@ public class BbsController
 			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
 		}
 		
-		bbsDto.setUploadPath(uploadPath + "\\" + "bbs" + "\\" + bbsDto.getBbsName() + "\\");
+		bbsDto.setUploadPath(uploadPathBbs + bbsDto.getBbsName() + "\\");
 		bbsDto.setThumbnailFlag(false);
 		bbsDto.setUserIp(Func.getUserIp());				
 
@@ -178,7 +178,7 @@ public class BbsController
 			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
 		}
 
-		bbsDto.setUploadPath(uploadPath + "\\" + "bbs" + "\\" + bbsDto.getBbsName() + "\\");
+		bbsDto.setUploadPath(uploadPathBbs + bbsDto.getBbsName() + "\\");
 		bbsDto.setUserIp(Func.getUserIp());		
 
 		bbsService.updateBbs(bbsDto);
@@ -280,7 +280,7 @@ public class BbsController
 			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
 		}
 		
-		bbsDto.setUploadPath(uploadPath);
+		bbsDto.setUploadPath(uploadPathBbs);
 		bbsDto.setUserIp(Func.getUserIp());				
 
 		bbsService.insertBbsReply(bbsDto);		
