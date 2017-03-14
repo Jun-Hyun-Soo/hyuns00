@@ -18,7 +18,7 @@
 .cssLoginTable th
 {
 	font-size: 12px;
-    width: 100px;
+    width: 140px;
     text-align: right;
     border-bottom: 1px solid #d1d1d1;
 }
@@ -30,15 +30,15 @@
     border-bottom: 1px solid #d1d1d1;
 }
 
-#userId 		{ width: 110px; }
-#userName 		{ width: 169px; }
-#userPw1 		{ width: 169px; }
-#userPw2 		{ width: 169px; }
-#userNick 		{ width: 110px; }
-#userEmail		{ width: 110px; }
-#question 		{ width: 169px; }
-#answer 		{ width: 169px; }
-#imageUrl 		{ width: 469px; }
+#userId 		{ width: 90px; }
+#userName 		{ width: 150px; }
+#userPw1 		{ width: 150px; }
+#userPw2 		{ width: 150px; }
+#userNick 		{ width: 90px; }
+#userEmail		{ width: 90px; }
+#question 		{ width: 150px; }
+#answer 		{ width: 150px; }
+#imageUrl 		{ width: 360px; }
 #imgPreview		{ width: 80px; height: 80px; border: 1px solid #f3f3f3; }
 
 .cssLoginButton
@@ -84,7 +84,6 @@
 	height: 20px;
 	vertical-align: middle;	
 }
-
 
 #imgBtnJoin 		
 {  

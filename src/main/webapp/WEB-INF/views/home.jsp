@@ -10,13 +10,17 @@ ${serverTime} <br />
 
 <c:url value="/login/login" var="loginUrl"></c:url>
 <c:url value="/login/logout" var="logoutUrl"></c:url>
+<c:url value="/login/modify" var="modifyUrl"></c:url>
+<c:url value="/bbs/list/free" var="bbsFreeUrl"></c:url>
 
 <sec:authorize access="isAnonymous()">
 	<a href="${loginUrl}">로그인</a>
 </sec:authorize>
 
 <sec:authorize access="isAuthenticated()">		
-	<a href="${logoutUrl}">로그아웃</a>	
+	<a href="${logoutUrl}">로그아웃</a>
+	<a href="${modifyUrl}/<sec:authentication property="principal.userId"/>">정보수정</a>
+	<a href="${bbsFreeUrl}">자유게시판</a>
 	
 	<p>principal : <sec:authentication property="principal"/></p> 
 	

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
@@ -17,97 +18,101 @@ import org.springframework.web.multipart.MultipartFile;
 import com.home.app.bbs.dto.BbsDto;
 import com.home.app.bbs.dto.BbsFileDto;
 
-public class Upload 
-{	
-	public static List<BbsFileDto> saveFileList(BbsDto bbsDto) throws Exception 
+public class Upload
+{
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+
+	public static List<BbsFileDto> saveFileList(BbsDto bbsDto) throws Exception
 	{
 		List<BbsFileDto> bbsFileDtoList = new ArrayList<BbsFileDto>();
-		
+
 		String fileSaveName = "";
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy\\MM\\dd\\");
-		
+
 		String fileCurrPath = sdf.format(new Date());
-		
-		File dirPath = new File(bbsDto.getUploadPath(), fileCurrPath);
-		
+
+		File dirPath = new File(bbsDto.getUploadPathBase() + bbsDto.getUploadPathBbs(), fileCurrPath);
+
 		if (!dirPath.exists())
 		{
 			dirPath.mkdirs();
 		}
-		
+
 		List<MultipartFile> fileNameList = bbsDto.getFileNameList();
-		
+
 		if (fileNameList != null && fileNameList.size() > 0)
 		{
-			for (MultipartFile file : fileNameList) 
+			for (MultipartFile file : fileNameList)
 			{
 				if (file.getSize() > 0)
 				{
 					fileSaveName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-					
+
 					BbsFileDto bbsFileDto = new BbsFileDto();
-					
+
 					bbsFileDto.setPno(bbsDto.getNo());
-					bbsFileDto.setFilePath(bbsDto.getUploadPath() + fileCurrPath);
+					bbsFileDto.setFilePath(bbsDto.getUploadPathBbs() + fileCurrPath);
 					bbsFileDto.setFileName(file.getOriginalFilename());
-					bbsFileDto.setFileSize((int) file.getSize());					
+					bbsFileDto.setFileSize((int) file.getSize());
 					bbsFileDto.setSaveName(fileSaveName);
-					
+
 					bbsFileDtoList.add(bbsFileDto);
-					
-					file.transferTo(new File(bbsDto.getUploadPath() + fileCurrPath, fileSaveName));
-					
-					String[] imgContentType = new String[] {"image/jpeg", "image/png", "image/gif", "image/tiff"};
-					
+
+					file.transferTo(new File(bbsDto.getUploadPathBase() + bbsDto.getUploadPathBbs() + fileCurrPath, fileSaveName));
+
+					String[] imgContentType = new String[] { "image/jpeg", "image/png", "image/gif", "image/tiff" };
+
 					if (bbsDto.isThumbnailFlag())
 					{
 						if (Arrays.asList(imgContentType).contains(file.getContentType()))
 						{
-							createThumbnail(bbsDto.getUploadPath(), fileCurrPath, fileSaveName, bbsDto.getThumbnailHeight());
+							createThumbnail(bbsDto.getUploadPathBase() + bbsDto.getUploadPathBbs() + fileCurrPath, fileSaveName, bbsDto.getThumbnailHeight());
 						}
 					}
 				}
 			}
 		}
-		
+
 		return bbsFileDtoList;
 	}
 
-	public static void deleteFileList(List<BbsFileDto> bbsFileDtoList) throws Exception 
+	public static void deleteFileList(List<BbsFileDto> bbsFileDtoList) throws Exception
 	{
 		for (BbsFileDto bbsFileDto : bbsFileDtoList)
 		{
-			File deleteFile = new File(bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
-			File deleteThumb = new File(bbsFileDto.getFilePath(), "s_" + bbsFileDto.getSaveName());
-			
-			if (deleteFile.exists()) deleteFile.delete();	
+			File deleteFile = new File(bbsFileDto.getFileBase() + bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
+			File deleteThumb = new File(bbsFileDto.getFileBase() + bbsFileDto.getFilePath(), "s_" + bbsFileDto.getSaveName());
+
+			if (deleteFile.exists()) deleteFile.delete();
 			if (deleteThumb.exists()) deleteThumb.delete();
-		}		
+		}
 	}
 
-	public static void deleteFile(BbsFileDto bbsFileDto) throws Exception 
+	public static void deleteFile(BbsFileDto bbsFileDto) throws Exception
 	{
-		File deleteFile = new File(bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
-		
+		File deleteFile = new File(bbsFileDto.getFileBase() + bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
+		File deleteThumb = new File(bbsFileDto.getFileBase() + bbsFileDto.getFilePath(), "s_" + bbsFileDto.getSaveName());
+
 		if (deleteFile.exists()) deleteFile.delete();
+		if (deleteThumb.exists()) deleteThumb.delete();
 	}
-	
-	public static String createThumbnail(String uploadPath, String fileCurrPath, String fileName, int thumbnailHeight) throws Exception 
+
+	public static String createThumbnail(String uploadPath, String fileName, int thumbnailHeight) throws Exception
 	{
-		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + fileCurrPath, fileName));
-		
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, thumbnailHeight);
-		
-		String thumbnailName = uploadPath + fileCurrPath + File.separator + "s_" + fileName;
-		
+		BufferedImage sourceImage = ImageIO.read(new File(uploadPath, fileName));
+
+		BufferedImage destImage = Scalr.resize(sourceImage, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, thumbnailHeight);
+
+		String thumbnailName = uploadPath + File.separator + "s_" + fileName;
+
 		File newFile = new File(thumbnailName);
-		
+
 		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-		
-		ImageIO.write(destImg, formatName.toUpperCase(), newFile);	
-		
+
+		ImageIO.write(destImage, formatName.toUpperCase(), newFile);
+
 		return thumbnailName.substring(thumbnailName.length()).replace(File.separatorChar, '/');
 	}
 }
-

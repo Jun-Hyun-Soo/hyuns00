@@ -131,6 +131,8 @@ public class BbsServiceImpl implements BbsService
 		{
 			BbsFileDto bbsFileDto = bbsDao.selectBbsFileNo(Integer.parseInt(arrDeleteFileName[i]));
 			
+			bbsFileDto.setFileBase(bbsDto.getUploadPathBase());
+			
 			Upload.deleteFile(bbsFileDto);
 			
 			bbsDao.deleteBbsFileNo(bbsFileDto.getNo());

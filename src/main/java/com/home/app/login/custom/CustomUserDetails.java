@@ -41,6 +41,7 @@ public class CustomUserDetails extends User {
 		this.userName = loginDto.getUserName();
 		this.userNick = loginDto.getUserNick();
 		this.userEmail = loginDto.getUserEmail();
+		this.userRoles = loginDto.getAuthorities();
 	}
 		
 	public String getUserId() {

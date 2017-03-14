@@ -27,6 +27,7 @@
         <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="pno" 			column="PNO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="viewNo" 		column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="fileBase" 	column="FILE_BASE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="filePath" 	column="FILE_PATH"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="fileName" 	column="FILE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="saveName" 	column="SAVE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
@@ -230,7 +231,7 @@
 		       FILE_SIZE, 
 		       DOWN_COUNT 
 		  FROM BBS_FILE 
-		 WHERE PNO = #{pno} 
+		 WHERE PNO = #{no} 
 		 ORDER BY NO ASC
     </select>
 		

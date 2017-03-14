@@ -18,7 +18,7 @@
 .cssLoginTable th
 {
 	font-size: 12px;
-    width: 130px;
+    width: 140px;
     text-align: right;
     border-bottom: 1px solid #d1d1d1;
 }
@@ -30,15 +30,17 @@
     border-bottom: 1px solid #d1d1d1;
 }
 
-#userId 		{ width: 149px; }
-#userName 		{ width: 149px; }
-#userPw 		{ width: 149px; }
-#userPw1 		{ width: 149px; }
-#userPw2 		{ width: 149px; }
-#userTel 		{ width: 149px; }
-#facId 			{ width: 149px; }
-#deptId 		{ width: 149px; }
-#deptName 		{ width: 149px; }
+#userId 		{ width: 150px; }
+#userName 		{ width: 150px; }
+#userPw 		{ width: 150px; }
+#userPw1 		{ width: 150px; }
+#userPw2 		{ width: 150px; }
+#userNick 		{ width: 90px; }
+#userEmail		{ width: 90px; }
+#question 		{ width: 150px; }
+#answer 		{ width: 150px; }
+#imageUrl 		{ width: 360px; }
+#imgPreview		{ width: 80px; height: 80px; border: 1px solid #f3f3f3; }
 
 .cssLoginButton
 {
@@ -46,6 +48,33 @@
     height: 50px;
     text-align: center;
 	padding-top: 20px;    
+}
+
+#imgBtnUserIdYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnUserNickYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnUserEmailYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
 }
 
 #imgBtnLogin 		
@@ -56,7 +85,6 @@
 	height: 20px;
 	vertical-align: middle;	
 }
-
 
 #imgBtnModify 		
 {  

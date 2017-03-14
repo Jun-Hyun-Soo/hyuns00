@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
 	}
 	
 	public int updateModify(LoginDto loginDto) throws Exception {
-		return loginDao.updateModify(loginDto);
+		return loginDao.updateModify(Upload.saveFileList(loginDto));
 	}
 
 	@Override

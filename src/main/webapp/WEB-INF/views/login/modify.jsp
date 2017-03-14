@@ -8,14 +8,18 @@
 
 <script type="text/javascript">
 	function pageLoad() {
-		createComboBox({"id" : "facId", "url" : "/common/comboJson?comboType=code&groupCode=A01", "type" : "S", "selectedId" : "${loginDto.facId}", "multipleSelect" : false});
+		loadImageUrl();
+	}
+	
+	function loadImageUrl() {
+		$("#imgPreview").attr("src", "/upload/" + $("#currImagePath").val() + $("#currImageName").val());
 	}
 </script>
 
 <c:url value="/login/login" var="loginUrl"></c:url>
 <c:url value="/login/modifyOk" var="modifyUrl"></c:url>
 
-<form:form commandName="loginDto" method="post" action="${modifyUrl}">
+<form:form commandName="loginDto" method="post" enctype="multipart/form-data" action="${modifyUrl}">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true"/>	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -26,12 +30,20 @@
 	  	</c:forEach>      
 	</spring:bind>
 	
+	<form:hidden path="currUserNick" />
+	<form:hidden path="currUserEmail" />
+	<form:hidden path="currImagePath" />
+	<form:hidden path="currImageName" />
+	
+	<form:hidden path="userNickYn" value="N" />
+	<form:hidden path="userEmailYn" value="N" />	
+	
     <table class="cssLoginTable">
-        <caption>※  회원가입</caption>    
+        <caption>※  회원수정</caption>    
 	    <tr>
 		    <th>* 아이디 :</th>
 		    <td>
-		        <form:input path="userId" maxlength="20" disabled="disabled" />
+		        <form:input path="userId" maxlength="20" readonly="true" />
 		    </td>
 		    <th>* 이름 :</th>
 		    <td>
@@ -55,23 +67,32 @@
 		    </td>
 	    </tr>
 	    <tr>
-		    <th>* 전화번호 :</th>
+		    <th>* 닉네임 :</th>
 		    <td>
-		        <form:input path="userTel" maxlength="20" />
+		        <form:input path="userNick" maxlength="20" />
+		        <input type="image" id="imgBtnUserNickYn" onclick="imgBtnUserNickYn_click(form); return false;" />
 		    </td>
-		    <th>* 공정 :</th>
+		    <th>* 이메일 :</th>
 		    <td>		        
-		        <form:select path="facId"></form:select>
+		        <form:input path="userEmail" maxlength="100" />
+		        <input type="image" id="imgBtnUserEmailYn" onclick="imgBtnUserEmailYn_click(form); return false;" />
 		    </td>
 	    </tr>
 	    <tr>
-		    <th>* 부서코드 :</th>
+		    <th>* 보안질문 :</th>
 		    <td>
-		        <form:input path="deptId" maxlength="20" />
+		        <form:input path="question" maxlength="100" />
 		    </td>
-		    <th>* 부서명 :</th>
+		    <th>* 보안대답 :</th>
 		    <td>
-		        <form:input path="deptName" maxlength="20" />
+		        <form:input path="answer" maxlength="100" />
+		    </td>
+	    </tr>
+	    <tr>
+		    <th>* 이미지 :</th>
+		    <td colspan="3">
+		    	<img src="" id="imgPreview" /><br />
+		        <input type="file" id="imageUrl" name="fileNameList" onchange="imageUrl_change(this);" />
 		    </td>
 	    </tr>
     </table>

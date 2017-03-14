@@ -8,6 +8,7 @@ public class BbsFileDto
 	private int fileSize;
 	private int downCount;
 	
+	private String fileBase;
 	private String filePath;
 	private String fileName;	
 	private String saveName;
@@ -63,6 +64,16 @@ public class BbsFileDto
 		this.downCount = downCount;
 	}
 	
+	public String getFileBase()
+	{
+		return fileBase;
+	}
+
+	public void setFileBase(String fileBase)
+	{
+		this.fileBase = fileBase;
+	}
+
 	public String getFilePath() 
 	{
 		return filePath;

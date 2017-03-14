@@ -3,21 +3,24 @@
 
 <mapper namespace="com.home.app.login.dao.LoginDao"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
     <resultMap id="loginResultMap" type="com.home.app.login.dto.LoginDto">
-        <id     property="userNo"    	column="USER_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="userId" 		column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userPw" 		column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userName"		column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userRole"		column="USER_ROLE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userEmail"	column="USER_EMAIL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="userNick"		column="USER_NICK"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="imageUrl"		column="IMAGE_URL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="question"		column="QUESTION"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="answer"		column="ANSWER"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="joinDate"		column="JOIN_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="lastDate"		column="LAST_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="exitDate"		column="EXIT_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="exitYn"		column="EXIT_YN"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="visitCount"	column="VISIT_COUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <id     property="userNo"    		column="USER_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="userId" 			column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userPw" 			column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userName"			column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userRole"			column="USER_ROLE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userEmail"		column="USER_EMAIL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="userNick"			column="USER_NICK"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="currUserEmail"	column="USER_EMAIL"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="currUserNick"		column="USER_NICK"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="currImagePath"	column="IMAGE_PATH"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="currImageName"	column="IMAGE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="question"			column="QUESTION"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="answer"			column="ANSWER"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="joinDate"			column="JOIN_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="lastDate"			column="LAST_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="exitDate"			column="EXIT_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="exitYn"			column="EXIT_YN"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="visitCount"		column="VISIT_COUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
 	</resultMap>
 	
     <select id="selectUserIdYn" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -46,7 +49,8 @@
 		       USER_ROLE,
 		       USER_EMAIL,
 		       USER_NICK,
-		       IMAGE_PATH || IMAGE_NAME AS IMAGE_URL,
+		       IMAGE_PATH,
+		       IMAGE_NAME,
 		       QUESTION,
 		       ANSWER,
 		       JOIN_DATE,
@@ -109,8 +113,12 @@
 		       USER_NAME = #{userName}, 
 		       USER_EMAIL = #{userEmail}, 
 		       USER_NICK = #{userNick}, 
+			<if test="!@com.home.app.util.Util@isEmpty(imagePath)">
 		       IMAGE_PATH = #{imagePath}, 
+			</if>
+			<if test="!@com.home.app.util.Util@isEmpty(imageName)">
 		       IMAGE_NAME = #{imageName}, 
+			</if>
 		       QUESTION = #{question},
 		       ANSWER = #{answer}
 		 WHERE USER_ID = #{userId}  

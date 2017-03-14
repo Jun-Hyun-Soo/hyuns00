@@ -59,7 +59,7 @@
 		<td class="cssBbsListUserName"><c:out value="${bbsDto.userName}" escapeXml="true"></c:out></td>
 		<td class="cssBbsListRegDate"><c:out value="${bbsDto.regDate}" escapeXml="true"></c:out></td>
 		<td class="cssBbsListVisitCount"><c:out value="${bbsDto.viewCount}" escapeXml="true"></c:out></td>
-		</tr>					
+	</tr>					
 </c:forEach>
 </table>
 
@@ -83,7 +83,9 @@
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 	</c:url>		
 
-	<c:if test="${page.startPage > bbsSearchDto.pageSize}"><a href="${listUrl}" title="${page.startPage - bbsSearchDto.pageSize}페이지">[-${bbsSearchDto.pageSize}]</a></c:if>
+	<c:if test="${page.startPage > bbsSearchDto.pageSize}">
+		<a href="${listUrl}" title="${page.startPage - bbsSearchDto.pageSize}페이지">[-${bbsSearchDto.pageSize}]</a>
+	</c:if>
 	<!-- -pageSize페이지 종료 -->
 	
 	<!-- 이전페이지 시작 -->
@@ -94,7 +96,9 @@
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 	</c:url>		
 
-	<c:if test="${bbsSearchDto.page > 1}"><a href="${listUrl}" title="${bbsSearchDto.page - 1}페이지">[이전]</a></c:if>
+	<c:if test="${bbsSearchDto.page > 1}">
+		<a href="${listUrl}" title="${bbsSearchDto.page - 1}페이지">[이전]</a>
+	</c:if>
 	<!-- 이전페이지 종료 -->
 	
 	<!-- 현재페이지 시작 -->
@@ -122,7 +126,9 @@
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 	</c:url>		
 
-	<c:if test="${bbsSearchDto.page < page.totalPage}"><a href="${listUrl}" title="${bbsSearchDto.page + 1}페이지">[다음]</a></c:if>
+	<c:if test="${bbsSearchDto.page < page.totalPage}">
+		<a href="${listUrl}" title="${bbsSearchDto.page + 1}페이지">[다음]</a>
+	</c:if>
 	<!-- 다음페이지 종료 -->
 	
 	<!-- +pageSize페이지 시작 -->
@@ -133,7 +139,9 @@
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 	</c:url>		
 
-	<c:if test="${page.endPage < page.totalPage}"><a href="${listUrl}" title="${page.startPage + bbsSearchDto.pageSize}페이지">[+${bbsSearchDto.pageSize}]</a></c:if>
+	<c:if test="${page.endPage < page.totalPage}">
+		<a href="${listUrl}" title="${page.startPage + bbsSearchDto.pageSize}페이지">[+${bbsSearchDto.pageSize}]</a>
+	</c:if>
 	<!-- +pageSize페이지 종료 -->
 
 	<!-- 끝페이지 시작 -->			
@@ -144,7 +152,9 @@
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 	</c:url>		
 
-	<c:if test="${bbsSearchDto.page < page.totalPage}"><a href="${listUrl}" title="${page.totalPage}페이지">[끝]</a></c:if>
+	<c:if test="${bbsSearchDto.page < page.totalPage}">
+		<a href="${listUrl}" title="${page.totalPage}페이지">[끝]</a>
+	</c:if>
 	<!-- 끝페이지 종료 -->
 </div>
  

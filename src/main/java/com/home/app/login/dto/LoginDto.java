@@ -50,12 +50,18 @@ public class LoginDto implements UserDetails
 	private String userIdYn;
 	private String userNickYn;
 	private String userEmailYn;
+	
+	private String currImagePath;
+	private String currImageName;
+	private String currUserNick;
+	private String currUserEmail;
 
 	private Boolean rememberMe;
 	
 	private List<MultipartFile> fileNameList;
 	
-	private String uploadPath;
+	private String uploadPathBase;
+	private String uploadPathLogin;
 	private String deleteImageName;
 	
 	private boolean thumbnailFlag;
@@ -237,6 +243,42 @@ public class LoginDto implements UserDetails
 		this.userEmailYn = userEmailYn;
 	}
 
+	public String getCurrImagePath()
+	{
+		return currImagePath;
+	}
+
+	public void setCurrImagePath(String currImagePath)
+	{
+		this.currImagePath = currImagePath;
+	}
+
+	public String getCurrImageName()
+	{
+		return currImageName;
+	}
+
+	public void setCurrImageName(String currImageName)
+	{
+		this.currImageName = currImageName;
+	}
+
+	public String getCurrUserNick() {
+		return currUserNick;
+	}
+
+	public void setCurrUserNick(String currUserNick) {
+		this.currUserNick = currUserNick;
+	}
+
+	public String getCurrUserEmail() {
+		return currUserEmail;
+	}
+
+	public void setCurrUserEmail(String currUserEmail) {
+		this.currUserEmail = currUserEmail;
+	}
+
 	public Boolean getRememberMe() {
 		return rememberMe;
 	}
@@ -253,12 +295,20 @@ public class LoginDto implements UserDetails
 		this.fileNameList = fileNameList;
 	}
 
-	public String getUploadPath() {
-		return uploadPath;
+	public String getUploadPathBase() {
+		return uploadPathBase;
 	}
 
-	public void setUploadPath(String uploadPath) {
-		this.uploadPath = uploadPath;
+	public void setUploadPathBase(String uploadPathBase) {
+		this.uploadPathBase = uploadPathBase;
+	}
+
+	public String getUploadPathLogin() {
+		return uploadPathLogin;
+	}
+
+	public void setUploadPathLogin(String uploadPathLogin) {
+		this.uploadPathLogin = uploadPathLogin;
 	}
 
 	public String getDeleteImageName() {

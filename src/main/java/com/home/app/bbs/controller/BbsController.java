@@ -33,22 +33,25 @@ import com.home.app.util.Func;
 
 @Controller
 @RequestMapping("/bbs")
-public class BbsController 
-{	
+public class BbsController
+{
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@Autowired
 	private BbsService bbsService;
-	
+
+	@Resource(name = "uploadPathBase")
+	private String uploadPathBase;
+
 	@Resource(name = "uploadPathBbs")
 	private String uploadPathBbs;
-	
+
 	@RequestMapping(value = "/list/{bbsName}", produces = "text/plain; charset=UTF-8")
 	public String list(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		bbsSearchDto.setTotalCount(bbsService.selectBbsCount(bbsSearchDto));
-		
+
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDtoList", bbsService.selectBbsList(bbsSearchDto));
 		model.addAttribute("page", new Page(bbsSearchDto));
@@ -65,7 +68,7 @@ public class BbsController
 		model.addAttribute("bbsCommentDtoList", bbsService.selectBbsCommentPnoList(bbsSearchDto.getNo()));
 		model.addAttribute("bbsCommentDto", new BbsCommentDto());
 		model.addAttribute("func", new Func());
-		
+
 		return "/bbs/view";
 	}
 
@@ -74,18 +77,18 @@ public class BbsController
 	public FileSystemResource file(BbsFileDto bbsFileDto, HttpServletResponse response) throws Exception
 	{
 		bbsService.updateBbsFileDownCount(bbsFileDto.getNo());
-		
+
 		bbsFileDto = bbsService.selectBbsFileNo(bbsFileDto.getNo());
-		
-		File downFile = new File(bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
-		
+
+		File downFile = new File(uploadPathBase + bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
+
 		String fileName = URLEncoder.encode(bbsFileDto.getFileName(), "UTF-8").replaceAll("\\+", "%20");
-		
+
 		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-		
+
 		return new FileSystemResource(downFile);
 	}
-	
+
 	@RequestMapping(value = "/write/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String write(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
@@ -94,41 +97,42 @@ public class BbsController
 
 		return "/bbs/write";
 	}
-	
+
 	@RequestMapping(value = "/writeOk/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String writeOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
 		{
 			model.addAttribute("bbsSearchDto", bbsDto);
-			
+
 			return "/bbs/write";
 		}
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsDto.setUserName(customUserDetails.getUserName());
+
+			bbsDto.setUserName(customUserDetails.getUserNick());
 			bbsDto.setUserPw(customUserDetails.getUserPw());
 			bbsDto.setUserEmail(customUserDetails.getUserEmail());
 		}
 		else
 		{
-			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
+			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));
 		}
-		
-		bbsDto.setUploadPath(uploadPathBbs + bbsDto.getBbsName() + "\\");
-		bbsDto.setThumbnailFlag(false);
-		bbsDto.setUserIp(Func.getUserIp());				
 
-		bbsService.insertBbs(bbsDto);		
-		
+		bbsDto.setUploadPathBase(uploadPathBase);
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setThumbnailFlag(false);
+		bbsDto.setUserIp(Func.getUserIp());
+
+		bbsService.insertBbs(bbsDto);
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBbsName();		
+		return "redirect:/bbs/list/" + bbsDto.getBbsName();
 	}
-	
+
 	@RequestMapping(value = "/edit/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String edit(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
@@ -141,9 +145,9 @@ public class BbsController
 
 	@RequestMapping(value = "/editOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String editOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
-	{		
+	{
 		BbsDto passwdDto = bbsService.selectBbsEdit(bbsDto.getNo());
-		
+
 		model.addAttribute("bbsSearchDto", bbsDto);
 
 		if (result.hasErrors())
@@ -154,40 +158,41 @@ public class BbsController
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsDto.setUserName(customUserDetails.getUserName());
+
+			bbsDto.setUserName(customUserDetails.getUserNick());
 			bbsDto.setUserPw(customUserDetails.getUserPw());
 			bbsDto.setUserEmail(customUserDetails.getUserEmail());
-			
-			if (!customUserDetails.getUserId().equals(bbsDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
+
+			if (!customUserDetails.getUserId().equals(passwdDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
 			{
 				model.addAttribute("alertMsg", "등록자가 아닙니다!");
-				
-				return "/bbs/edit";					
+
+				return "/bbs/edit/";
 			}
 		}
 		else
 		{
-			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw())) 
+			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
 			{
-				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");				
+				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
 
-				return "/bbs/edit";	
-			}				
-			
-			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
+				return "/bbs/edit";
+			}
+
+			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));
 		}
 
-		bbsDto.setUploadPath(uploadPathBbs + bbsDto.getBbsName() + "\\");
-		bbsDto.setUserIp(Func.getUserIp());		
+		bbsDto.setUploadPathBase(uploadPathBase);
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setUserIp(Func.getUserIp());
 
 		bbsService.updateBbs(bbsDto);
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
-		
+
 		return "redirect:/bbs/list/" + bbsDto.getBbsName();
 	}
-	
+
 	@RequestMapping(value = "/delete/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String delete(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
@@ -199,39 +204,40 @@ public class BbsController
 
 	@RequestMapping(value = "/deleteOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String deleteOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
-	{		
+	{
 		BbsDto passwdDto = bbsService.selectBbsDelete(bbsDto.getNo());
-		
+
 		model.addAttribute("bbsSearchDto", bbsDto);
- 
+
 		if (result.hasErrors())
 		{
 			return "bbs/delete";
 		}
-		
+
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			if (!customUserDetails.getUserId().equals(bbsDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
+
+			if (!customUserDetails.getUserId().equals(passwdDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
 			{
 				model.addAttribute("alertMsg", "등록자가 아닙니다!");
-				
-				return "/bbs/delete";					
+
+				return "/bbs/delete";
 			}
 		}
 		else
 		{
-			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw())) 
+			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
-				
-				return "/bbs/delete";	
-			}				
-		}
 
-		bbsDto.setUserIp(Func.getUserIp());	
+				return "/bbs/delete";
+			}
+		}
 		
+		bbsDto.setUploadPathBase(uploadPathBase);
+		bbsDto.setUserIp(Func.getUserIp());
+
 		int deleteCount = bbsService.selectBbsDeleteCount(bbsDto.getNo());
 
 		if (deleteCount > 0 || passwdDto.getComCount() > 0)
@@ -241,13 +247,13 @@ public class BbsController
 		else
 		{
 			bbsService.deleteBbs(bbsDto.getNo());
-		}		
-		
+		}
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
-		
+
 		return "redirect:/bbs/list/" + bbsDto.getBbsName();
 	}
-	
+
 	@RequestMapping(value = "/reply/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String reply(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
@@ -256,191 +262,192 @@ public class BbsController
 
 		return "/bbs/reply";
 	}
-	
+
 	@RequestMapping(value = "/replyOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String replyOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
 		{
 			model.addAttribute("bbsSearchDto", bbsDto);
-			
+
 			return "/bbs/reply";
 		}
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsDto.setUserName(customUserDetails.getUserName());
+
+			bbsDto.setUserName(customUserDetails.getUserNick());
 			bbsDto.setUserPw(customUserDetails.getUserPw());
 			bbsDto.setUserEmail(customUserDetails.getUserEmail());
 		}
 		else
 		{
-			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));			
+			bbsDto.setUserPw(bcryptPasswordEncoder.encode(bbsDto.getUserPw()));
 		}
-		
-		bbsDto.setUploadPath(uploadPathBbs);
-		bbsDto.setUserIp(Func.getUserIp());				
 
-		bbsService.insertBbsReply(bbsDto);		
-		
+		bbsDto.setUploadPathBase(uploadPathBase);
+		bbsDto.setUploadPathBbs(uploadPathBbs);
+		bbsDto.setUserIp(Func.getUserIp());
+
+		bbsService.insertBbsReply(bbsDto);
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBbsName();		
+		return "redirect:/bbs/list/" + bbsDto.getBbsName();
 	}
-	
+
 	@RequestMapping(value = "/commentWriteOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentWriteOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
 		{
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
-			
+
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());				
+		bbsCommentDto.setUserIp(Func.getUserIp());
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsCommentDto.setUserName(customUserDetails.getUserName());
+
+			bbsCommentDto.setUserName(customUserDetails.getUserNick());
 			bbsCommentDto.setUserPw(customUserDetails.getUserPw());
 		}
 		else
 		{
-			bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));			
+			bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));
 		}
 
-		bbsService.insertBbsComment(bbsCommentDto);	
-		
+		bbsService.insertBbsComment(bbsCommentDto);
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();		
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
 	}
-	
+
 	@RequestMapping(value = "/commentEditOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentEditOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
 		{
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
-			
+
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());				
-		
+		bbsCommentDto.setUserIp(Func.getUserIp());
+
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			if (!customUserDetails.getUserId().equals(bbsCommentDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
+
+			if (!customUserDetails.getUserId().equals(bbsCommentDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
 			{
 				model.addAttribute("alertMsg", "등록자가 아닙니다!");
-				
-				return "/bbs/view";					
+
+				return "/bbs/view";
 			}
 		}
 		else
 		{
 			BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
-			
-			if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw())) 
+
+			if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
-				
-				return "/bbs/view";	
-			}				
+
+				return "/bbs/view";
+			}
 		}
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsCommentDto.setUserName(customUserDetails.getUserName());
+
+			bbsCommentDto.setUserName(customUserDetails.getUserNick());
 			bbsCommentDto.setUserPw(customUserDetails.getUserPw());
 		}
 		else
 		{
-			bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));			
+			bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));
 		}
 
-		bbsService.updateBbsComment(bbsCommentDto);	
-		
+		bbsService.updateBbsComment(bbsCommentDto);
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();		
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
 	}
-	
+
 	@RequestMapping(value = "/commentReplyOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentReplyOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
 		{
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
-			
+
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());				
-	
+		bbsCommentDto.setUserIp(Func.getUserIp());
+
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			bbsCommentDto.setUserName(customUserDetails.getUserName());
+
+			bbsCommentDto.setUserName(customUserDetails.getUserNick());
 			bbsCommentDto.setUserPw(customUserDetails.getUserPw());
 		}
 		else
 		{
-			bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));			
+			bbsCommentDto.setUserPw(bcryptPasswordEncoder.encode(bbsCommentDto.getUserPw()));
 		}
-		
-		bbsService.insertBbsCommentReply(bbsCommentDto);	
-		
+
+		bbsService.insertBbsCommentReply(bbsCommentDto);
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();		
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
 	}
-	
+
 	@RequestMapping(value = "/commentDeleteOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentDeleteOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception
 	{
 		if (result.hasErrors())
 		{
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
-			
+
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());				
-		
+		bbsCommentDto.setUserIp(Func.getUserIp());
+
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
-			if (!customUserDetails.getUserId().equals(bbsCommentDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN")) 
+
+			if (!customUserDetails.getUserId().equals(bbsCommentDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
 			{
 				model.addAttribute("alertMsg", "등록자가 아닙니다!");
-				
-				return "/bbs/view";					
+
+				return "/bbs/view";
 			}
 		}
 		else
-		{			
+		{
 			BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
-			
-			if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw())) 
+
+			if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
-				
-				return "/bbs/view";	
-			}				
+
+				return "/bbs/view";
+			}
 		}
-		
+
 		int deleteCommentCount = bbsService.selectBbsCommentDeleteCount(bbsCommentDto);
 
 		if (deleteCommentCount > 0)
@@ -450,22 +457,22 @@ public class BbsController
 		else
 		{
 			bbsService.deleteBbsComment(bbsCommentDto);
-		}		
-		
+		}
+
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();		
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
 	}
 
 	@RequestMapping(value = "/checkBbsUserPw", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
-	public @ResponseBody int checkUserPw(BbsDto bbsDto) throws Exception 
+	public @ResponseBody int checkUserPw(BbsDto bbsDto) throws Exception
 	{
 		BbsDto passwdDto = bbsService.selectBbsEdit(bbsDto.getNo());
-		
-		if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw())) 
+
+		if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
 		{
 			return 1;
-		} 
+		}
 		else
 		{
 			return 0;
@@ -473,14 +480,14 @@ public class BbsController
 	}
 
 	@RequestMapping(value = "/checkBbsCommentUserPw", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
-	public @ResponseBody int checkBbsCommentUserPw(BbsCommentDto bbsCommentDto) throws Exception 
+	public @ResponseBody int checkBbsCommentUserPw(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
-		
-		if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw())) 
+
+		if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
 		{
 			return 1;
-		} 
+		}
 		else
 		{
 			return 0;
@@ -491,11 +498,11 @@ public class BbsController
 	public ModelAndView jsonView(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.addObject("bbsDtoList", bbsService.selectBbsList(bbsSearchDto));
-		
+
 		modelAndView.setViewName("jsonView");
-		
+
 		return modelAndView;
 	}
 
@@ -503,7 +510,7 @@ public class BbsController
 	public @ResponseBody List<BbsDto> jsonBody(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		List<BbsDto> bbsDtoList = bbsService.selectBbsList(bbsSearchDto);
-		
+
 		return bbsDtoList;
 	}
 

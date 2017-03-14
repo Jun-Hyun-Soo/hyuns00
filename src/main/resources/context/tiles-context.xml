@@ -17,6 +17,11 @@
         <put-attribute name="title" value="hyuns00's Web Site" />
     </definition>
 
+    <definition name="/*" extends="default">
+        <put-attribute name="center" value="/WEB-INF/views/{1}.jsp" />
+        <put-attribute name="title" value="hyuns00's Web Site" />
+    </definition>
+
     <definition name="/*/*" extends="default">
         <put-attribute name="center" value="/WEB-INF/views/{1}/{2}.jsp" />
         <put-attribute name="title" value="hyuns00's Web Site" />

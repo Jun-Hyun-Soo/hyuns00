@@ -11,8 +11,14 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<!-- #. DataBase Properties -->
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<beans:property name="location" value="classpath:/properties/fileupload.properties"></beans:property>
+	</beans:bean>	
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/upload/**" location="${file.uploadPathMapping}" />
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -45,14 +51,19 @@
         <beans:property name="defaultEncoding" value="utf-8"/>
     </beans:bean>
 
+	<!-- #. FileUpload uploadPath -->
+    <beans:bean id="uploadPathBase" class="java.lang.String">
+        <beans:constructor-arg value="${file.uploadPathBase}"></beans:constructor-arg>
+    </beans:bean>
+
 	<!-- #. FileUpload uploadPath Bbs -->
     <beans:bean id="uploadPathBbs" class="java.lang.String">
-        <beans:constructor-arg value="D:\\upload\\bbs\\"></beans:constructor-arg>
+        <beans:constructor-arg value="${file.uploadPathBbs}"></beans:constructor-arg>
     </beans:bean>
 
 	<!-- #. FileUpload uploadPath Login -->
     <beans:bean id="uploadPathLogin" class="java.lang.String">
-        <beans:constructor-arg value="D:\\upload\\login\\"></beans:constructor-arg>
+        <beans:constructor-arg value="${file.uploadPathLogin}"></beans:constructor-arg>
     </beans:bean>
 
 	<!-- #. jsonView -->

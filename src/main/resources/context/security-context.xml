@@ -24,7 +24,8 @@
 		</session-management> 
     	<intercept-url pattern="/login/login" access="isAnonymous()"></intercept-url>
     	<intercept-url pattern="/login/failure" access="isAnonymous()"></intercept-url>
-    	<intercept-url pattern="/login/logout" access="hasAnyRole('ROLE_USER')"></intercept-url>
+    	<intercept-url pattern="/login/modify/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"></intercept-url>
+    	<intercept-url pattern="/login/logout" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"></intercept-url>
     	<intercept-url pattern="/bbs/**" access="permitAll"></intercept-url>
     	<intercept-url pattern="/home" access="permitAll"></intercept-url>
         <intercept-url pattern="/**" access="permitAll"></intercept-url> 
