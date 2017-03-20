@@ -48,7 +48,7 @@ public class BbsDto extends BbsSearchDto
 	private String uploadPathBase;
 	private String uploadPathBbs;
 	private String selectFileName;
-	private String deleteFileName;
+	private String deleteUploadNo;
 
 	private boolean thumbnailFlag;
 	private int thumbnailHeight;
@@ -263,14 +263,14 @@ public class BbsDto extends BbsSearchDto
 		this.selectFileName = selectFileName;
 	}
 
-	public String getDeleteFileName()
+	public String getDeleteUploadNo()
 	{
-		return deleteFileName;
+		return deleteUploadNo;
 	}
 
-	public void setDeleteFileName(String deleteFileName)
+	public void setDeleteUploadNo(String deleteUploadNo)
 	{
-		this.deleteFileName = deleteFileName;
+		this.deleteUploadNo = deleteUploadNo;
 	}
 
 	public boolean isThumbnailFlag()

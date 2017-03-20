@@ -1,16 +1,11 @@
 package com.home.app.bbs.controller;
 
-import java.io.File;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,12 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
-import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
+import com.home.app.bbs.function.Func;
 import com.home.app.bbs.function.Page;
 import com.home.app.bbs.service.BbsService;
+import com.home.app.common.service.UploadService;
 import com.home.app.login.custom.CustomUserDetails;
-import com.home.app.util.Func;
 
 @Controller
 @RequestMapping("/bbs")
@@ -41,11 +36,14 @@ public class BbsController
 	@Autowired
 	private BbsService bbsService;
 
+	@Autowired
+	private UploadService uploadService;
+
 	@Resource(name = "uploadPathBase")
-	private String uploadPathBase;
+	public String uploadPathBase;
 
 	@Resource(name = "uploadPathBbs")
-	private String uploadPathBbs;
+	public String uploadPathBbs;
 
 	@RequestMapping(value = "/list/{bbsName}", produces = "text/plain; charset=UTF-8")
 	public String list(BbsSearchDto bbsSearchDto, Model model) throws Exception
@@ -64,29 +62,12 @@ public class BbsController
 	public String view(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsDto", bbsService.selectBbsView(bbsSearchDto.getNo()));
-		model.addAttribute("bbsFileDtoList", bbsService.selectBbsFilePnoList(bbsSearchDto.getNo()));
-		model.addAttribute("bbsCommentDtoList", bbsService.selectBbsCommentPnoList(bbsSearchDto.getNo()));
+		model.addAttribute("bbsFileDtoList", uploadService.selectUploadList(bbsSearchDto.getNo()));
+		model.addAttribute("bbsCommentDtoList", bbsService.selectBbsCommentList(bbsSearchDto.getNo()));
 		model.addAttribute("bbsCommentDto", new BbsCommentDto());
 		model.addAttribute("func", new Func());
 
 		return "/bbs/view";
-	}
-
-	@RequestMapping(value = "/file/{pno}/{no}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
-	@ResponseBody
-	public FileSystemResource file(BbsFileDto bbsFileDto, HttpServletResponse response) throws Exception
-	{
-		bbsService.updateBbsFileDownCount(bbsFileDto.getNo());
-
-		bbsFileDto = bbsService.selectBbsFileNo(bbsFileDto.getNo());
-
-		File downFile = new File(uploadPathBase + bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
-
-		String fileName = URLEncoder.encode(bbsFileDto.getFileName(), "UTF-8").replaceAll("\\+", "%20");
-
-		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-
-		return new FileSystemResource(downFile);
 	}
 
 	@RequestMapping(value = "/write/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
@@ -123,7 +104,6 @@ public class BbsController
 
 		bbsDto.setUploadPathBase(uploadPathBase);
 		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
-		bbsDto.setThumbnailFlag(false);
 		bbsDto.setUserIp(Func.getUserIp());
 
 		bbsService.insertBbs(bbsDto);
@@ -138,7 +118,7 @@ public class BbsController
 	{
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDto", bbsService.selectBbsEdit(bbsSearchDto.getNo()));
-		model.addAttribute("bbsFileDtoList", bbsService.selectBbsFilePnoList(bbsSearchDto.getNo()));
+		model.addAttribute("bbsFileDtoList", uploadService.selectUploadList(bbsSearchDto.getNo()));
 
 		return "/bbs/edit";
 	}
@@ -149,6 +129,7 @@ public class BbsController
 		BbsDto passwdDto = bbsService.selectBbsEdit(bbsDto.getNo());
 
 		model.addAttribute("bbsSearchDto", bbsDto);
+		model.addAttribute("bbsFileDtoList", uploadService.selectUploadList(bbsDto.getNo()));
 
 		if (result.hasErrors())
 		{
@@ -163,16 +144,16 @@ public class BbsController
 			bbsDto.setUserPw(customUserDetails.getUserPw());
 			bbsDto.setUserEmail(customUserDetails.getUserEmail());
 
-			if (!customUserDetails.getUserId().equals(passwdDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
+			if (!customUserDetails.getUserId().equals("") && !customUserDetails.getUserId().equals(passwdDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
 			{
 				model.addAttribute("alertMsg", "등록자가 아닙니다!");
 
-				return "/bbs/edit/";
+				return "/bbs/edit";
 			}
 		}
 		else
 		{
-			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
+			if (bbsDto.getUserPw().equals("") || !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
 
@@ -218,7 +199,7 @@ public class BbsController
 		{
 			CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			if (!customUserDetails.getUserId().equals(passwdDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
+			if (!customUserDetails.getUserId().equals("") && !customUserDetails.getUserId().equals(passwdDto.getUserId()) && !customUserDetails.getUserRoles().contains("ROLE_ADMIN"))
 			{
 				model.addAttribute("alertMsg", "등록자가 아닙니다!");
 
@@ -227,20 +208,21 @@ public class BbsController
 		}
 		else
 		{
-			if (!bbsDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
+			if (bbsDto.getUserPw().equals("") || !bcryptPasswordEncoder.matches(bbsDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
 
 				return "/bbs/delete";
 			}
 		}
-		
+
 		bbsDto.setUploadPathBase(uploadPathBase);
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
 		bbsDto.setUserIp(Func.getUserIp());
 
 		int deleteCount = bbsService.selectBbsDeleteCount(bbsDto.getNo());
 
-		if (deleteCount > 0 || passwdDto.getComCount() > 0)
+		if (deleteCount > 1 || passwdDto.getComCount() > 0)
 		{
 			bbsService.updateBbsDelete(bbsDto);
 		}
@@ -353,9 +335,9 @@ public class BbsController
 		}
 		else
 		{
-			BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
+			BbsCommentDto passwdDto = bbsService.selectBbsComment(bbsCommentDto.getNo());
 
-			if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
+			if (bbsCommentDto.getUserPw().equals("") || !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
 
@@ -438,9 +420,9 @@ public class BbsController
 		}
 		else
 		{
-			BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
+			BbsCommentDto passwdDto = bbsService.selectBbsComment(bbsCommentDto.getNo());
 
-			if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
+			if (bbsCommentDto.getUserPw().equals("") || !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
 			{
 				model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다!");
 
@@ -482,7 +464,7 @@ public class BbsController
 	@RequestMapping(value = "/checkBbsCommentUserPw", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
 	public @ResponseBody int checkBbsCommentUserPw(BbsCommentDto bbsCommentDto) throws Exception
 	{
-		BbsCommentDto passwdDto = bbsService.selectBbsCommentNo(bbsCommentDto.getNo());
+		BbsCommentDto passwdDto = bbsService.selectBbsComment(bbsCommentDto.getNo());
 
 		if (!bbsCommentDto.getUserPw().equals("") && !bcryptPasswordEncoder.matches(bbsCommentDto.getUserPw(), passwdDto.getUserPw()))
 		{

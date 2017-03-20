@@ -93,7 +93,7 @@ function checkEmail(strText)
 {
 	try
 	{
-		if (strText.match(/^([ ]*|([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+)$/))
+		if (strText.match(/^(([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+)$/))
 	    {
 		    return true;
 	    }

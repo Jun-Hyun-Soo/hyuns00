@@ -1,4 +1,4 @@
-package com.home.app.util;
+package com.home.app.bbs.function;
 
 import java.net.InetAddress;
 

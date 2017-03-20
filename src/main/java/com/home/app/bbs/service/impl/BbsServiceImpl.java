@@ -8,16 +8,20 @@ import org.springframework.stereotype.Service;
 import com.home.app.bbs.dao.BbsDao;
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
-import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
-import com.home.app.bbs.function.Upload;
 import com.home.app.bbs.service.BbsService;
+import com.home.app.common.dao.UploadDao;
+import com.home.app.common.dto.UploadDto;
+import com.home.app.common.function.Upload;
 
 @Service
 public class BbsServiceImpl implements BbsService 
 {	
 	@Autowired
 	private BbsDao bbsDao;
+
+	@Autowired
+	private UploadDao uploadDao;
 
 	public int selectBbsCount(BbsSearchDto bbsSearchDto) throws Exception
 	{
@@ -39,14 +43,9 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.selectBbsList(bbsSearchDto);
 	}
 
-	public List<BbsFileDto> selectBbsFilePnoList(int pno) throws Exception
+	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception
 	{
-		return bbsDao.selectBbsFilePnoList(pno);
-	}
-
-	public List<BbsCommentDto> selectBbsCommentPnoList(int pno) throws Exception
-	{
-		return bbsDao.selectBbsCommentPnoList(pno);
+		return bbsDao.selectBbsCommentList(pno);
 	}
 
 	public BbsDto selectBbsView(int no) throws Exception
@@ -71,34 +70,43 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.selectBbsDelete(no);
 	}
 
-	public BbsFileDto selectBbsFileNo(int no) throws Exception
+	public BbsCommentDto selectBbsComment(int no) throws Exception
 	{
-		return bbsDao.selectBbsFileNo(no);
-	}
-
-	public BbsCommentDto selectBbsCommentNo(int no) throws Exception
-	{
-		return bbsDao.selectBbsCommentNo(no);
+		return bbsDao.selectBbsComment(no);
 	}
 
 	public int insertBbs(BbsDto bbsDto) throws Exception 
 	{
-		int intReturn = bbsDao.insertBbs(bbsDto);
+		int intReturn = bbsDao.insertBbs(bbsDto);		
 		
-		List<BbsFileDto> bbsFileDtoList = Upload.saveFileList(bbsDto);	
+		UploadDto uploadDto = new UploadDto();
 		
-		if (bbsFileDtoList.size() > 0) bbsDao.insertBbsFile(bbsFileDtoList);	
+		uploadDto.setPno(bbsDto.getNo());
+		uploadDto.setFileBase(bbsDto.getUploadPathBase());
+		uploadDto.setFilePath(bbsDto.getUploadPathBbs());
+		uploadDto.setFileNameList(bbsDto.getFileNameList());
+		
+		List<UploadDto> uploadDtoList = Upload.saveFileList(uploadDto);		
+		
+		if (uploadDtoList.size() > 0) uploadDao.insertUpload(uploadDtoList);	
 		
 		return intReturn;
 	}
 
 	public int insertBbsReply(BbsDto bbsDto) throws Exception 
 	{
-		int intReturn = bbsDao.insertBbsReply(bbsDto);
+		int intReturn = bbsDao.insertBbsReply(bbsDto);		
 		
-		List<BbsFileDto> bbsFileDtoList = Upload.saveFileList(bbsDto);	
+		UploadDto uploadDto = new UploadDto();
 		
-		if (bbsFileDtoList.size() > 0) bbsDao.insertBbsFile(bbsFileDtoList);	
+		uploadDto.setPno(bbsDto.getNo());
+		uploadDto.setFileBase(bbsDto.getUploadPathBase());
+		uploadDto.setFilePath(bbsDto.getUploadPathBbs());
+		uploadDto.setFileNameList(bbsDto.getFileNameList());
+		
+		List<UploadDto> uploadDtoList = Upload.saveFileList(uploadDto);		
+		
+		if (uploadDtoList.size() > 0) uploadDao.insertUpload(uploadDtoList);	
 		
 		return intReturn;
 	}
@@ -125,22 +133,27 @@ public class BbsServiceImpl implements BbsService
 	{
 		int intReturn = bbsDao.updateBbs(bbsDto);
 		
-		String[] arrDeleteFileName = bbsDto.getDeleteFileName().split("\\|");
+		String[] arrDeleteUploadNo = bbsDto.getDeleteUploadNo().split("\\|");
 
-		for (int i = 0, li_size = arrDeleteFileName.length - 1; i < li_size; i++)
+		for (int i = 0, li_size = arrDeleteUploadNo.length - 1; i < li_size; i++)
 		{
-			BbsFileDto bbsFileDto = bbsDao.selectBbsFileNo(Integer.parseInt(arrDeleteFileName[i]));
+			UploadDto uploadDto = uploadDao.selectUpload(Integer.parseInt(arrDeleteUploadNo[i]));
 			
-			bbsFileDto.setFileBase(bbsDto.getUploadPathBase());
+			Upload.deleteFile(uploadDto);
 			
-			Upload.deleteFile(bbsFileDto);
-			
-			bbsDao.deleteBbsFileNo(bbsFileDto.getNo());
+			uploadDao.deleteUpload(Integer.parseInt(arrDeleteUploadNo[i]));
 		}	
 		
-		List<BbsFileDto> bbsFileDtoList = Upload.saveFileList(bbsDto);		
+		UploadDto uploadDto = new UploadDto();
 		
-		if (bbsFileDtoList.size() > 0) bbsDao.insertBbsFile(bbsFileDtoList);	
+		uploadDto.setPno(bbsDto.getNo());
+		uploadDto.setFileBase(bbsDto.getUploadPathBase());
+		uploadDto.setFilePath(bbsDto.getUploadPathBbs());
+		uploadDto.setFileNameList(bbsDto.getFileNameList());
+		
+		List<UploadDto> uploadDtoList = Upload.saveFileList(uploadDto);		
+		
+		if (uploadDtoList.size() > 0) uploadDao.insertUpload(uploadDtoList);	
 		
 		return intReturn;
 	}
@@ -174,20 +187,15 @@ public class BbsServiceImpl implements BbsService
 	{
 		return bbsDao.updateBbsComCountMinus(no);
 	}
-	
-	public int updateBbsFileDownCount(int no) throws Exception
-	{
-		return bbsDao.updateBbsFileDownCount(no);
-	}
 
 	public int deleteBbs(int no) throws Exception
 	{
-		List<BbsFileDto> bbsFileDtoList = bbsDao.selectBbsFilePnoList(no);
+		List<UploadDto> uploadDtoList = uploadDao.selectUploadList(no);
 		
-		Upload.deleteFileList(bbsFileDtoList);
-		
-		bbsDao.deleteBbsFilePno(no);
-		bbsDao.deleteBbsCommentPno(no);
+		Upload.deleteFileList(uploadDtoList);
+
+		uploadDao.deleteUploadList(no);
+		bbsDao.deleteBbsCommentList(no);
 		
 		return bbsDao.deleteBbs(no);
 	}
@@ -196,7 +204,7 @@ public class BbsServiceImpl implements BbsService
 	{
 		bbsDao.updateBbsComCountMinus(bbsCommentDto.getPno());
 		
-		return bbsDao.deleteBbsComment(bbsCommentDto);
+		return bbsDao.deleteBbsComment(bbsCommentDto.getNo());
 	}
 
 }

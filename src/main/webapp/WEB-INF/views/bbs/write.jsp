@@ -40,7 +40,7 @@
 	<form:hidden path="page" value="${bbsSearchDto.page}" />
 	<form:hidden path="listSize" value="${bbsSearchDto.listSize}" />
 	
-	<form:hidden path="deleteFileName" value="" />		
+	<form:hidden path="deleteUploadNo" value="" />		
 	<form:hidden path="userId" value="${userId}" />
 
     <table class="cssBbsTable">

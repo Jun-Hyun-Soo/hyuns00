@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.home.app.common.dao.ComboDao"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->	
+    <resultMap id="uploadResultMap" type="com.home.app.common.dto.UploadDto">
+        <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="pno" 			column="PNO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="viewNo" 		column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="fileBase" 	column="FILE_BASE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="filePath" 	column="FILE_PATH"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="fileName" 	column="FILE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="saveName" 	column="SAVE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="editName" 	column="EDIT_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="fileSize" 	column="FILE_SIZE"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="downCount"	column="DOWN_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+	</resultMap>	
+	
+    <select id="selectUploadList" parameterType="java.lang.Integer" resultMap="uploadResultMap">
+		SELECT ROWNUM VIEW_NO, 
+		       NO, 
+		       PNO,	
+		       FILE_BASE,
+		       FILE_PATH, 
+		       FILE_NAME, 
+		       '/' || FILE_NAME AS EDIT_NAME, 
+		       SAVE_NAME, 
+		       FILE_SIZE, 
+		       DOWN_COUNT 
+		  FROM UPLOAD 
+		 WHERE PNO = #{pno} 
+		 ORDER BY NO ASC
+    </select>
+		
+    <select id="selectUpload" parameterType="java.lang.Integer" resultMap="uploadResultMap">
+		SELECT NO, 
+		       PNO,	
+		       FILE_BASE,
+		       FILE_PATH, 
+		       FILE_NAME, 
+		       SAVE_NAME, 
+		       FILE_SIZE, 
+		       DOWN_COUNT 
+		  FROM UPLOAD 
+		 WHERE NO = #{no} 
+    </select>
+
+    <insert id="insertUpload" parameterType="java.util.List">    	
+		INSERT 
+		  INTO UPLOAD 
+		       ( 
+		           NO, 
+		           PNO, 
+		           FILE_BASE,
+		           FILE_PATH,
+		           FILE_NAME, 
+		           SAVE_NAME, 
+		           FILE_SIZE, 
+		           DOWN_COUNT 
+		       ) 
+		SELECT UPLOAD_NO.NEXTVAL AS NO, 
+		       A.PNO,
+		       A.FILE_BASE,
+		       A.FILE_PATH,
+		       A.FILE_NAME,
+		       A.SAVE_NAME,
+		       A.FILE_SIZE,
+		       A.DOWN_COUNT
+		  FROM 
+		       ( 
+			<foreach item="uploadDto" index="index" collection="list" open="" separator=" UNION ALL " close="">		  
+		       SELECT #{uploadDto.pno} AS PNO, 
+		              #{uploadDto.fileBase} AS FILE_BASE, 
+		              #{uploadDto.filePath} AS FILE_PATH, 
+		              #{uploadDto.fileName} AS FILE_NAME, 
+		              #{uploadDto.saveName} AS SAVE_NAME, 
+		              #{uploadDto.fileSize} AS FILE_SIZE, 
+		              0 DOWN_COUNT 
+		         FROM DUAL 
+			</foreach>		         
+		       ) A
+    </insert>
+
+    <update id="updateUploadDownCount" parameterType="java.lang.Integer">
+		UPDATE BBS_FILE
+		   SET DOWN_COUNT = DOWN_COUNT + 1		
+		 WHERE NO = #{no} 
+    </update>
+
+    <delete id="deleteUploadList" parameterType="java.lang.Integer">
+		DELETE FROM UPLOAD
+		 WHERE PNO = #{pno} 
+    </delete>
+
+    <delete id="deleteUpload" parameterType="java.lang.Integer">
+		DELETE FROM UPLOAD
+		 WHERE NO = #{no} 
+    </delete>
+
+</mapper>

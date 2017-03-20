@@ -22,7 +22,7 @@ function imgBtnBbsWrite_click(form, isAuthenticated, modeType)
 			return false;
 		}
 		
-		if (checkUserPw(form.userPw.value)) 
+		if (!checkUserPw(form.userPw.value)) 
 		{
 			form.userPw.focus();
 			createDialog({"title" : "경고", "alertMsg" : "비밀번호를 입력해 주세요!"});
@@ -46,7 +46,6 @@ function imgBtnBbsWrite_click(form, isAuthenticated, modeType)
 		{
 			form.email.focus();
 			createDialog({"title" : "경고", "alertMsg" : "올바른 이메일 주소를 입력해 주세요!"});
-			
 			
 			return false;
 		}
@@ -255,17 +254,17 @@ function imgBtnDeleteFileName_click()
 				}
 				else
 				{		
-					if ($("#deleteFileName").val().indexOf($("#selectFileName option:selected").val()) != -1)
+					if ($("#deleteUploadNo").val().indexOf($("#selectFileName option:selected").val()) != -1)
 					{
 						$(objId).css("color", "#000000");
 						
-						$("#deleteFileName").val($("#deleteFileName").val().replace($("#selectFileName option:selected").val() + "|", ""));
+						$("#deleteUploadNo").val($("#deleteUploadNo").val().replace($("#selectFileName option:selected").val() + "|", ""));
 					}
 					else
 					{
 						$(objId).css("color", "#CCCCCC");	
 						
-						$("#deleteFileName").val($("#deleteFileName").val() + $(objId).val() + "|");
+						$("#deleteUploadNo").val($("#deleteUploadNo").val() + $(objId).val() + "|");
 					}					
 				}	
 			}
@@ -295,7 +294,7 @@ function selectFileName_click()
 	}
 	else
 	{
-		if ($("#deleteFileName").val().indexOf($("#selectFileName option:selected").val()) != -1)
+		if ($("#deleteUploadNo").val().indexOf($("#selectFileName option:selected").val()) != -1)
 		{
 			$("#imgBtnDeleteFileName").css({"background" : "url(/resources/images/button/btn_cancel.gif)"});
 		}

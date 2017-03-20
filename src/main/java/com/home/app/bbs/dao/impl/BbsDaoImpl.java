@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.home.app.bbs.dao.BbsDao;
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
-import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
 
 @Repository
@@ -32,32 +31,11 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.selectBbsDeleteCount(no);		
 	}
 	
-	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);		
-	}
-	
 	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception
 	{	
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
 		return bbsDao.selectBbsList(bbsSearchDto);
-	}
-	
-	public List<BbsFileDto> selectBbsFilePnoList(int pno) throws Exception
-	{	
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsFilePnoList(pno);
-	}
-	
-	public List<BbsCommentDto> selectBbsCommentPnoList(int pno) throws Exception
-	{	
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsCommentPnoList(pno);
 	}
 
 	public BbsDto selectBbsView(int no) throws Exception
@@ -88,20 +66,6 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.selectBbsDelete(no);
 	}
 
-	public BbsFileDto selectBbsFileNo(int no) throws Exception
-	{	
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsFileNo(no);
-	}
-
-	public BbsCommentDto selectBbsCommentNo(int no) throws Exception
-	{	
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsCommentNo(no);
-	}
-
 	public int insertBbs(BbsDto bbsDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
@@ -114,27 +78,6 @@ public class BbsDaoImpl implements BbsDao
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
 		return bbsDao.insertBbsReply(bbsDto);		
-	}
-
-	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbsComment(bbsCommentDto);		
-	}
-
-	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbsCommentReply(bbsCommentDto);		
-	}
-
-	public int insertBbsFile(List<BbsFileDto> bbsFileDtoList) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbsFile(bbsFileDtoList);		
 	}
 	
 	public int updateBbs(BbsDto bbsDto) throws Exception
@@ -149,20 +92,6 @@ public class BbsDaoImpl implements BbsDao
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
 		return bbsDao.updateBbsDelete(bbsDto);		
-	}
-	
-	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsComment(bbsCommentDto);		
-	}
-	
-	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsCommentDelete(bbsCommentDto);		
 	}
 
 	public int updateBbsViewCount(int no) throws Exception
@@ -186,13 +115,6 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.updateBbsComCountMinus(no);		
 	}
 
-	public int updateBbsFileDownCount(int no) throws Exception
-	{
-		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsFileDownCount(no);		
-	}
-
 	public int deleteBbs(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
@@ -200,32 +122,71 @@ public class BbsDaoImpl implements BbsDao
 		return bbsDao.deleteBbs(no);		
 	}
 
-	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception
+	
+	
+	
+	
+	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsComment(bbsCommentDto);		
+		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);		
+	}
+	
+	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception
+	{	
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.selectBbsCommentList(pno);
 	}
 
-	public int deleteBbsCommentPno(int pno) throws Exception
-	{
+	public BbsCommentDto selectBbsComment(int no) throws Exception
+	{	
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsCommentPno(pno);		
+		return bbsDao.selectBbsComment(no);
 	}
 
-	public int deleteBbsFilePno(int pno) throws Exception
+	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsFilePno(pno);		
+		return bbsDao.insertBbsComment(bbsCommentDto);		
 	}
 
-	public int deleteBbsFileNo(int no) throws Exception
+	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 		
-		return bbsDao.deleteBbsFileNo(no);		
+		return bbsDao.insertBbsCommentReply(bbsCommentDto);		
+	}
+	
+	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.updateBbsComment(bbsCommentDto);		
+	}
+	
+	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.updateBbsCommentDelete(bbsCommentDto);		
+	}
+
+	public int deleteBbsCommentList(int pno) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.deleteBbsCommentList(pno);		
+	}
+
+	public int deleteBbsComment(int no) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+		
+		return bbsDao.deleteBbsComment(no);		
 	}
 
 }
