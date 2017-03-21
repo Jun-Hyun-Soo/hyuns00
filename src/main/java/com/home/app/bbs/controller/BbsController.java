@@ -1,11 +1,16 @@
 package com.home.app.bbs.controller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,12 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
+import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
-import com.home.app.bbs.function.Func;
 import com.home.app.bbs.function.Page;
 import com.home.app.bbs.service.BbsService;
-import com.home.app.common.service.UploadService;
 import com.home.app.login.custom.CustomUserDetails;
+import com.home.app.util.Util;
 
 @Controller
 @RequestMapping("/bbs")
@@ -35,9 +40,6 @@ public class BbsController
 
 	@Autowired
 	private BbsService bbsService;
-
-	@Autowired
-	private UploadService uploadService;
 
 	@Resource(name = "uploadPathBase")
 	public String uploadPathBase;
@@ -53,7 +55,6 @@ public class BbsController
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDtoList", bbsService.selectBbsList(bbsSearchDto));
 		model.addAttribute("page", new Page(bbsSearchDto));
-		model.addAttribute("func", new Func());
 
 		return "/bbs/list";
 	}
@@ -62,10 +63,10 @@ public class BbsController
 	public String view(BbsSearchDto bbsSearchDto, Model model) throws Exception
 	{
 		model.addAttribute("bbsDto", bbsService.selectBbsView(bbsSearchDto.getNo()));
-		model.addAttribute("bbsFileDtoList", uploadService.selectUploadList(bbsSearchDto.getNo()));
+		model.addAttribute("bbsFileDtoList", bbsService.selectBbsFileList(bbsSearchDto.getNo()));
 		model.addAttribute("bbsCommentDtoList", bbsService.selectBbsCommentList(bbsSearchDto.getNo()));
 		model.addAttribute("bbsCommentDto", new BbsCommentDto());
-		model.addAttribute("func", new Func());
+		model.addAttribute("util", new Util());
 
 		return "/bbs/view";
 	}
@@ -104,7 +105,8 @@ public class BbsController
 
 		bbsDto.setUploadPathBase(uploadPathBase);
 		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
-		bbsDto.setUserIp(Func.getUserIp());
+		bbsDto.setThumbnailYn("N");
+		bbsDto.setUserIp(Util.getUserIp());
 
 		bbsService.insertBbs(bbsDto);
 
@@ -118,7 +120,7 @@ public class BbsController
 	{
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDto", bbsService.selectBbsEdit(bbsSearchDto.getNo()));
-		model.addAttribute("bbsFileDtoList", uploadService.selectUploadList(bbsSearchDto.getNo()));
+		model.addAttribute("bbsFileDtoList", bbsService.selectBbsFileList(bbsSearchDto.getNo()));
 
 		return "/bbs/edit";
 	}
@@ -129,7 +131,7 @@ public class BbsController
 		BbsDto passwdDto = bbsService.selectBbsEdit(bbsDto.getNo());
 
 		model.addAttribute("bbsSearchDto", bbsDto);
-		model.addAttribute("bbsFileDtoList", uploadService.selectUploadList(bbsDto.getNo()));
+		model.addAttribute("bbsFileDtoList", bbsService.selectBbsFileList(bbsDto.getNo()));
 
 		if (result.hasErrors())
 		{
@@ -165,7 +167,8 @@ public class BbsController
 
 		bbsDto.setUploadPathBase(uploadPathBase);
 		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
-		bbsDto.setUserIp(Func.getUserIp());
+		bbsDto.setThumbnailYn("N");
+		bbsDto.setUserIp(Util.getUserIp());
 
 		bbsService.updateBbs(bbsDto);
 
@@ -218,7 +221,8 @@ public class BbsController
 
 		bbsDto.setUploadPathBase(uploadPathBase);
 		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
-		bbsDto.setUserIp(Func.getUserIp());
+		bbsDto.setThumbnailYn("N");
+		bbsDto.setUserIp(Util.getUserIp());
 
 		int deleteCount = bbsService.selectBbsDeleteCount(bbsDto.getNo());
 
@@ -269,8 +273,9 @@ public class BbsController
 		}
 
 		bbsDto.setUploadPathBase(uploadPathBase);
-		bbsDto.setUploadPathBbs(uploadPathBbs);
-		bbsDto.setUserIp(Func.getUserIp());
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setThumbnailYn("N");
+		bbsDto.setUserIp(Util.getUserIp());
 
 		bbsService.insertBbsReply(bbsDto);
 
@@ -289,7 +294,7 @@ public class BbsController
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());
+		bbsCommentDto.setUserIp(Util.getUserIp());
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
@@ -320,7 +325,7 @@ public class BbsController
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());
+		bbsCommentDto.setUserIp(Util.getUserIp());
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
@@ -374,7 +379,7 @@ public class BbsController
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());
+		bbsCommentDto.setUserIp(Util.getUserIp());
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
@@ -405,7 +410,7 @@ public class BbsController
 			return "/bbs/view";
 		}
 
-		bbsCommentDto.setUserIp(Func.getUserIp());
+		bbsCommentDto.setUserIp(Util.getUserIp());
 
 		if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
 		{
@@ -444,6 +449,23 @@ public class BbsController
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
 		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
+	}
+
+	@RequestMapping(value = "/file/{pno}/{no}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
+	@ResponseBody
+	public FileSystemResource file(BbsFileDto bbsFileDto, HttpServletResponse response) throws Exception
+	{
+		bbsService.updateBbsFileDownCount(bbsFileDto.getNo());
+
+		bbsFileDto = bbsService.selectBbsFile(bbsFileDto.getNo());
+
+		File downFile = new File(bbsFileDto.getFileBase() + bbsFileDto.getFilePath(), bbsFileDto.getSaveName());
+
+		String fileName = URLEncoder.encode(bbsFileDto.getFileName(), "UTF-8").replaceAll("\\+", "%20");
+
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+		return new FileSystemResource(downFile);
 	}
 
 	@RequestMapping(value = "/checkBbsUserPw", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)

@@ -47,7 +47,7 @@ public class Upload
 
 					String[] imgContentType = new String[] { "image/jpeg", "image/png", "image/gif", "image/tiff" };
 
-					if (loginDto.isThumbnailFlag())
+					if (loginDto.getThumbnailYn().equals("Y"))
 					{
 						if (Arrays.asList(imgContentType).contains(file.getContentType()))
 						{

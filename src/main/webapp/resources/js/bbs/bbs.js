@@ -254,17 +254,17 @@ function imgBtnDeleteFileName_click()
 				}
 				else
 				{		
-					if ($("#deleteUploadNo").val().indexOf($("#selectFileName option:selected").val()) != -1)
+					if ($("#deleteBbsFileNo").val().indexOf($("#selectFileName option:selected").val()) != -1)
 					{
 						$(objId).css("color", "#000000");
 						
-						$("#deleteUploadNo").val($("#deleteUploadNo").val().replace($("#selectFileName option:selected").val() + "|", ""));
+						$("#deleteBbsFileNo").val($("#deleteBbsFileNo").val().replace($("#selectFileName option:selected").val() + "|", ""));
 					}
 					else
 					{
 						$(objId).css("color", "#CCCCCC");	
 						
-						$("#deleteUploadNo").val($("#deleteUploadNo").val() + $(objId).val() + "|");
+						$("#deleteBbsFileNo").val($("#deleteBbsFileNo").val() + $(objId).val() + "|");
 					}					
 				}	
 			}
@@ -294,7 +294,7 @@ function selectFileName_click()
 	}
 	else
 	{
-		if ($("#deleteUploadNo").val().indexOf($("#selectFileName option:selected").val()) != -1)
+		if ($("#deleteBbsFileNo").val().indexOf($("#selectFileName option:selected").val()) != -1)
 		{
 			$("#imgBtnDeleteFileName").css({"background" : "url(/resources/images/button/btn_cancel.gif)"});
 		}

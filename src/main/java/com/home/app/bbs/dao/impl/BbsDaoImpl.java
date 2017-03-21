@@ -9,184 +9,223 @@ import org.springframework.stereotype.Repository;
 import com.home.app.bbs.dao.BbsDao;
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
+import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
 
 @Repository
-public class BbsDaoImpl implements BbsDao 
+public class BbsDaoImpl implements BbsDao
 {
-	@Autowired 
+	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
-	
+
 	public int selectBbsCount(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsCount(bbsSearchDto);		
+
+		return bbsDao.selectBbsCount(bbsSearchDto);
 	}
-	
+
 	public int selectBbsDeleteCount(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsDeleteCount(no);		
+
+		return bbsDao.selectBbsDeleteCount(no);
 	}
-	
+
 	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsList(bbsSearchDto);
 	}
 
 	public BbsDto selectBbsView(int no) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsView(no);
 	}
-	
+
 	public BbsDto selectBbsEdit(int no) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsEdit(no);
 	}
-	
+
 	public BbsDto selectBbsReply(int no) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsReply(no);
 	}
-	
+
 	public BbsDto selectBbsDelete(int no) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsDelete(no);
 	}
 
 	public int insertBbs(BbsDto bbsDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbs(bbsDto);		
+
+		return bbsDao.insertBbs(bbsDto);
 	}
 
 	public int insertBbsReply(BbsDto bbsDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbsReply(bbsDto);		
+
+		return bbsDao.insertBbsReply(bbsDto);
 	}
-	
+
 	public int updateBbs(BbsDto bbsDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbs(bbsDto);		
+
+		return bbsDao.updateBbs(bbsDto);
 	}
-	
+
 	public int updateBbsDelete(BbsDto bbsDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsDelete(bbsDto);		
+
+		return bbsDao.updateBbsDelete(bbsDto);
 	}
 
 	public int updateBbsViewCount(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsViewCount(no);		
+
+		return bbsDao.updateBbsViewCount(no);
 	}
 
 	public int updateBbsComCountPlus(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsComCountPlus(no);		
+
+		return bbsDao.updateBbsComCountPlus(no);
 	}
 
 	public int updateBbsComCountMinus(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsComCountMinus(no);		
+
+		return bbsDao.updateBbsComCountMinus(no);
 	}
 
 	public int deleteBbs(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.deleteBbs(no);		
+
+		return bbsDao.deleteBbs(no);
 	}
 
-	
-	
-	
-	
 	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);		
+
+		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);
 	}
-	
+
 	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsCommentList(pno);
 	}
 
 	public BbsCommentDto selectBbsComment(int no) throws Exception
-	{	
+	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
+
 		return bbsDao.selectBbsComment(no);
 	}
 
 	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbsComment(bbsCommentDto);		
+
+		return bbsDao.insertBbsComment(bbsCommentDto);
 	}
 
 	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.insertBbsCommentReply(bbsCommentDto);		
+
+		return bbsDao.insertBbsCommentReply(bbsCommentDto);
 	}
-	
+
 	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsComment(bbsCommentDto);		
+
+		return bbsDao.updateBbsComment(bbsCommentDto);
 	}
-	
+
 	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.updateBbsCommentDelete(bbsCommentDto);		
+
+		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
 	}
 
 	public int deleteBbsCommentList(int pno) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.deleteBbsCommentList(pno);		
+
+		return bbsDao.deleteBbsCommentList(pno);
 	}
 
 	public int deleteBbsComment(int no) throws Exception
 	{
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
-		
-		return bbsDao.deleteBbsComment(no);		
+
+		return bbsDao.deleteBbsComment(no);
+	}
+
+	public List<BbsFileDto> selectBbsFileList(int pno) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+
+		return bbsDao.selectBbsFileList(pno);
+	}
+
+	public BbsFileDto selectBbsFile(int no) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+
+		return bbsDao.selectBbsFile(no);
+	}
+
+	public int insertBbsFile(List<BbsFileDto> bbsFileDtoList) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+
+		return bbsDao.insertBbsFile(bbsFileDtoList);
+	}
+
+	public int updateBbsFileDownCount(int no) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+
+		return bbsDao.updateBbsFileDownCount(no);
+	}
+
+	public int deleteBbsFileList(int pno) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+
+		return bbsDao.deleteBbsFileList(pno);
+	}
+
+	public int deleteBbsFile(int no) throws Exception
+	{
+		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
+
+		return bbsDao.deleteBbsFile(no);
 	}
 
 }

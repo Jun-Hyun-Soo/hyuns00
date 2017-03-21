@@ -48,9 +48,9 @@ public class BbsDto extends BbsSearchDto
 	private String uploadPathBase;
 	private String uploadPathBbs;
 	private String selectFileName;
-	private String deleteUploadNo;
+	private String deleteBbsFileNo;
 
-	private boolean thumbnailFlag;
+	private String thumbnailYn;
 	private int thumbnailHeight;
 
 	public int getNo()
@@ -263,24 +263,24 @@ public class BbsDto extends BbsSearchDto
 		this.selectFileName = selectFileName;
 	}
 
-	public String getDeleteUploadNo()
+	public String getDeleteBbsFileNo()
 	{
-		return deleteUploadNo;
+		return deleteBbsFileNo;
 	}
 
-	public void setDeleteUploadNo(String deleteUploadNo)
+	public void setDeleteBbsFileNo(String deleteBbsFileNo)
 	{
-		this.deleteUploadNo = deleteUploadNo;
+		this.deleteBbsFileNo = deleteBbsFileNo;
 	}
 
-	public boolean isThumbnailFlag()
+	public String getThumbnailYn()
 	{
-		return thumbnailFlag;
+		return thumbnailYn;
 	}
 
-	public void setThumbnailFlag(boolean thumbnailFlag)
+	public void setThumbnailYn(String thumbnailYn)
 	{
-		this.thumbnailFlag = thumbnailFlag;
+		this.thumbnailYn = thumbnailYn;
 	}
 
 	public int getThumbnailHeight()

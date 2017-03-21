@@ -42,7 +42,7 @@
 	
 	<form:hidden path="no" value="${bbsDto.no}" />
 	
-	<form:hidden path="deleteUploadNo" value="" />
+	<form:hidden path="deleteBbsFileNo" value="" />
 	<form:hidden path="userId" value="${userId}" />	
 	    
     <table class="cssBbsTable">	

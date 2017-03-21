@@ -1,45 +1,54 @@
 package com.home.app.bbs.dto;
 
-public class BbsFileDto 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+public class BbsFileDto
 {
 	private int no;
 	private int pno;
 	private int viewNo;
 	private int fileSize;
 	private int downCount;
-	
+
 	private String fileBase;
 	private String filePath;
-	private String fileName;	
+	private String fileName;
 	private String saveName;
 	private String editName;
-	
-	public int getNo() 
+
+	private String thumbnailYn;
+	private int thumbnailHeight;
+
+	private List<MultipartFile> fileNameList;
+
+	public int getNo()
 	{
 		return no;
 	}
-	
-	public void setNo(int no) 
+
+	public void setNo(int no)
 	{
 		this.no = no;
 	}
-	
-	public int getPno() 
+
+	public int getPno()
 	{
 		return pno;
 	}
-	
-	public void setPno(int pno) 
+
+	public void setPno(int pno)
 	{
 		this.pno = pno;
 	}
-	
-	public int getViewNo() 
+
+	public int getViewNo()
 	{
 		return viewNo;
 	}
 
-	public void setViewNo(int viewNo) 
+	public void setViewNo(int viewNo)
 	{
 		this.viewNo = viewNo;
 	}
@@ -48,22 +57,22 @@ public class BbsFileDto
 	{
 		return fileSize;
 	}
-	
-	public void setFileSize(int fileSize) 
+
+	public void setFileSize(int fileSize)
 	{
 		this.fileSize = fileSize;
 	}
-	
-	public int getDownCount() 
+
+	public int getDownCount()
 	{
 		return downCount;
 	}
-	
-	public void setDownCount(int downCount) 
+
+	public void setDownCount(int downCount)
 	{
 		this.downCount = downCount;
 	}
-	
+
 	public String getFileBase()
 	{
 		return fileBase;
@@ -74,44 +83,74 @@ public class BbsFileDto
 		this.fileBase = fileBase;
 	}
 
-	public String getFilePath() 
+	public String getFilePath()
 	{
 		return filePath;
 	}
-	
-	public void setFilePath(String filePath) 
+
+	public void setFilePath(String filePath)
 	{
 		this.filePath = filePath;
 	}
-	
-	public String getFileName() 
+
+	public String getFileName()
 	{
 		return fileName;
 	}
-	
-	public void setFileName(String fileName) 
+
+	public void setFileName(String fileName)
 	{
 		this.fileName = fileName;
 	}
-	
-	public String getSaveName() 
+
+	public String getSaveName()
 	{
 		return saveName;
 	}
-	
+
 	public void setSaveName(String saveName)
 	{
 		this.saveName = saveName;
 	}
 
-	public String getEditName() 
+	public String getEditName()
 	{
 		return editName;
 	}
 
-	public void setEditName(String editName) 
+	public void setEditName(String editName)
 	{
 		this.editName = editName;
+	}
+
+	public String getThumbnailYn()
+	{
+		return thumbnailYn;
+	}
+
+	public void setThumbnailYn(String thumbnailYn)
+	{
+		this.thumbnailYn = thumbnailYn;
+	}
+
+	public int getThumbnailHeight()
+	{
+		return thumbnailHeight;
+	}
+
+	public void setThumbnailHeight(int thumbnailHeight)
+	{
+		this.thumbnailHeight = thumbnailHeight;
+	}
+
+	public List<MultipartFile> getFileNameList()
+	{
+		return fileNameList;
+	}
+
+	public void setFileNameList(List<MultipartFile> fileNameList)
+	{
+		this.fileNameList = fileNameList;
 	}
 
 }

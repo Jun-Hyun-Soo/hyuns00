@@ -52,7 +52,10 @@
 		</td>
 		<td class="cssBbsListSubject">
 			<a href="${viewUrl}" title="${bbsDto.subject}">
-				<c:out value="${func.getReplyImage(bbsDto.depNo, 'List')}" escapeXml="false"></c:out>
+				<c:if test="${bbsDto.depNo > 0}">
+					<img src="/resources/images/icon/icon_dummy.gif" width="${15 * (bbsDto.depNo - 1)}" height="1" border="0" style="vertical-align: middle;" />
+					<img src="/resources/images/icon/icon_reply.gif" border="0" style="vertical-align: middle;" />
+				</c:if>
 				<c:out value="${bbsDto.subject}" escapeXml="true"></c:out>
 			</a>
 		</td>
@@ -72,7 +75,9 @@
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
 	</c:url>		
 
-	<c:if test="${bbsSearchDto.page > 1}"><a href="${listUrl}" title="1페이지">[처음]</a></c:if>
+	<c:if test="${bbsSearchDto.page > 1}">
+		<a href="${listUrl}" title="1페이지">[처음]</a>
+	</c:if>
 	<!-- 처음페이지 종료 -->
 	
 	<!-- -pageSize페이지 시작 -->

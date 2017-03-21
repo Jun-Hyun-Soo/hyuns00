@@ -9,38 +9,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.home.app.bbs.dto.BbsDto;
 import com.home.app.bbs.dto.BbsFileDto;
 
-public class Upload
-{
-	@Resource(name = "uploadPath")
-	private String uploadPath;
-
-	public static List<BbsFileDto> saveFileList(BbsDto bbsDto) throws Exception
+public class Upload 
+{			
+	public static List<BbsFileDto> saveFileList(BbsFileDto bbsFileDto) throws Exception
 	{
 		List<BbsFileDto> bbsFileDtoList = new ArrayList<BbsFileDto>();
 
+		String fileSaveBase = bbsFileDto.getFileBase();
+		String fileSavePath = bbsFileDto.getFilePath();
 		String fileSaveName = "";
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy\\MM\\dd\\");
 
 		String fileCurrPath = sdf.format(new Date());
 
-		File dirPath = new File(bbsDto.getUploadPathBase() + bbsDto.getUploadPathBbs(), fileCurrPath);
+		File dirPath = new File(fileSaveBase + fileSavePath, fileCurrPath);
 
-		if (!dirPath.exists())
-		{
-			dirPath.mkdirs();
-		}
+		if (!dirPath.exists()) dirPath.mkdirs();
 
-		List<MultipartFile> fileNameList = bbsDto.getFileNameList();
+		List<MultipartFile> fileNameList = bbsFileDto.getFileNameList();
 
 		if (fileNameList != null && fileNameList.size() > 0)
 		{
@@ -50,25 +44,26 @@ public class Upload
 				{
 					fileSaveName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
-					BbsFileDto bbsFileDto = new BbsFileDto();
+					BbsFileDto fileDto = new BbsFileDto();
 
-					bbsFileDto.setPno(bbsDto.getNo());
-					bbsFileDto.setFilePath(bbsDto.getUploadPathBbs() + fileCurrPath);
-					bbsFileDto.setFileName(file.getOriginalFilename());
-					bbsFileDto.setFileSize((int) file.getSize());
-					bbsFileDto.setSaveName(fileSaveName);
+					fileDto.setPno(bbsFileDto.getPno());
+					fileDto.setFileBase(fileSaveBase);
+					fileDto.setFilePath(fileSavePath + fileCurrPath);
+					fileDto.setFileName(file.getOriginalFilename());
+					fileDto.setFileSize((int) file.getSize());
+					fileDto.setSaveName(fileSaveName);
 
-					bbsFileDtoList.add(bbsFileDto);
+					bbsFileDtoList.add(fileDto);
 
-					file.transferTo(new File(bbsDto.getUploadPathBase() + bbsDto.getUploadPathBbs() + fileCurrPath, fileSaveName));
+					file.transferTo(new File(fileSaveBase + fileSavePath + fileCurrPath, fileSaveName));
 
 					String[] imgContentType = new String[] { "image/jpeg", "image/png", "image/gif", "image/tiff" };
 
-					if (bbsDto.isThumbnailFlag())
+					if (bbsFileDto.getThumbnailYn().equals("Y"))
 					{
 						if (Arrays.asList(imgContentType).contains(file.getContentType()))
 						{
-							createThumbnail(bbsDto.getUploadPathBase() + bbsDto.getUploadPathBbs() + fileCurrPath, fileSaveName, bbsDto.getThumbnailHeight());
+							createThumbnail(fileSaveBase + fileSavePath + fileCurrPath, fileSaveName, bbsFileDto.getThumbnailHeight());
 						}
 					}
 				}
@@ -115,4 +110,5 @@ public class Upload
 
 		return thumbnailName.substring(thumbnailName.length()).replace(File.separatorChar, '/');
 	}
+	
 }

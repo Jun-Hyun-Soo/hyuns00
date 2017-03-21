@@ -81,7 +81,7 @@ public class LoginController
 
 		loginDto.setUploadPathBase(uploadPathBase);
 		loginDto.setUploadPathLogin(uploadPathLogin);
-		loginDto.setThumbnailFlag(true);
+		loginDto.setThumbnailYn("Y");
 		loginDto.setThumbnailHeight(100);
 
 		loginService.insertJoin(loginDto);
@@ -119,7 +119,7 @@ public class LoginController
 
 		loginDto.setUploadPathBase(uploadPathBase);
 		loginDto.setUploadPathLogin(uploadPathLogin);
-		loginDto.setThumbnailFlag(true);
+		loginDto.setThumbnailYn("Y");
 		loginDto.setThumbnailHeight(100);
 
 		loginService.updateModify(loginDto);

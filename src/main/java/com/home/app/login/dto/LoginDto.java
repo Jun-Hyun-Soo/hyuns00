@@ -64,7 +64,7 @@ public class LoginDto implements UserDetails
 	private String uploadPathLogin;
 	private String deleteImageName;
 	
-	private boolean thumbnailFlag;
+	private String thumbnailYn;
 	private int thumbnailHeight;
 
 	public int getUserNo() {
@@ -319,12 +319,14 @@ public class LoginDto implements UserDetails
 		this.deleteImageName = deleteImageName;
 	}
 
-	public boolean isThumbnailFlag() {
-		return thumbnailFlag;
+	public String getThumbnailYn()
+	{
+		return thumbnailYn;
 	}
 
-	public void setThumbnailFlag(boolean thumbnailFlag) {
-		this.thumbnailFlag = thumbnailFlag;
+	public void setThumbnailYn(String thumbnailYn)
+	{
+		this.thumbnailYn = thumbnailYn;
 	}
 
 	public int getThumbnailHeight() {

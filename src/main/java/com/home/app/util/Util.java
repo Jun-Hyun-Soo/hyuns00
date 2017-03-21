@@ -1,5 +1,7 @@
 package com.home.app.util;
 
+import java.net.InetAddress;
+
 public class Util 
 {			
 	/**
@@ -59,6 +61,39 @@ public class Util
 	{		
 
 		return (!isEmpty(targetStr) && !isEmpty(equalsStr) && targetStr.equals(equalsStr)) ? true : false;
+	}
+	
+	/**
+	 * \r\n => <br /> 교체
+	 * @param strText
+	 * @return
+	 */
+	public static String replaceBR(String strText) throws Exception
+	{
+		String strReturn = "";
+
+		if (strText != null && !strText.equals(""))
+		{
+			strReturn = strText.replace("\r\n", "<br />");
+		}
+
+		return strReturn;
+	}
+	
+	/**
+	 * 아이피 가져오기
+	 * @param 
+	 * @return
+	 */
+	public static String getUserIp() throws Exception
+	{
+		String strReturn = "";
+
+		InetAddress address = InetAddress.getLocalHost();
+
+		strReturn = address.getHostAddress();
+
+		return strReturn;
 	}
 
 }

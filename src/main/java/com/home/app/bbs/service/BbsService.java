@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
+import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
+
 
 public interface BbsService 
 {
@@ -42,4 +44,11 @@ public interface BbsService
 	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception;
 
 	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception;
+	
+	public List<BbsFileDto> selectBbsFileList(int pno) throws Exception;
+
+	public BbsFileDto selectBbsFile(int no) throws Exception;
+
+	public int updateBbsFileDownCount(int no) throws Exception;
+
 }

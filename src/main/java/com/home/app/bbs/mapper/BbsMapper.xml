@@ -36,6 +36,19 @@
         <result property="regDate" 		column="REG_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />        
         <result property="content" 		column="CONTENT"		jdbcType="CLOB" 	javaType="java.lang.String" />
 	</resultMap>	
+
+    <resultMap id="bbsFileResultMap" type="com.home.app.bbs.dto.BbsFileDto">
+        <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="pno" 			column="PNO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="viewNo" 		column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="fileBase" 	column="FILE_BASE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="filePath" 	column="FILE_PATH"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="fileName" 	column="FILE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="saveName" 	column="SAVE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="editName" 	column="EDIT_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
+        <result property="fileSize" 	column="FILE_SIZE"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="downCount"	column="DOWN_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+	</resultMap>	
 	
 	<sql id="searchBbs">
 		<choose>
@@ -75,14 +88,6 @@
 		 WHERE 1 = 1 
 		   AND PRE_NO = #{no} 
     </select>
-
-	<select id="selectBbsCommentDeleteCount" parameterType="com.home.app.bbs.dto.BbsCommentDto" resultType="java.lang.Integer">
-		SELECT COUNT( *) TOTAL_COUNT
-		  FROM BBS_COMMENT 
-		 WHERE 1 = 1 
-		   AND PRE_NO = #{preNo} 
-		   AND DEP_NO <![CDATA[>]]> #{depNo}
-    </select>
     
 	<select id="selectBbsList" parameterType="com.home.app.bbs.dto.BbsSearchDto" resultMap="bbsResultMap">
 		SELECT B.NO, 
@@ -114,7 +119,7 @@
 		SELECT 
 		       /*+ INDEX_DESC(BBS, IX_BBS_NAME_NO) */ 
 		       B.NO, 
-		       ROW_NUMBER() OVER (ORDER BY B.NO DESC) AS VIEW_NO,
+		       ROW_NUMBER() OVER (ORDER BY B.SUB_NO DESC) AS VIEW_NO,
 		       B.SUB_NO,
 		       B.DEP_NO,
 		       B.COM_COUNT, 
@@ -207,41 +212,6 @@
 		  FROM BBS 
 		 WHERE NO = #{no} 
     </select>
-	
-    <select id="selectBbsCommentList" parameterType="java.lang.Integer" resultMap="bbsCommentResultMap">
-		SELECT NO, 
-		       PNO,	
-		       PRE_NO, 
-		       SUB_NO, 
-		       DEP_NO, 
-		       BBS_NAME, 
-		       USER_ID, 
-		       USER_PW, 
-		       USER_NAME, 
-		       USER_IP, 
-		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
-		       CONTENT 
-		  FROM BBS_COMMENT
-		 WHERE PNO = #{pno} 
-		 ORDER BY PRE_NO DESC, SUB_NO DESC
-    </select>
-	
-    <select id="selectBbsComment" parameterType="java.lang.Integer" resultMap="bbsCommentResultMap">
-		SELECT NO, 
-		       PNO,	
-		       PRE_NO, 
-		       SUB_NO, 
-		       DEP_NO, 
-		       BBS_NAME, 
-		       USER_ID, 
-		       USER_PW, 
-		       USER_NAME, 
-		       USER_IP, 
-		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
-		       CONTENT 
-		  FROM BBS_COMMENT
-		 WHERE NO = #{no} 
-    </select>
 
     <insert id="insertBbs" parameterType="com.home.app.bbs.dto.BbsDto">    	
 		INSERT INTO BBS 
@@ -329,6 +299,49 @@
 		  FROM BBS 
 		 WHERE SUB_NO <![CDATA[<]]> #{subNo}
     </insert>
+
+	<select id="selectBbsCommentDeleteCount" parameterType="com.home.app.bbs.dto.BbsCommentDto" resultType="java.lang.Integer">
+		SELECT COUNT( *) TOTAL_COUNT
+		  FROM BBS_COMMENT 
+		 WHERE 1 = 1 
+		   AND PRE_NO = #{preNo} 
+		   AND DEP_NO <![CDATA[>]]> #{depNo}
+    </select>
+	
+    <select id="selectBbsCommentList" parameterType="java.lang.Integer" resultMap="bbsCommentResultMap">
+		SELECT NO, 
+		       PNO,	
+		       PRE_NO, 
+		       SUB_NO, 
+		       DEP_NO, 
+		       BBS_NAME, 
+		       USER_ID, 
+		       USER_PW, 
+		       USER_NAME, 
+		       USER_IP, 
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
+		       CONTENT 
+		  FROM BBS_COMMENT
+		 WHERE PNO = #{pno} 
+		 ORDER BY PRE_NO DESC, SUB_NO DESC
+    </select>
+	
+    <select id="selectBbsComment" parameterType="java.lang.Integer" resultMap="bbsCommentResultMap">
+		SELECT NO, 
+		       PNO,	
+		       PRE_NO, 
+		       SUB_NO, 
+		       DEP_NO, 
+		       BBS_NAME, 
+		       USER_ID, 
+		       USER_PW, 
+		       USER_NAME, 
+		       USER_IP, 
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
+		       CONTENT 
+		  FROM BBS_COMMENT
+		 WHERE NO = #{no} 
+    </select>
 
     <insert id="insertBbsComment" parameterType="com.home.app.bbs.dto.BbsCommentDto">    	
 		INSERT INTO BBS_COMMENT 
@@ -469,6 +482,87 @@
 
     <delete id="deleteBbsComment" parameterType="java.lang.Integer">
 		DELETE FROM BBS_COMMENT
+		 WHERE NO = #{no} 
+    </delete>
+	
+    <select id="selectBbsFileList" parameterType="java.lang.Integer" resultMap="bbsFileResultMap">
+		SELECT ROWNUM VIEW_NO, 
+		       NO, 
+		       PNO,	
+		       FILE_BASE,
+		       FILE_PATH, 
+		       FILE_NAME, 
+		       '/' || FILE_NAME AS EDIT_NAME, 
+		       SAVE_NAME, 
+		       FILE_SIZE, 
+		       DOWN_COUNT 
+		  FROM BBS_FILE 
+		 WHERE PNO = #{pno} 
+		 ORDER BY NO ASC
+    </select>
+		
+    <select id="selectBbsFile" parameterType="java.lang.Integer" resultMap="bbsFileResultMap">
+		SELECT NO, 
+		       PNO,	
+		       FILE_BASE,
+		       FILE_PATH, 
+		       FILE_NAME, 
+		       SAVE_NAME, 
+		       FILE_SIZE, 
+		       DOWN_COUNT 
+		  FROM BBS_FILE 
+		 WHERE NO = #{no} 
+    </select>
+
+    <insert id="insertBbsFile" parameterType="java.util.List">    	
+		INSERT 
+		  INTO BBS_FILE 
+		       ( 
+		           NO, 
+		           PNO, 
+		           FILE_BASE,
+		           FILE_PATH,
+		           FILE_NAME, 
+		           SAVE_NAME, 
+		           FILE_SIZE, 
+		           DOWN_COUNT 
+		       ) 
+		SELECT BBS_FILE_NO.NEXTVAL AS NO, 
+		       A.PNO,
+		       A.FILE_BASE,
+		       A.FILE_PATH,
+		       A.FILE_NAME,
+		       A.SAVE_NAME,
+		       A.FILE_SIZE,
+		       A.DOWN_COUNT
+		  FROM 
+		       ( 
+			<foreach item="bbsFileDto" index="index" collection="list" open="" separator=" UNION ALL " close="">		  
+		       SELECT #{bbsFileDto.pno} AS PNO, 
+		              #{bbsFileDto.fileBase} AS FILE_BASE, 
+		              #{bbsFileDto.filePath} AS FILE_PATH, 
+		              #{bbsFileDto.fileName} AS FILE_NAME, 
+		              #{bbsFileDto.saveName} AS SAVE_NAME, 
+		              #{bbsFileDto.fileSize} AS FILE_SIZE, 
+		              0 DOWN_COUNT 
+		         FROM DUAL 
+			</foreach>		         
+		       ) A
+    </insert>
+
+    <update id="updateBbsFileDownCount" parameterType="java.lang.Integer">
+		UPDATE BBS_FILE
+		   SET DOWN_COUNT = DOWN_COUNT + 1		
+		 WHERE NO = #{no} 
+    </update>
+
+    <delete id="deleteBbsFileList" parameterType="java.lang.Integer">
+		DELETE FROM BBS_FILE
+		 WHERE PNO = #{pno} 
+    </delete>
+
+    <delete id="deleteBbsFile" parameterType="java.lang.Integer">
+		DELETE FROM BBS_FILE
 		 WHERE NO = #{no} 
     </delete>
 </mapper>

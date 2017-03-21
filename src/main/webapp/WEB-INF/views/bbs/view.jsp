@@ -129,7 +129,9 @@
 			<table id="tblBbsViewCommentTable${bbsCommentDto.no}" class="cssBbsViewCommentTable" style="margin-left: ${marginLeft}px; width: ${tableWidth}px;">
 				<tr>
 					<th id="thBbsViewCommentTableUserName${bbsCommentDto.no}" class="cssBbsViewCommentTableUserName">
-						<c:out value="${func.getReplyImage(bbsCommentDto.depNo, 'Comment')}" escapeXml="false"></c:out>
+						<c:if test="${bbsCommentDto.depNo > 0}">
+							<img src="/resources/images/icon/icon_reply.gif" border="0" style="float: left; vertical-align: middle; margin-top: 2px;" />
+						</c:if>
 						<c:out value="${bbsCommentDto.userName}" escapeXml="true"></c:out>
 					</th>
 					<th id="thBbsViewCommentTableRegDate${bbsCommentDto.no}" class="cssBbsViewCommentTableRegDate"><c:out value="${bbsCommentDto.regDate}" escapeXml="true"></c:out></th>
@@ -140,7 +142,7 @@
 					</th>
 				</tr>
 				<tr>					
-					<td id="tdBbsViewCommentTableContent${bbsCommentDto.no}" class="cssBbsViewCommentTableContent" colspan="3"><c:out value="${func.replaceBR(bbsCommentDto.content)}" escapeXml="false"></c:out></td>
+					<td id="tdBbsViewCommentTableContent${bbsCommentDto.no}" class="cssBbsViewCommentTableContent" colspan="3"><c:out value="${util.replaceBR(bbsCommentDto.content)}" escapeXml="false"></c:out></td>
 		 		</tr>					
 			</table>
 			

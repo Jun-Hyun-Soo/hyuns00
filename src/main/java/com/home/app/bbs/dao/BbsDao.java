@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.home.app.bbs.dto.BbsCommentDto;
 import com.home.app.bbs.dto.BbsDto;
+import com.home.app.bbs.dto.BbsFileDto;
 import com.home.app.bbs.dto.BbsSearchDto;
 
 public interface BbsDao 
@@ -43,4 +44,16 @@ public interface BbsDao
 	
 	int deleteBbsCommentList(int pno) throws Exception;
 	int deleteBbsComment(int no) throws Exception;
+	
+	List<BbsFileDto> selectBbsFileList(int pno) throws Exception;
+	
+	BbsFileDto selectBbsFile(int no) throws Exception;
+	
+	int insertBbsFile(List<BbsFileDto> bbsFileDtoList) throws Exception;
+	
+	int updateBbsFileDownCount(int no) throws Exception;
+	
+	int deleteBbsFileList(int pno) throws Exception;
+	int deleteBbsFile(int no) throws Exception;
+
 }
