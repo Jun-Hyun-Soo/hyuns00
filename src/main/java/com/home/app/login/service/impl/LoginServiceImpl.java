@@ -2,6 +2,7 @@ package com.home.app.login.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,6 +40,11 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 		return loginDao.selectUserId(userId);
 	}
 
+	public LoginDto selectUserEmail(String userEmail) throws Exception
+	{
+		return loginDao.selectUserEmail(userEmail);
+	}
+
 	public int insertJoin(LoginDto loginDto) throws Exception
 	{
 		return loginDao.insertJoin(Upload.saveFileList(loginDto));
@@ -56,7 +62,7 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 
 		try
 		{
-			loginDto = loginDao.selectUserId(userId);
+			loginDto = this.selectUserId(userId);
 		}
 		catch (Exception e)
 		{
@@ -65,15 +71,13 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 
 		if (loginDto != null)
 		{
-			// UserDetails userDetails = new User(loginDto.getUserId(),
-			// loginDto.getUserPw(), loginDto.getAuthorities());
 			CustomUserDetails customUserDetails = new CustomUserDetails(loginDto.getUserId(), loginDto.getUserPw(), loginDto.getAuthorities(), loginDto);
 
 			return customUserDetails;
 		}
 		else
 		{
-			throw new UsernameNotFoundException("'" + userId + "' 를 찾을수 없습니다!");
+			throw new BadCredentialsException("'" + userId + "' 를 찾을 수 없습니다!");
 		}
 	}
 

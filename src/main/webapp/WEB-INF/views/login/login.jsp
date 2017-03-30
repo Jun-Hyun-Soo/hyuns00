@@ -7,6 +7,7 @@
 <script type="text/javascript" src="/resources/js/login/login.js"></script>	
 
 <c:url value="/login/logOk" var="loginUrl"></c:url>
+<c:url value="/login/search" var="searchUrl"></c:url>
 <c:url value="/login/join" var="joinUrl"></c:url>
 
 <form:form commandName="loginDto" method="post" action="${loginUrl}">
@@ -43,6 +44,7 @@
     
     <div class="cssLoginButton">
 	    <input type="image" id="imgBtnLogin" onclick="imgBtnLogin_click(form); return false;" /> 
+	    <input type="image" id="imgBtnSearch" onclick="location.href='${searchUrl}'; return false;" /> 
 	    <input type="image" id="imgBtnJoin" onclick="location.href='${joinUrl}'; return false;" /> 
     </div>
 

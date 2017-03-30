@@ -30,19 +30,9 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.selectBbsDeleteCount(no);
 	}
 
-	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);
-	}
-
 	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception
 	{
 		return bbsDao.selectBbsList(bbsSearchDto);
-	}
-
-	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception
-	{
-		return bbsDao.selectBbsCommentList(pno);
 	}
 
 	public BbsDto selectBbsView(int no) throws Exception
@@ -65,11 +55,6 @@ public class BbsServiceImpl implements BbsService
 	public BbsDto selectBbsDelete(int no) throws Exception
 	{
 		return bbsDao.selectBbsDelete(no);
-	}
-
-	public BbsCommentDto selectBbsComment(int no) throws Exception
-	{
-		return bbsDao.selectBbsComment(no);
 	}
 
 	public int insertBbs(BbsDto bbsDto) throws Exception
@@ -112,24 +97,6 @@ public class BbsServiceImpl implements BbsService
 		return intReturn;
 	}
 
-	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		int intReturn = bbsDao.insertBbsComment(bbsCommentDto);
-
-		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
-
-		return intReturn;
-	}
-
-	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		int intReturn = bbsDao.insertBbsCommentReply(bbsCommentDto);
-
-		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
-
-		return intReturn;
-	}
-
 	public int updateBbs(BbsDto bbsDto) throws Exception
 	{
 		int intReturn = bbsDao.updateBbs(bbsDto);
@@ -166,16 +133,6 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.updateBbsDelete(bbsDto);
 	}
 
-	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		return bbsDao.updateBbsComment(bbsCommentDto);
-	}
-
-	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
-	{
-		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
-	}
-
 	public int updateBbsViewCount(int no) throws Exception
 	{
 		return bbsDao.updateBbsViewCount(no);
@@ -201,6 +158,49 @@ public class BbsServiceImpl implements BbsService
 		bbsDao.deleteBbsCommentList(no);
 
 		return bbsDao.deleteBbs(no);
+	}
+
+	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);
+	}
+
+	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception
+	{
+		return bbsDao.selectBbsCommentList(pno);
+	}
+
+	public BbsCommentDto selectBbsComment(int no) throws Exception
+	{
+		return bbsDao.selectBbsComment(no);
+	}
+
+	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		int intReturn = bbsDao.insertBbsComment(bbsCommentDto);
+
+		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
+
+		return intReturn;
+	}
+
+	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		int intReturn = bbsDao.insertBbsCommentReply(bbsCommentDto);
+
+		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
+
+		return intReturn;
+	}
+
+	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		return bbsDao.updateBbsComment(bbsCommentDto);
+	}
+
+	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
+	{
+		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
 	}
 
 	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception

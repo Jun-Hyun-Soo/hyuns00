@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +28,7 @@ public class LoginDto implements UserDetails
 	//@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
 	private String userPw2;
 
-	@NotNull @Size(min = 2, message = "성명을 입력해 주세요!")
+	//@NotNull @Size(min = 2, message = "성명을 입력해 주세요!")
 	private String userName;
 	
 	private String userRole;	
@@ -39,8 +37,6 @@ public class LoginDto implements UserDetails
 	private String imagePath;
 	private String imageName;
 	private String imageUrl;
-	private String question;
-	private String answer;
 	
 	private String joinDate;
 	private String lastDate;
@@ -169,22 +165,6 @@ public class LoginDto implements UserDetails
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
 	}
 
 	public String getJoinDate() {

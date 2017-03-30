@@ -50,6 +50,14 @@
 	vertical-align: middle;	
 }
 
+#imgBtnSearch 		
+{  
+	background-image: url("/resources/images/button/btn_search_idpw.gif");
+	background-repeat: no-repeat;
+	width: 140px;
+	height: 20px;
+	vertical-align: middle;	
+}
 
 #imgBtnJoin 		
 {  

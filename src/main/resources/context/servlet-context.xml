@@ -12,9 +12,14 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	
-	<!-- #. DataBase Properties -->
+	<!-- #. DataBase, JavaMail Properties -->
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
-		<beans:property name="location" value="classpath:/properties/fileupload.properties"></beans:property>
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>classpath:/properties/fileupload.properties</beans:value>
+				<beans:value>classpath:/properties/javamail.properties</beans:value>
+			</beans:list>
+		</beans:property>
 	</beans:bean>	
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -30,7 +35,7 @@
 	
 	<!-- #. BeanNameViewResolver -->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<beans:property name="order" value="0"/>
+		<beans:property name="order" value="0" />
 	</beans:bean>		
 	
 	<!-- #. tilesViewResolver -->
@@ -47,8 +52,8 @@
 	<!-- #. FileUpload multipartResolver -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="maxUploadSize" value="10485760" />
-        <beans:property name="maxInMemorySize" value="5242880"/>        
-        <beans:property name="defaultEncoding" value="utf-8"/>
+        <beans:property name="maxInMemorySize" value="5242880" />        
+        <beans:property name="defaultEncoding" value="utf-8" />
     </beans:bean>
 
 	<!-- #. FileUpload uploadPath -->
@@ -73,7 +78,22 @@
 	
 	<!-- #. jacksonMessageConverter -->
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />	
-	 
+	
+	<!-- #. JavaMailSenderImpl -->
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="${mail.host}" />
+		<beans:property name="port" value="${mail.port}" />
+		<beans:property name="defaultEncoding" value="${mail.defaultEncoding}" />
+		<beans:property name="username" value="${mail.username}" />
+		<beans:property name="password" value="${mail.password}" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.smtps.auth">true</beans:prop>
+			<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
 	<!-- #. Component Scan -->
 	<context:component-scan base-package="com.home.app" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

@@ -281,30 +281,6 @@ function imgBtnJoin_click(form)
 		return false;
 	}
 
-	if (checkEmpty(form.question.value))
-	{
-		createDialog({
-			"title" : "경고",
-			"alertMsg" : "보안질문을 입력해 주세요!"
-		});
-
-		form.question.focus();
-		
-		return false;
-	}
-
-	if (checkEmpty(form.answer.value))
-	{
-		createDialog({
-			"title" : "경고",
-			"alertMsg" : "보안대답을 입력해 주세요!"
-		});
-
-		form.answer.focus();
-		
-		return false;
-	}
-
 	if (form.userIdYn.value == "N")
 	{
 		createDialog({
@@ -412,26 +388,22 @@ function imgBtnModify_click(form)
 		}
 	}
 
-	if (checkEmpty(form.question.value))
+	form.submit();
+}
+
+//***********************************************************************************************************
+//아이디 비밀번호 찾기하는 부분
+//***********************************************************************************************************
+function imgBtnSearch_click(form)
+{
+	if (!checkEmail(form.userEmail.value))
 	{
 		createDialog({
 			"title" : "경고",
-			"alertMsg" : "보안질문을 입력해 주세요!"
+			"alertMsg" : "이메일을 입력해 주세요!"
 		});
 
-		form.question.focus();
-		
-		return false;
-	}
-
-	if (checkEmpty(form.answer.value))
-	{
-		createDialog({
-			"title" : "경고",
-			"alertMsg" : "보안대답을 입력해 주세요!"
-		});
-
-		form.answer.focus();
+		form.userEmail.focus();
 		
 		return false;
 	}

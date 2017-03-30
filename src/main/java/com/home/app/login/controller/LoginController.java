@@ -1,9 +1,13 @@
 package com.home.app.login.controller;
 
 import javax.annotation.Resource;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +26,9 @@ public class LoginController
 {
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
+
+	@Autowired
+	JavaMailSender mailSender;
 
 	@Autowired
 	private LoginService loginService;
@@ -145,6 +152,43 @@ public class LoginController
 	public @ResponseBody int userEmailYn(LoginDto loginDto) throws Exception
 	{
 		return loginService.selectUserEmailYn(loginDto.getUserEmail());
+	}
+
+	@RequestMapping(value = "/search", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	public String search(Model model) throws Exception
+	{
+		model.addAttribute("loginDto", new LoginDto());
+
+		return "/login/search";
+	}
+
+	@RequestMapping(value = "/searchOk", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String searchOk(RedirectAttributes redirectAttributes, @Valid LoginDto loginDto, BindingResult result, Model model) throws Exception
+	{
+		if (result.hasErrors())
+		{
+			return "/login/search";
+		}
+
+		loginDto = loginService.selectUserEmail(loginDto.getUserEmail());
+		
+		int tmpPasswd = (int)(Math.random() * (999999 - 111111 + 1));
+		
+		loginDto.setUserPw(bcryptPasswordEncoder.encode(String.valueOf(tmpPasswd)));
+		
+		loginService.updateModify(loginDto);
+		
+		MimeMessage msg = mailSender.createMimeMessage();	
+		
+		msg.setSubject("http://hyuns00.iptime.org 에서 아이디와 임시 비밀번호를 보내드립니다.");
+		msg.setText("아이디 : " + loginDto.getUserId() + ", 비밀번호 : " + tmpPasswd + "<br/><br/>임시 비밀번호이니 로그인 후에 비밀번호를 변경해 주세요.", "utf-8", "html");
+		msg.setRecipient(RecipientType.TO, new InternetAddress(loginDto.getUserEmail()));
+		
+		mailSender.send(msg);		
+
+		redirectAttributes.addFlashAttribute("alertMsg", "등록된 이메일로 아이디와\n 임시 비밀번호를 보내드렸습니다.");
+
+		return "redirect:/login/login";
 	}
 
 }

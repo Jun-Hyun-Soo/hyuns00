@@ -3,16 +3,15 @@
 <html>
 <head>
 	<title><tiles:getAsString name="title" /></title>
-	<link rel="stylesheet" href="/resources/css/jquery/jquery-ui.css"></link>
+	<link rel="stylesheet" href="/resources/css/jquery/jquery-ui.min.css"></link>
 	<link rel="stylesheet" href="/resources/css/jquery/themes/default/style.css"></link>
 	<link rel="stylesheet" href="/resources/css/jquery/multiple-select.css"></link>
 	<link rel="stylesheet" href="/resources/css/jquery/jquery-ui.custom.css"></link>
 	<link rel="stylesheet" href="/resources/css/layouts/default/layout.css"></link>
 	<link rel="stylesheet" href="/resources/css/common/common.css"></link>
-	<script type="text/javascript" src="/resources/js/jquery/jquery-3.0.0.js"></script>
-	<script type="text/javascript" src="/resources/js/jquery/jquery-migrate-3.0.0.js"></script>
+	<script type="text/javascript" src="/resources/js/jquery/jquery-3.2.0.js"></script>
 	<script type="text/javascript" src="/resources/js/jquery/jquery-ui.js"></script>
-	<script type="text/javascript" src="/resources/js/jquery/jstree.js"></script>
+	<script type="text/javascript" src="/resources/js/jquery/jstree.min.js"></script>
 	<script type="text/javascript" src="/resources/js/jquery/multiple-select.js"></script>
 	<script type="text/javascript" src="/resources/js/function/function.js"></script>
 	<script type="text/javascript" src="/resources/js/common/common.js"></script>

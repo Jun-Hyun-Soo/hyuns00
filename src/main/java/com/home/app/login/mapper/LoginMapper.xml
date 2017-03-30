@@ -14,8 +14,6 @@
         <result property="currUserNick"		column="USER_NICK"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="currImagePath"	column="IMAGE_PATH"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="currImageName"	column="IMAGE_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="question"			column="QUESTION"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="answer"			column="ANSWER"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="joinDate"			column="JOIN_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="lastDate"			column="LAST_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="exitDate"			column="EXIT_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
@@ -51,8 +49,6 @@
 		       USER_NICK,
 		       IMAGE_PATH,
 		       IMAGE_NAME,
-		       QUESTION,
-		       ANSWER,
 		       JOIN_DATE,
 		       LAST_DATE,
 		       EXIT_DATE,
@@ -61,6 +57,26 @@
 		  FROM LOGIN
 		 WHERE 1 = 1
 		   AND USER_ID = #{userId}
+    </select>
+	
+    <select id="selectUserEmail" parameterType="java.lang.String" resultMap="loginResultMap">
+		SELECT USER_NO,
+		       USER_ID,
+		       USER_PW,
+		       USER_NAME,
+		       USER_ROLE,
+		       USER_EMAIL,
+		       USER_NICK,
+		       IMAGE_PATH,
+		       IMAGE_NAME,
+		       JOIN_DATE,
+		       LAST_DATE,
+		       EXIT_DATE,
+		       EXIT_YN,
+		       VISIT_COUNT
+		  FROM LOGIN
+		 WHERE 1 = 1
+		   AND USER_EMAIL = #{userEmail}
     </select>
 
     <insert id="insertJoin" parameterType="com.home.app.login.dto.LoginDto">    	
@@ -75,8 +91,6 @@
 		           USER_NICK,
 		           IMAGE_PATH,
 		           IMAGE_NAME,
-		           QUESTION,
-		           ANSWER,
 		           JOIN_DATE,
 		           LAST_DATE,
 		           EXIT_DATE,
@@ -94,8 +108,6 @@
 		           #{userNick},
 		           #{imagePath},
 		           #{imageName},
-		           #{question},
-		           #{answer},
 		           SYSDATE,
 		           NULL,
 		           NULL,
@@ -109,18 +121,16 @@
 
     <update id="updateModify" parameterType="com.home.app.login.dto.LoginDto">
 		UPDATE LOGIN 
-		   SET USER_PW = #{userPw}, 
-		       USER_NAME = #{userName}, 
+		   SET USER_NAME = #{userName}, 
 		       USER_EMAIL = #{userEmail}, 
-		       USER_NICK = #{userNick}, 
+		       USER_NICK = #{userNick},
 			<if test="!@com.home.app.util.Util@isEmpty(imagePath)">
 		       IMAGE_PATH = #{imagePath}, 
 			</if>
 			<if test="!@com.home.app.util.Util@isEmpty(imageName)">
 		       IMAGE_NAME = #{imageName}, 
 			</if>
-		       QUESTION = #{question},
-		       ANSWER = #{answer}
+		       USER_PW = #{userPw}
 		 WHERE USER_ID = #{userId}  
     </update>
 

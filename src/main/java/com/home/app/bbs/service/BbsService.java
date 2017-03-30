@@ -50,5 +50,4 @@ public interface BbsService
 	public BbsFileDto selectBbsFile(int no) throws Exception;
 
 	public int updateBbsFileDownCount(int no) throws Exception;
-
 }

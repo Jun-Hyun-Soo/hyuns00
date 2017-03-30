@@ -79,16 +79,6 @@
 		    </td>
 	    </tr>
 	    <tr>
-		    <th>* 보안질문 :</th>
-		    <td>
-		        <form:input path="question" maxlength="100" />
-		    </td>
-		    <th>* 보안대답 :</th>
-		    <td>
-		        <form:input path="answer" maxlength="100" />
-		    </td>
-	    </tr>
-	    <tr>
 		    <th>* 이미지 :</th>
 		    <td colspan="3">
 		    	<img src="" id="imgPreview" /><br />

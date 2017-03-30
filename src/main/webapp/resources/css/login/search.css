@@ -30,15 +30,7 @@
     border-bottom: 1px solid #d1d1d1;
 }
 
-#userId 		{ width: 150px; }
-#userName 		{ width: 150px; }
-#userPw 		{ width: 150px; }
-#userPw1 		{ width: 150px; }
-#userPw2 		{ width: 150px; }
-#userNick 		{ width: 90px; }
-#userEmail		{ width: 90px; }
-#imageUrl 		{ width: 360px; }
-#imgPreview		{ width: 80px; height: 80px; border: 1px solid #f3f3f3; }
+#userEmail		{ width: 240px; }
 
 .cssLoginButton
 {
@@ -46,24 +38,6 @@
     height: 50px;
     text-align: center;
 	padding-top: 20px;    
-}
-
-#imgBtnUserIdYn	
-{  
-	background-image: url("/resources/images/button/btn_duplicate.gif");
-	background-repeat: no-repeat;
-	width: 55px;
-	height: 21px;
-	vertical-align: top;	
-}
-
-#imgBtnUserNickYn	
-{  
-	background-image: url("/resources/images/button/btn_duplicate.gif");
-	background-repeat: no-repeat;
-	width: 55px;
-	height: 21px;
-	vertical-align: top;	
 }
 
 #imgBtnUserEmailYn	
@@ -84,12 +58,12 @@
 	vertical-align: middle;	
 }
 
-#imgBtnModify 		
+#imgBtnSearch 		
 {  
-	background-image: url("/resources/images/button/btn_login_modify.gif");
+	background-image: url("/resources/images/button/btn_search_idpw.gif");
 	background-repeat: no-repeat;
-	width: 85px;
-	height: 21px;
+	width: 140px;
+	height: 20px;
 	vertical-align: middle;	
 }
 

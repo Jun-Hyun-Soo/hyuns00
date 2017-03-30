@@ -5,6 +5,7 @@ import com.home.app.login.dto.LoginDto;
 public interface LoginDao
 {
 	LoginDto selectUserId(String userId) throws Exception;
+	LoginDto selectUserEmail(String userEmail) throws Exception;
 	
 	int selectUserIdYn(String userId) throws Exception;
 	int selectUserEmailYn(String userEmail) throws Exception;

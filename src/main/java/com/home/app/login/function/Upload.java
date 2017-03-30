@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
@@ -57,8 +56,6 @@ public class Upload
 				}
 			}
 		}
-		
-		deleteFile(loginDto);
 		
 		return loginDto;
 	}

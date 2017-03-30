@@ -41,6 +41,13 @@ public class LoginDaoImpl implements LoginDao
 		return loginDao.selectUserId(userId);
 	}
 
+	public LoginDto selectUserEmail(String userEmail) throws Exception
+	{	
+		LoginDao loginDao = sqlSessionTemplate.getMapper(LoginDao.class);
+		
+		return loginDao.selectUserEmail(userEmail);
+	}
+
 	public int insertJoin(LoginDto loginDto) throws Exception
 	{
 		LoginDao loginDao = sqlSessionTemplate.getMapper(LoginDao.class);

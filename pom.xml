@@ -9,10 +9,10 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.8</java-version>
-		<org.springframework-version>4.3.5.RELEASE</org.springframework-version>
-		<org.springframework.security-version>4.2.1.RELEASE</org.springframework.security-version>
+		<org.springframework-version>4.3.7.RELEASE</org.springframework-version>
+		<org.springframework.security-version>4.2.2.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.8.10</org.aspectj-version>
-		<org.slf4j-version>1.7.22</org.slf4j-version>
+		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 
 	<!-- #. Oracle JDBC Driver Location -->
@@ -63,6 +63,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
 		</dependency>
 		
 		<!-- #. Spring Security -->
@@ -207,6 +213,13 @@
 			<artifactId>imgscalr-lib</artifactId>
 			<version>4.2</version>
 		</dependency>        
+		
+		<!-- #. Java Mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
 		
 		<!-- Logging -->
 		<dependency>
