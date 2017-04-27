@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.home.app.login.dto.LoginDto;
 
-public class Upload
-{
-	public static LoginDto saveFileList(LoginDto loginDto) throws Exception
-	{
+public class Upload {
+	public static LoginDto saveFileList(LoginDto loginDto) throws Exception {
 		String fileSaveName = "";
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy\\MM\\dd\\");
@@ -31,12 +29,9 @@ public class Upload
 
 		List<MultipartFile> fileNameList = loginDto.getFileNameList();
 
-		if (fileNameList != null && fileNameList.size() > 0)
-		{
-			for (MultipartFile file : fileNameList)
-			{
-				if (file.getSize() > 0)
-				{
+		if (fileNameList != null && fileNameList.size() > 0) {
+			for (MultipartFile file : fileNameList) {
+				if (file.getSize() > 0) {
 					fileSaveName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
 					loginDto.setImagePath(loginDto.getUploadPathLogin() + fileCurrPath);
@@ -46,22 +41,19 @@ public class Upload
 
 					String[] imgContentType = new String[] { "image/jpeg", "image/png", "image/gif", "image/tiff" };
 
-					if (loginDto.getThumbnailYn().equals("Y"))
-					{
-						if (Arrays.asList(imgContentType).contains(file.getContentType()))
-						{
+					if (loginDto.getThumbnailYn().equals("Y")) {
+						if (Arrays.asList(imgContentType).contains(file.getContentType())) {
 							createThumbnail(loginDto.getUploadPathBase() + loginDto.getUploadPathLogin() + fileCurrPath, fileSaveName, loginDto.getThumbnailHeight());
 						}
 					}
 				}
 			}
 		}
-		
+
 		return loginDto;
 	}
 
-	public static void deleteFile(LoginDto loginDto) throws Exception
-	{
+	public static void deleteFile(LoginDto loginDto) throws Exception {
 		File deleteFile = new File(loginDto.getUploadPathBase() + loginDto.getCurrImagePath(), loginDto.getCurrImageName());
 		File deleteThumb = new File(loginDto.getUploadPathBase() + loginDto.getCurrImagePath(), "s_" + loginDto.getCurrImageName());
 
@@ -69,8 +61,7 @@ public class Upload
 		if (deleteThumb.exists()) deleteThumb.delete();
 	}
 
-	public static void createThumbnail(String uploadPath, String fileName, int thumbnailHeight) throws Exception
-	{
+	public static void createThumbnail(String uploadPath, String fileName, int thumbnailHeight) throws Exception {
 		BufferedImage sourceImage = ImageIO.read(new File(uploadPath, fileName));
 
 		BufferedImage destImage = Scalr.resize(sourceImage, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, thumbnailHeight);

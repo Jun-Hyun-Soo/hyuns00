@@ -12,6 +12,7 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 
 <sec:authorize access="isAnonymous()">
@@ -39,6 +40,7 @@
 	<form:hidden path="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<form:hidden path="page" value="${bbsSearchDto.page}" />
 	<form:hidden path="listSize" value="${bbsSearchDto.listSize}" />
+	<form:hidden path="pageSize" value="${bbsSearchDto.pageSize}" />
 	
 	<form:hidden path="no" value="${bbsDto.no}" />
 	
@@ -79,8 +81,8 @@
 	    <tr>
 		    <th>* 공지글 :</th>
 		    <td colspan="3">
-		    	<form:radiobutton path="noticeYn" value="Y" />예
-				<form:radiobutton path="noticeYn" value="N" />아니오
+		    	<form:radiobutton path="noticeYn" label="예" value="Y" />
+				<form:radiobutton path="noticeYn" label="아니오" value="N" />
 		    </td>
 	    </tr>
 	    <tr>
@@ -89,7 +91,7 @@
 		    	<span id="spnFileName0">
 		    		<input type="file" id="fileName_0" name="fileNameList" class="cssFileName" onchange="fileName_change(this, 0); return false;" />
 		    	</span>
-		    	<span id="spnNextFileName_1"></span><input type="image" id="imgBtnDeleteFileName" onclick="imgBtnDeleteFileName_click(); return false;" /><br>
+		    	<span id="spnNextFileName_1"></span><input type="image" id="imgBtnDeleteFileName" value="" onclick="imgBtnDeleteFileName_click(); return false;" /><br>
 		    	<form:select path="selectFileName" multiple="multiple" onclick="selectFileName_click(); return false;">
 		    		<form:options items="${bbsFileDtoList}" itemValue="no" itemLabel="editName" />
 		    	</form:select>
@@ -98,8 +100,8 @@
     </table>
     
     <div class="cssBbsButton">
-	    <input type="image" id="imgBtnEdit" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}, 'Edit'); return false;" /> 
-	    <input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
+	    <input type="image" id="imgBtnEdit" value="" onclick="imgBtnBbsWrite_click(form, ${isAuthenticated}, 'Edit'); return false;" /> 
+	    <input type="image" id="imgBtnList" value="" onclick="location.href='${listUrl}'; return false;" />
     </div>
     
 </form:form>

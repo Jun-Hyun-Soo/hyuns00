@@ -37,15 +37,14 @@
 		    <td>
 		    	<form:checkbox path="rememberMe" id="rememberMe" /> <label for="rememberMe">자동 로그인</label>
 		    </td>
-		    <td>
-		    </td>
+		    <td></td>
 	    </tr>
     </table>
     
     <div class="cssLoginButton">
-	    <input type="image" id="imgBtnLogin" onclick="imgBtnLogin_click(form); return false;" /> 
-	    <input type="image" id="imgBtnSearch" onclick="location.href='${searchUrl}'; return false;" /> 
-	    <input type="image" id="imgBtnJoin" onclick="location.href='${joinUrl}'; return false;" /> 
+	    <input type="image" id="imgBtnLogin" value="" onclick="imgBtnLogin_click(form); return false;" /> 
+	    <input type="image" id="imgBtnSearch" value="" onclick="location.href='${searchUrl}'; return false;" /> 
+	    <input type="image" id="imgBtnJoin" value="" onclick="location.href='${joinUrl}'; return false;" /> 
     </div>
 
 </form:form>

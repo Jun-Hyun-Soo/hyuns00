@@ -1,0 +1,86 @@
+.cssLoginButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#imgBtnList 		
+{  
+	background-image: url("/resources/images/button/btn_list.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnWrite 		
+{  
+	background-image: url("/resources/images/button/btn_write.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnEdit 		
+{  
+	background-image: url("/resources/images/button/btn_edit.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnDelete 		
+{  
+	background-image: url("/resources/images/button/btn_delete.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#tblLoginView
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: auto;
+}
+
+#tblLoginView caption
+{
+	font-size: 15px;
+    text-align: left;
+    border-bottom: 2px solid #d1d1d1;
+    padding-top: 5px;
+}
+
+#tblLoginView th
+{
+	font-size: 12px;
+    width: 85px;
+    height: 25px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#tblLoginView td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssLoginView
+{
+	font-size: 12px;
+	font-family: ����;
+	white-space: pre-wrap;
+	line-height: normal;
+	min-height: 150px;
+	margin-top: 10px;
+}

@@ -18,6 +18,7 @@
 
 <c:url value="/login/login" var="loginUrl"></c:url>
 <c:url value="/login/modifyOk" var="modifyUrl"></c:url>
+<c:url value="/login/exit/${loginDto.userId}" var="exitUrl"></c:url>
 
 <form:form commandName="loginDto" method="post" enctype="multipart/form-data" action="${modifyUrl}">
 	<spring:bind path="*">
@@ -70,12 +71,12 @@
 		    <th>* 닉네임 :</th>
 		    <td>
 		        <form:input path="userNick" maxlength="20" />
-		        <input type="image" id="imgBtnUserNickYn" onclick="imgBtnUserNickYn_click(form); return false;" />
+		        <input type="image" id="imgBtnUserNickYn" value="" onclick="imgBtnUserNickYn_click(form); return false;" />
 		    </td>
 		    <th>* 이메일 :</th>
 		    <td>		        
 		        <form:input path="userEmail" maxlength="100" />
-		        <input type="image" id="imgBtnUserEmailYn" onclick="imgBtnUserEmailYn_click(form); return false;" />
+		        <input type="image" id="imgBtnUserEmailYn" value="" onclick="imgBtnUserEmailYn_click(form); return false;" />
 		    </td>
 	    </tr>
 	    <tr>
@@ -88,8 +89,9 @@
     </table>
     
     <div class="cssLoginButton">
-	    <input type="image" id="imgBtnModify" onclick="imgBtnModify_click(form); return false;" /> 
-	    <input type="image" id="imgBtnLogin" onclick="location.href='${loginUrl}'; return false;" /> 
+	    <input type="image" id="imgBtnModify" value="" onclick="imgBtnModify_click(form); return false;" /> 
+	    <input type="image" id="imgBtnLogin" value="" onclick="location.href='${loginUrl}'; return false;" /> 
+	    <input type="image" id="imgBtnExit" value="" onclick="location.href='${exitUrl}'; return false;" /> 
     </div>
 
 </form:form>

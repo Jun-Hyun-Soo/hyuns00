@@ -5,6 +5,12 @@
 
 <link rel="stylesheet" href="/resources/css/home/home.css"></link>
 
+<script type="text/javascript">
+	function pageLoad() {
+		createComboBox({"id" : "cboCate", "url" : "/common/comboJson?comboType=cate"});
+	}
+</script>
+
 Home <br />
 ${serverTime} <br />
 
@@ -37,9 +43,9 @@ ${serverTime} <br />
 	<p>principal.accountNonExpired : <sec:authentication property="principal.accountNonExpired"/></p>
 </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_USER')" var="u">${u}</sec:authorize> 
+<sec:authorize access="hasRole('ROLE_ADMIN')" var="u">${u}</sec:authorize>
 
-
+<select id="cboCate"></select>
 <input type="button" value="경고" onclick="createDialog({'title' : '경고', 'alertMsg' : '경고창입니다.'});">
 
 

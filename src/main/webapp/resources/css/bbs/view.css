@@ -84,6 +84,15 @@
 	vertical-align: middle;	
 }
 
+#imgBtnMove 		
+{  
+	background-image: url("/resources/images/button/btn_move.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
 #imgBtnCommentWrite 	
 {  
 	background-image: url("/resources/images/button/btn_write.gif");
@@ -159,7 +168,7 @@
 .cssBbsView
 {
 	font-size: 12px;
-	font-family: ±¼¸²;
+	font-family: ï¿½ï¿½ï¿½ï¿½;
 	white-space: pre-wrap;
 	line-height: normal;
 	min-height: 150px;

@@ -26,6 +26,10 @@
     	<intercept-url pattern="/login/failure" access="isAnonymous()"></intercept-url>
     	<intercept-url pattern="/login/modify/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"></intercept-url>
     	<intercept-url pattern="/login/logout" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"></intercept-url>
+    	<intercept-url pattern="/login/list/**" access="hasAnyRole('ROLE_ADMIN')"></intercept-url>
+    	<intercept-url pattern="/login/view/**" access="hasAnyRole('ROLE_ADMIN')"></intercept-url>
+    	<intercept-url pattern="/login/edit/**" access="hasAnyRole('ROLE_ADMIN')"></intercept-url>
+    	<intercept-url pattern="/cate/**" access="hasAnyRole('ROLE_ADMIN')"></intercept-url>
     	<intercept-url pattern="/bbs/**" access="permitAll"></intercept-url>
     	<intercept-url pattern="/home" access="permitAll"></intercept-url>
         <intercept-url pattern="/**" access="permitAll"></intercept-url> 
@@ -39,6 +43,6 @@
 		<authentication-provider user-service-ref="loginServiceImpl">
 			<password-encoder ref="bcryptPasswordEncoder"/>
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager>	
 	
  </beans:beans> 

@@ -1,0 +1,121 @@
+.cssLoginTable
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+.cssLoginTable caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding-top: 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+.cssLoginTable th
+{
+	font-size: 12px;
+    width: 140px;
+    text-align: right;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssLoginTable td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#userId 		{ width: 150px; }
+#userName 		{ width: 150px; }
+#userPw 		{ width: 150px; }
+#userPw1 		{ width: 150px; }
+#userPw2 		{ width: 150px; }
+#userNick 		{ width: 90px; }
+#userEmail		{ width: 90px; }
+#imageUrl 		{ width: 360px; }
+#imgPreview		{ width: 80px; height: 80px; border: 1px solid #f3f3f3; }
+
+.cssLoginButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#imgBtnUserIdYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnUserNickYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnUserEmailYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnLogin 		
+{  
+	background-image: url("/resources/images/button/btn_login.gif");
+	background-repeat: no-repeat;
+	width: 80px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnModify 		
+{  
+	background-image: url("/resources/images/button/btn_login_modify.gif");
+	background-repeat: no-repeat;
+	width: 85px;
+	height: 21px;
+	vertical-align: middle;	
+}
+
+#imgBtnExit 		
+{  
+	background-image: url("/resources/images/button/btn_exit.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnList 		
+{  
+	background-image: url("/resources/images/button/btn_list.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnEdit 		
+{  
+	background-image: url("/resources/images/button/btn_edit.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}

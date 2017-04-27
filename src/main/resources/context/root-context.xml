@@ -8,6 +8,7 @@
 	<!-- #. Import Resource -->
     <import resource="classpath:/context/datasource-context.xml"/>
     <import resource="classpath:/context/security-context.xml"/>
+    <import resource="classpath:/context/aspect-context.xml"/>
 	
 	<!-- #. bcryptPasswordEncoder -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />	

@@ -32,7 +32,7 @@
 		    <th>* 아이디 :</th>
 		    <td>
 		        <form:input path="userId" maxlength="20" />
-		        <input type="image" id="imgBtnUserIdYn" onclick="imgBtnUserIdYn_click(form); return false;" />
+		        <input type="image" id="imgBtnUserIdYn" value="" onclick="imgBtnUserIdYn_click(form); return false;" />
 		    </td>
 		    <th>* 이름 :</th>
 		    <td>
@@ -53,12 +53,12 @@
 		    <th>* 닉네임 :</th>
 		    <td>
 		        <form:input path="userNick" maxlength="20" />
-		        <input type="image" id="imgBtnUserNickYn" onclick="imgBtnUserNickYn_click(form); return false;" />
+		        <input type="image" id="imgBtnUserNickYn" value="" onclick="imgBtnUserNickYn_click(form); return false;" />
 		    </td>
 		    <th>* 이메일 :</th>
 		    <td>		        
 		        <form:input path="userEmail" maxlength="100" />
-		        <input type="image" id="imgBtnUserEmailYn" onclick="imgBtnUserEmailYn_click(form); return false;" />
+		        <input type="image" id="imgBtnUserEmailYn" value="" onclick="imgBtnUserEmailYn_click(form); return false;" />
 		    </td>
 	    </tr>
 	    <tr>
@@ -71,8 +71,8 @@
     </table>
     
     <div class="cssLoginButton">
-	    <input type="image" id="imgBtnJoin" onclick="imgBtnJoin_click(form); return false;" /> 
-	    <input type="image" id="imgBtnLogin" onclick="location.href='${loginUrl}'; return false;" /> 
+	    <input type="image" id="imgBtnJoin" value="" onclick="imgBtnJoin_click(form); return false;" /> 
+	    <input type="image" id="imgBtnLogin" value="" onclick="location.href='${loginUrl}'; return false;" /> 
     </div>
 
 </form:form>

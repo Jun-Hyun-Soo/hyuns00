@@ -11,55 +11,55 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
-public class LoginDto implements UserDetails 
-{
+public class LoginDto extends LoginSearchDto implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private int userNo;
+	private int viewNo;
 	private int visitCount;
-	
+
 	@Pattern(regexp = "^[a-zA-Z0-9_]{4,12}$", message = "올바른 아이디를 입력해 주세요!")
 	private String userId;
-	
-	//@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
+
+	// @NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
 	private String userPw;
-	//@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
+	// @NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
 	private String userPw1;
-	//@NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
+	// @NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
 	private String userPw2;
 
-	//@NotNull @Size(min = 2, message = "성명을 입력해 주세요!")
+	// @NotNull @Size(min = 2, message = "성명을 입력해 주세요!")
 	private String userName;
-	
-	private String userRole;	
+
+	private String userRole;
 	private String userEmail;
 	private String userNick;
 	private String imagePath;
 	private String imageName;
 	private String imageUrl;
-	
+
 	private String joinDate;
 	private String lastDate;
 	private String exitDate;
-	private String exitYn;	
-	
+	private String exitYn;
+
 	private String userIdYn;
 	private String userNickYn;
 	private String userEmailYn;
-	
+
 	private String currImagePath;
 	private String currImageName;
 	private String currUserNick;
 	private String currUserEmail;
 
 	private Boolean rememberMe;
-	
+
 	private List<MultipartFile> fileNameList;
-	
+
 	private String uploadPathBase;
 	private String uploadPathLogin;
 	private String deleteImageName;
-	
+
 	private String thumbnailYn;
 	private int thumbnailHeight;
 
@@ -69,6 +69,14 @@ public class LoginDto implements UserDetails
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+
+	public int getViewNo() {
+		return viewNo;
+	}
+
+	public void setViewNo(int viewNo) {
+		this.viewNo = viewNo;
 	}
 
 	public int getVisitCount() {
@@ -223,23 +231,19 @@ public class LoginDto implements UserDetails
 		this.userEmailYn = userEmailYn;
 	}
 
-	public String getCurrImagePath()
-	{
+	public String getCurrImagePath() {
 		return currImagePath;
 	}
 
-	public void setCurrImagePath(String currImagePath)
-	{
+	public void setCurrImagePath(String currImagePath) {
 		this.currImagePath = currImagePath;
 	}
 
-	public String getCurrImageName()
-	{
+	public String getCurrImageName() {
 		return currImageName;
 	}
 
-	public void setCurrImageName(String currImageName)
-	{
+	public void setCurrImageName(String currImageName) {
 		this.currImageName = currImageName;
 	}
 
@@ -299,13 +303,11 @@ public class LoginDto implements UserDetails
 		this.deleteImageName = deleteImageName;
 	}
 
-	public String getThumbnailYn()
-	{
+	public String getThumbnailYn() {
 		return thumbnailYn;
 	}
 
-	public void setThumbnailYn(String thumbnailYn)
-	{
+	public void setThumbnailYn(String thumbnailYn) {
 		this.thumbnailYn = thumbnailYn;
 	}
 
@@ -320,7 +322,7 @@ public class LoginDto implements UserDetails
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> userRoleList = new ArrayList<GrantedAuthority>();
-		
+
 		for (int i = 0, li_size = this.getUserRole().split(",").length; i < li_size; i++) {
 			userRoleList.add(new SimpleGrantedAuthority(this.getUserRole().split(",")[i]));
 		}
@@ -357,5 +359,5 @@ public class LoginDto implements UserDetails
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 }

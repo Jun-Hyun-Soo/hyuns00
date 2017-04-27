@@ -10,6 +10,7 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 
 <div id="divBbsListSearch">	
@@ -21,8 +22,10 @@
 			<form:option value="CONTENT" label="내용"></form:option>
 		</form:select>
 		<form:input path="searchKeyword" size="20" />
-		<input type="image" id="imgBtnSearch" />
-		<input type="image" id="imgBtnWrite" onclick="location.href='${writeUrl}'; return false;" />
+		<input type="image" id="imgBtnSearch" value="" />
+		<input type="image" id="imgBtnWrite" value="" onclick="location.href='${writeUrl}'; return false;" />
+		<button type="button" class="btn btn-default btn-xs">검색</button>
+		<input type="submit" value="검색" class="btn btn-default btn-xs" />
 	</form:form>
 </div>
 	
@@ -41,6 +44,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${bbsSearchDto.page}" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>
 	<tr>
 		<td class="cssBbsListNo">	
@@ -73,6 +77,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="1" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>		
 
 	<c:if test="${bbsSearchDto.page > 1}">
@@ -86,6 +91,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${page.startPage - bbsSearchDto.pageSize}" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>		
 
 	<c:if test="${page.startPage > bbsSearchDto.pageSize}">
@@ -99,6 +105,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${bbsSearchDto.page - 1}" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>		
 
 	<c:if test="${bbsSearchDto.page > 1}">
@@ -113,6 +120,7 @@
 			<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 			<c:param name="page" value="${i}" />
 			<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+			<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 		</c:url>		
 		<c:if test="${i <= page.totalPage}">
 			<c:choose>
@@ -129,6 +137,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${bbsSearchDto.page + 1}" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>		
 
 	<c:if test="${bbsSearchDto.page < page.totalPage}">
@@ -142,6 +151,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${page.startPage + bbsSearchDto.pageSize}" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>		
 
 	<c:if test="${page.endPage < page.totalPage}">
@@ -155,6 +165,7 @@
 		<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 		<c:param name="page" value="${page.totalPage}" />
 		<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+		<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 	</c:url>		
 
 	<c:if test="${bbsSearchDto.page < page.totalPage}">

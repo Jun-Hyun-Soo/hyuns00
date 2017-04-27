@@ -12,6 +12,7 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 
 <c:url var="editUrl" value="/bbs/edit/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
@@ -19,6 +20,7 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 
 <c:url var="deleteUrl" value="/bbs/delete/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
@@ -26,6 +28,7 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 	
 <c:url var="replyUrl" value="/bbs/reply/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
@@ -33,6 +36,15 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
+</c:url>
+	
+<c:url var="moveUrl" value="/bbs/moveOk/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
+	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
+	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
+	<c:param name="page" value="${bbsSearchDto.page}" />
+	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 	
 <sec:authorize access="isAnonymous()">
@@ -60,6 +72,7 @@
 	<form:hidden path="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<form:hidden path="page" value="${bbsSearchDto.page}" />
 	<form:hidden path="listSize" value="${bbsSearchDto.listSize}" />
+	<form:hidden path="pageSize" value="${bbsSearchDto.pageSize}" />
 
 	<form:hidden path="userId" value="${userId}" />
 	<form:hidden path="commentType" value="Write" />
@@ -134,15 +147,19 @@
 						</c:if>
 						<c:out value="${bbsCommentDto.userName}" escapeXml="true"></c:out>
 					</th>
-					<th id="thBbsViewCommentTableRegDate${bbsCommentDto.no}" class="cssBbsViewCommentTableRegDate"><c:out value="${bbsCommentDto.regDate}" escapeXml="true"></c:out></th>
+					<th id="thBbsViewCommentTableRegDate${bbsCommentDto.no}" class="cssBbsViewCommentTableRegDate">
+						<c:out value="${bbsCommentDto.regDate}" escapeXml="true"></c:out>
+					</th>
 					<th id="thBbsViewCommentTableButton${bbsCommentDto.no}" class="cssBbsViewCommentTableButton">
-						<input type="image" id="imgBtnViewCommentTableReply" onclick="imgBtnViewCommentTableReply_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.subNo}', '${bbsCommentDto.depNo}'); return false;" />
-						<input type="image" id="imgBtnViewCommentTableEdit" onclick="imgBtnViewCommentTableEdit_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.userName}'); return false;" />
-						<input type="image" id="imgBtnViewCommentTableDelete" onclick="imgBtnViewCommentTableDelete_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.depNo}', '${bbsCommentDto.userName}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableReply" value="" onclick="imgBtnViewCommentTableReply_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.subNo}', '${bbsCommentDto.depNo}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableEdit" value="" onclick="imgBtnViewCommentTableEdit_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.userName}'); return false;" />
+						<input type="image" id="imgBtnViewCommentTableDelete" value="" onclick="imgBtnViewCommentTableDelete_Click(form, ${isAuthenticated}, '${bbsCommentDto.no}', '${bbsCommentDto.preNo}', '${bbsCommentDto.depNo}', '${bbsCommentDto.userName}'); return false;" />
 					</th>
 				</tr>
 				<tr>					
-					<td id="tdBbsViewCommentTableContent${bbsCommentDto.no}" class="cssBbsViewCommentTableContent" colspan="3"><c:out value="${util.replaceBR(bbsCommentDto.content)}" escapeXml="false"></c:out></td>
+					<td id="tdBbsViewCommentTableContent${bbsCommentDto.no}" class="cssBbsViewCommentTableContent" colspan="3">
+						<c:out value="${util.replaceBR(bbsCommentDto.content)}" escapeXml="false"></c:out>
+					</td>
 		 		</tr>					
 			</table>
 			
@@ -152,7 +169,9 @@
 		
 	<table id="tblBbsViewCommentContent">
 		<tr>
-			<td id="tdBbsViewCommentContent"><form:textarea path="content"></form:textarea></td>
+			<td id="tdBbsViewCommentContent">
+				<form:textarea path="content"></form:textarea>
+			</td>
 		</tr>
 	</table>
 	
@@ -170,19 +189,26 @@
 		    </td>
 		    </sec:authorize>
 		    <td id="tdBbsViewCommentWriteButton">
-		    	<input type="image" id="imgBtnCommentWrite" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Write'); return false;" /> 
-		    	<input type="image" id="imgBtnCommentReply" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Reply'); return false;" />
-		    	<input type="image" id="imgBtnCommentEdit" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Edit'); return false;" />
-		    	<input type="image" id="imgBtnCommentDelete" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Delete'); return false;" />
+		    	<input type="image" id="imgBtnCommentWrite" value="" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Write'); return false;" /> 
+		    	<input type="image" id="imgBtnCommentReply" value="" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Reply'); return false;" />
+		    	<input type="image" id="imgBtnCommentEdit" value="" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Edit'); return false;" />
+		    	<input type="image" id="imgBtnCommentDelete" value="" onclick="imgBtnBbsCommentWrite_Click(form, ${isAuthenticated}, 'Delete'); return false;" />
 		    </td>
 		</tr>
 	</table>
 
 	<div class="cssBbsButton">
-		<input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
-		<input type="image" id="imgBtnEdit" onclick="location.href='${editUrl}'; return false;" />
-		<input type="image" id="imgBtnDelete" onclick="location.href='${deleteUrl}'; return false;" />
-		<input type="image" id="imgBtnReply" onclick="location.href='${replyUrl}'; return false;" />
+		<input type="image" id="imgBtnList" value="" onclick="location.href='${listUrl}'; return false;" />
+		<input type="image" id="imgBtnEdit" value="" onclick="location.href='${editUrl}'; return false;" />
+		<input type="image" id="imgBtnDelete" value="" onclick="location.href='${deleteUrl}'; return false;" />
+		<input type="image" id="imgBtnReply" value="" onclick="location.href='${replyUrl}'; return false;" />
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+	    	<form:select path="bbsList">
+	    		<form:option value="" label="선택" />
+	    		<form:options items="${bbsNameDtoList}" itemValue="bbsName" itemLabel="subject" />
+	    	</form:select>
+			<input type="image" id="imgBtnMove" value="" onclick="imgBtnMove_click('${moveUrl}', '${listUrl}', form); return false;" />
+		</sec:authorize>
 	</div>
 	
 </form:form>

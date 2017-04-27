@@ -4,6 +4,8 @@
 <mapper namespace="com.home.app.login.dao.LoginDao"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
     <resultMap id="loginResultMap" type="com.home.app.login.dto.LoginDto">
         <id     property="userNo"    		column="USER_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="viewNo" 			column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="userNo"    		column="USER_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="userId" 			column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userPw" 			column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userName"			column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
@@ -20,6 +22,116 @@
         <result property="exitYn"			column="EXIT_YN"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="visitCount"		column="VISIT_COUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
 	</resultMap>
+		
+	<sql id="searchLogin">
+		<choose>
+			<when test="searchClass == 'ALL' and searchKeyword != null and searchKeyword != ''">
+		       AND (
+		       			USER_ID LIKE #{searchKeyword} || '%' 
+		        	 OR USER_NAME LIKE #{searchKeyword} || '%' 
+		        	 OR USER_NICK LIKE #{searchKeyword} || '%' 
+		           )
+			</when> 
+			<when test="searchClass == 'USER_ID' and searchKeyword != null and searchKeyword != ''">
+		       AND USER_ID LIKE #{searchKeyword} || '%'  
+			</when> 
+			<when test="searchClass == 'USER_NAME' and searchKeyword != null and searchKeyword != ''">
+		       AND USER_NAME LIKE #{searchKeyword} || '%'  
+			</when> 
+			<when test="searchClass == 'USER_NICK' and searchKeyword != null and searchKeyword != ''">
+		       AND USER_NICK LIKE #{searchKeyword} || '%'  
+			</when> 
+		</choose>
+	</sql>
+
+	<select id="selectLoginCount" parameterType="com.home.app.login.dto.LoginSearchDto" resultType="java.lang.Integer">
+		SELECT COUNT( *) TOTAL_COUNT
+		  FROM LOGIN
+		 WHERE 1 = 1 
+		<include refid="searchLogin" />
+    </select>
+    
+	<select id="selectLoginList" parameterType="com.home.app.login.dto.LoginSearchDto" resultMap="loginResultMap">
+		SELECT USER_NO, 
+		       ROW_NUMBER() OVER (ORDER BY USER_NO DESC) AS VIEW_NO,
+		       USER_ID, 
+		       USER_NAME,
+		       USER_ROLE, 
+		       USER_NICK,
+		       TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') AS JOIN_DATE, 
+		       VISIT_COUNT 
+		  FROM LOGIN
+		 WHERE USER_NO <![CDATA[<=]]> 
+		       ( 
+		       SELECT USER_NO 
+		         FROM 
+		              ( 
+		              SELECT ROW_NUMBER() OVER(ORDER BY USER_NO DESC, ROWID DESC) RN, 
+		                     USER_NO 
+		                FROM LOGIN 
+		               WHERE 1 = 1
+					<include refid="searchLogin" />		                 
+		              ) 
+		        WHERE 1 = 1 
+		          AND RN = ((${page} - 1) * ${listSize} + 1) 
+		          AND ROWNUM = 1 
+		       ) 
+		   AND ROWNUM <![CDATA[<=]]> ${listSize} 
+		<include refid="searchLogin" />
+		 ORDER BY USER_NO DESC 		   
+    </select>
+	
+    <select id="selectLoginView" parameterType="java.lang.Integer" resultMap="loginResultMap">
+		SELECT USER_NO, 
+		       USER_ID,
+		       USER_NAME,
+		       USER_ROLE,
+		       USER_EMAIL,
+		       USER_NICK,
+		       IMAGE_PATH,
+		       IMAGE_NAME,		       
+		       TO_CHAR(JOIN_DATE, 'YYYY-MM-DD HH:MI:SS') AS JOIN_DATE, 
+		       TO_CHAR(LAST_DATE, 'YYYY-MM-DD HH:MI:SS') AS LAST_DATE,
+		       TO_CHAR(EXIT_DATE, 'YYYY-MM-DD HH:MI:SS') AS EXIT_DATE,
+		       EXIT_YN,
+		       VISIT_COUNT 
+		  FROM LOGIN 
+		 WHERE USER_NO = #{userNo} 
+    </select>
+
+    <select id="selectLoginEdit" parameterType="java.lang.Integer" resultMap="loginResultMap">
+		SELECT USER_NO, 
+		       USER_ID,
+		       USER_NAME,
+		       USER_ROLE,
+		       USER_EMAIL,
+		       USER_NICK,
+		       IMAGE_PATH,
+		       IMAGE_NAME,		       
+		       TO_CHAR(JOIN_DATE, 'YYYY-MM-DD HH:MI:SS') AS JOIN_DATE, 
+		       TO_CHAR(LAST_DATE, 'YYYY-MM-DD HH:MI:SS') AS LAST_DATE,
+		       TO_CHAR(EXIT_DATE, 'YYYY-MM-DD HH:MI:SS') AS EXIT_DATE,
+		       EXIT_YN,
+		       VISIT_COUNT 
+		  FROM LOGIN 
+		 WHERE USER_NO = #{userNo} 
+    </select>
+	
+    <update id="updateEdit" parameterType="com.home.app.login.dto.LoginDto">
+		UPDATE LOGIN 
+		   SET USER_NAME = #{userName}, 
+		       USER_EMAIL = #{userEmail}, 
+		       USER_NICK = #{userNick},
+			<if test="!@com.home.app.util.Util@isEmpty(imagePath)">
+		       IMAGE_PATH = #{imagePath}, 
+			</if>
+			<if test="!@com.home.app.util.Util@isEmpty(imageName)">
+		       IMAGE_NAME = #{imageName}, 
+			</if>
+		       USER_PW = #{userPw},
+		       USER_ROLE = #{userRole}
+		 WHERE USER_NO = #{userNo} 
+    </update>
 	
     <select id="selectUserIdYn" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT COUNT(*)		         
@@ -49,9 +161,9 @@
 		       USER_NICK,
 		       IMAGE_PATH,
 		       IMAGE_NAME,
-		       JOIN_DATE,
-		       LAST_DATE,
-		       EXIT_DATE,
+		       TO_CHAR(JOIN_DATE, 'YYYY-MM-DD HH:MI:SS') AS JOIN_DATE, 
+		       TO_CHAR(LAST_DATE, 'YYYY-MM-DD HH:MI:SS') AS LAST_DATE,
+		       TO_CHAR(EXIT_DATE, 'YYYY-MM-DD HH:MI:SS') AS EXIT_DATE,
 		       EXIT_YN,
 		       VISIT_COUNT
 		  FROM LOGIN
@@ -69,9 +181,9 @@
 		       USER_NICK,
 		       IMAGE_PATH,
 		       IMAGE_NAME,
-		       JOIN_DATE,
-		       LAST_DATE,
-		       EXIT_DATE,
+		       TO_CHAR(JOIN_DATE, 'YYYY-MM-DD HH:MI:SS') AS JOIN_DATE, 
+		       TO_CHAR(LAST_DATE, 'YYYY-MM-DD HH:MI:SS') AS LAST_DATE,
+		       TO_CHAR(EXIT_DATE, 'YYYY-MM-DD HH:MI:SS') AS EXIT_DATE,
 		       EXIT_YN,
 		       VISIT_COUNT
 		  FROM LOGIN
@@ -131,6 +243,20 @@
 		       IMAGE_NAME = #{imageName}, 
 			</if>
 		       USER_PW = #{userPw}
+		 WHERE USER_ID = #{userId}  
+    </update>
+
+    <update id="updateLogin" parameterType="com.home.app.login.dto.LoginDto">
+		UPDATE LOGIN 
+		   SET LAST_DATE = SYSDATE,
+		       VISIT_COUNT = VISIT_COUNT + 1
+		 WHERE USER_ID = #{userId}  
+    </update>
+
+    <update id="updateExit" parameterType="com.home.app.login.dto.LoginDto">
+		UPDATE LOGIN 
+		   SET EXIT_DATE = SYSDATE, 
+		       EXIT_YN = 'Y'
 		 WHERE USER_ID = #{userId}  
     </update>
 

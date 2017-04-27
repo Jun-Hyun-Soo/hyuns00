@@ -2,8 +2,7 @@ package com.home.app.util;
 
 import java.net.InetAddress;
 
-public class Util
-{
+public class Util {
 	/**
 	 * 배열에 문자가 존재하는지 체크
 	 * 
@@ -11,14 +10,11 @@ public class Util
 	 * @param strIndexOf
 	 * @return
 	 */
-	public static boolean isIndexOf(String[] arrTarget, String strIndexOf)
-	{
+	public static boolean isIndexOf(String[] arrTarget, String strIndexOf) {
 		boolean returnFlag = false;
 
-		for (int i = 0, li_size = arrTarget.length; i < li_size; i++)
-		{
-			if (arrTarget[i].indexOf(strIndexOf) != -1)
-			{
+		for (int i = 0, li_size = arrTarget.length; i < li_size; i++) {
+			if (arrTarget[i].indexOf(strIndexOf) != -1) {
 				returnFlag = true;
 
 				break;
@@ -34,8 +30,7 @@ public class Util
 	 * @param strTarget
 	 * @return
 	 */
-	public static boolean isEmpty(String strTarget)
-	{
+	public static boolean isEmpty(String strTarget) {
 		return (strTarget != null && !strTarget.toLowerCase().equals("null") && !strTarget.toLowerCase().equals("undefined") && strTarget.length() > 0) ? false : true;
 	}
 
@@ -45,8 +40,7 @@ public class Util
 	 * @param arrTarget
 	 * @return
 	 */
-	public static boolean isEmpty(String[] arrTarget)
-	{
+	public static boolean isEmpty(String[] arrTarget) {
 		return (arrTarget != null && arrTarget.length > 0) ? false : true;
 	}
 
@@ -57,23 +51,21 @@ public class Util
 	 * @param strEquals
 	 * @return
 	 */
-	public static boolean isEquals(String strTarget, String strEquals)
-	{
+	public static boolean isEquals(String strTarget, String strEquals) {
 		return (!isEmpty(strTarget) && !isEmpty(strEquals) && strTarget.equals(strEquals)) ? true : false;
 	}
 
 	/**
-	 * \r\n => <br /> 교체
+	 * \r\n => <br />
+	 * 교체
 	 * 
 	 * @param strText
 	 * @return
 	 */
-	public static String replaceBR(String strText) throws Exception
-	{
+	public static String replaceBR(String strText) throws Exception {
 		String strReturn = "";
 
-		if (strText != null && !strText.equals(""))
-		{
+		if (strText != null && !strText.equals("")) {
 			strReturn = strText.replace("\r\n", "<br />");
 		}
 
@@ -86,8 +78,7 @@ public class Util
 	 * @param
 	 * @return
 	 */
-	public static String getUserIp() throws Exception
-	{
+	public static String getUserIp() throws Exception {
 		String strReturn = "";
 
 		InetAddress address = InetAddress.getLocalHost();

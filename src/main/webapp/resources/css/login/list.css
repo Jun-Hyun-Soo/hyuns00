@@ -1,0 +1,144 @@
+.cssLoginTable
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+.cssLoginTable caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding-top: 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+.cssLoginTable th
+{
+	font-size: 12px;
+    width: 85px;
+    text-align: right;
+    line-height: 20px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssLoginTable td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssLoginButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#imgBtnSearch
+{
+	background-image: url("/resources/images/button/btn_search.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+#imgBtnList 		
+{  
+	background-image: url("/resources/images/button/btn_list.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnWrite 		
+{  
+	background-image: url("/resources/images/button/btn_write.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#divLoginListSearch
+{
+    width: 600px;
+    height: 22px;
+    padding-top: 4px;
+}
+
+#divLoginListSearch #searchKeyword
+{
+	font-size: 12px;	
+}
+
+#tblLoginListTable
+{
+	font-size: 12px;
+    width: 600px;
+	border: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+#tblLoginListTable th
+{
+	height: 20px;
+	border-bottom: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	text-align: center;
+	vertical-align: bottom;
+	background-color: #f3f3f3;
+}
+
+#thLoginListUserNo 			{ width: 50px;	}
+#thLoginListUserId 		{ width: 150px;	}
+#thLoginListUserName 		{ width: 70px; }
+#thLoginListUserRole 	{ width: 80px; 	}
+#thLoginListUserNick 	{ width: 80px; 	}
+#thLoginListJoinDate 		{ width: 80px; 	}
+#thLoginListVisitCount 		{ width: 80px; 	}
+
+#tblLoginListTable td
+{
+	height: 20px;
+	border-bottom: solid 1px #d1d1d1;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	vertical-align: bottom;
+}
+
+.cssLoginListNo			{ text-align: center; 	}
+.cssLoginListSubject		{ text-align: center;	 text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.cssLoginListLoginName 	{ text-align: center; 	}
+.cssLoginListListSize 	{ text-align: center; 	}
+.cssLoginListPageSize 	{ text-align: center; 	}
+.cssLoginListRegDate 	{ text-align: center; 	}
+.cssLoginListUseYn 		{ text-align: center; 	}
+
+#divLoginListPage
+{
+	font-size: 12px;
+    width: 600px;
+    height: 30px;
+    border: 0px;
+    text-align: center;
+    padding-top: 10px;
+    border-collapse: collapse;
+    border-spacing: 100px;
+}
+
+.cssLoginListCurrPage
+{
+	font-size: 12px;
+	font-family: ����;
+	font-weight: bold;
+}

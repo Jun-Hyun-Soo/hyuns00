@@ -1,0 +1,72 @@
+.cssCateTable
+{
+    width: 600px;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
+
+.cssCateTable caption
+{
+	font-size: 15px;
+    text-align: left;
+    padding-top: 5px;
+    border-bottom: 2px solid #d1d1d1;
+}
+
+.cssCateTable th
+{
+	font-size: 12px;
+    width: 85px;
+    text-align: right;
+    line-height: 20px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssCateTable td
+{
+	font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.cssCateButton
+{
+    width: 600px;
+    height: 50px;
+    text-align: center;
+	padding-top: 20px;    
+}
+
+#subject 	{ width: 511px; }
+#bbsName 	{ width: 169px; }
+#listSize 	{ width: 169px; }
+#pageSize 	{ width: 169px; }
+
+#imgBtnBbsNameYn	
+{  
+	background-image: url("/resources/images/button/btn_duplicate.gif");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 21px;
+	vertical-align: top;	
+}
+
+#imgBtnList 		
+{  
+	background-image: url("/resources/images/button/btn_list.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}
+
+#imgBtnEdit 		
+{  
+	background-image: url("/resources/images/button/btn_edit.gif");
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 20px;
+	vertical-align: middle;	
+}

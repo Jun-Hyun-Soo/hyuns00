@@ -2,42 +2,37 @@ package com.home.app.login.function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.home.app.bbs.dto.BbsSearchDto;
+import com.home.app.login.dto.LoginSearchDto;
 
-public class Page 
-{		
+public class Page {
 	@Autowired
-	BbsSearchDto bbsSearchDto;
-	
-	public Page(BbsSearchDto bbsSearchDto)
-	{
-		this.bbsSearchDto = bbsSearchDto;
-	}	
-	
-	public int getTotalPage() throws Exception 
-	{
+	LoginSearchDto loginSearchDto;
+
+	public Page(LoginSearchDto loginSearchDto) {
+		this.loginSearchDto = loginSearchDto;
+	}
+
+	public int getTotalPage() throws Exception {
 		int intReturn = 0;
-		
-		intReturn = (int) Math.ceil(this.bbsSearchDto.getTotalCount() / (double) this.bbsSearchDto.getListSize());
-		
+
+		intReturn = (int) Math.ceil(this.loginSearchDto.getTotalCount() / (double) this.loginSearchDto.getListSize());
+
 		return intReturn;
 	}
-	
-	public int getStartPage() throws Exception 
-	{
+
+	public int getStartPage() throws Exception {
 		int intReturn = 0;
-		
-		intReturn = this.getEndPage() - this.bbsSearchDto.getPageSize() + 1;
-		
+
+		intReturn = this.getEndPage() - this.loginSearchDto.getPageSize() + 1;
+
 		return intReturn;
 	}
-	
-	public int getEndPage() throws Exception 
-	{
+
+	public int getEndPage() throws Exception {
 		int intReturn = 0;
-		
-		intReturn = (int) Math.ceil(this.bbsSearchDto.getPage() / (double) this.bbsSearchDto.getPageSize()) * this.bbsSearchDto.getPageSize();
-		
+
+		intReturn = (int) Math.ceil(this.loginSearchDto.getPage() / (double) this.loginSearchDto.getPageSize()) * this.loginSearchDto.getPageSize();
+
 		return intReturn;
 	}
 

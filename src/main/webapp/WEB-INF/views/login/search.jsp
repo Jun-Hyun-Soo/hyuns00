@@ -9,7 +9,7 @@
 <c:url value="/login/login" var="loginUrl"></c:url>
 <c:url value="/login/searchOk" var="searchUrl"></c:url>
 
-<form:form commandName="loginDto" method="post" enctype="multipart/form-data" action="${searchUrl}">
+<form:form commandName="loginDto" method="post" action="${searchUrl}">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true"/>	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -31,8 +31,8 @@
     </table>
     
     <div class="cssLoginButton">
-	    <input type="image" id="imgBtnSearch" onclick="imgBtnSearch_click(form); return false;" /> 
-	    <input type="image" id="imgBtnLogin" onclick="location.href='${loginUrl}'; return false;" /> 
+	    <input type="image" id="imgBtnSearch" value="" onclick="imgBtnSearch_click(form); return false;" /> 
+	    <input type="image" id="imgBtnLogin" value="" onclick="location.href='${loginUrl}'; return false;" /> 
     </div>
 
 </form:form>

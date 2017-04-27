@@ -28,7 +28,6 @@
         <result property="preNo" 		column="PRE_NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="subNo" 		column="SUB_NO"			jdbcType="FLOAT" 	javaType="java.lang.Float" />
         <result property="depNo" 		column="DEP_NO"			jdbcType="INTEGER" 	javaType="java.lang.Integer" />
-        <result property="bbsName" 		column="BBS_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userId" 		column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userPw" 		column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userName" 	column="USER_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
@@ -314,7 +313,6 @@
 		       PRE_NO, 
 		       SUB_NO, 
 		       DEP_NO, 
-		       BBS_NAME, 
 		       USER_ID, 
 		       USER_PW, 
 		       USER_NAME, 
@@ -332,7 +330,6 @@
 		       PRE_NO, 
 		       SUB_NO, 
 		       DEP_NO, 
-		       BBS_NAME, 
 		       USER_ID, 
 		       USER_PW, 
 		       USER_NAME, 
@@ -351,7 +348,6 @@
 		           PRE_NO,
 		           SUB_NO,
 		           DEP_NO,
-		           BBS_NAME,
 		           USER_ID,
 		           USER_PW,
 		           USER_NAME,
@@ -366,7 +362,6 @@
 		           BBS_COMMENT_NO.CURRVAL,
 		           BBS_COMMENT_SUB_NO.NEXTVAL,
 		           0,
-		           #{bbsName},
 		           #{userId},
 		           #{userPw},
 		           #{userName},
@@ -390,7 +385,6 @@
 		           PRE_NO,
 		           SUB_NO,
 		           DEP_NO,
-		           BBS_NAME,
 		           USER_ID,
 		           USER_PW,
 		           USER_NAME,
@@ -403,7 +397,6 @@
 		       #{preNo}, 
 		       NVL((#{subNo} + MAX(SUB_NO)) / 2.0, #{subNo} / 2.0), 
 		       #{depNo} + 1, 
-		       #{bbsName}, 
 		       #{userId}, 
 		       #{userPw}, 
 		       #{userName}, 
@@ -450,6 +443,12 @@
 		       REG_DATE = SYSDATE, 
 		       CONTENT = #{userName} || '님이 글을 삭제하였습니다.' 
 		 WHERE NO = #{no}  
+    </update>
+
+    <update id="updateBbsName" parameterType="com.home.app.bbs.dto.BbsCommentDto">
+		UPDATE BBS 
+		   SET BBS_NAME = #{bbsList} 
+		 WHERE (NO = #{pno} OR PRE_NO = #{pno})  
     </update>
 
     <update id="updateBbsViewCount" parameterType="java.lang.Integer">

@@ -46,6 +46,7 @@
 	width: 45px;
 	height: 20px;
 	vertical-align: middle;
+	value=""
 }
 
 #imgBtnList 		
@@ -135,6 +136,6 @@
 .cssBbsListCurrPage
 {
 	font-size: 12px;
-	font-family: ±¼¸²;
+	font-family: ï¿½ï¿½ï¿½ï¿½;
 	font-weight: bold;
 }

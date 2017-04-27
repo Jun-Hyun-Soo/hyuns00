@@ -12,6 +12,7 @@
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
 	<c:param name="listSize" value="${bbsSearchDto.listSize}" />
+	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 	
 <sec:authorize access="isAnonymous()">
@@ -39,6 +40,7 @@
 	<form:hidden path="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<form:hidden path="page" value="${bbsSearchDto.page}" />
 	<form:hidden path="listSize" value="${bbsSearchDto.listSize}" />
+	<form:hidden path="pageSize" value="${bbsSearchDto.pageSize}" />
 	
 	<form:hidden path="subject" value="${bbsDto.subject}" />
 	<form:hidden path="userName" value="${bbsDto.userName}" />
@@ -66,8 +68,8 @@
     </table>
     
     <div class="cssBbsButton">
-	    <input type="image" id="imgBtnDelete" onclick="imgBtnBbsDelete_click(form, ${isAuthenticated}); return false;" /> 
-	    <input type="image" id="imgBtnList" onclick="location.href='${listUrl}'; return false;" />
+	    <input type="image" id="imgBtnDelete" value="" onclick="imgBtnBbsDelete_click(form, ${isAuthenticated}); return false;" /> 
+	    <input type="image" id="imgBtnList" value="" onclick="location.href='${listUrl}'; return false;" />
     </div>
     
 </form:form>		

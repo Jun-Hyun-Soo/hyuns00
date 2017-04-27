@@ -13,52 +13,42 @@ import com.home.app.bbs.dto.BbsSearchDto;
 import com.home.app.bbs.function.Upload;
 import com.home.app.bbs.service.BbsService;
 
-
 @Service
-public class BbsServiceImpl implements BbsService
-{
+public class BbsServiceImpl implements BbsService {
 	@Autowired
 	private BbsDao bbsDao;
 
-	public int selectBbsCount(BbsSearchDto bbsSearchDto) throws Exception
-	{
+	public int selectBbsCount(BbsSearchDto bbsSearchDto) throws Exception {
 		return bbsDao.selectBbsCount(bbsSearchDto);
 	}
 
-	public int selectBbsDeleteCount(int no) throws Exception
-	{
+	public int selectBbsDeleteCount(int no) throws Exception {
 		return bbsDao.selectBbsDeleteCount(no);
 	}
 
-	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception
-	{
+	public List<BbsDto> selectBbsList(BbsSearchDto bbsSearchDto) throws Exception {
 		return bbsDao.selectBbsList(bbsSearchDto);
 	}
 
-	public BbsDto selectBbsView(int no) throws Exception
-	{
+	public BbsDto selectBbsView(int no) throws Exception {
 		bbsDao.updateBbsViewCount(no);
 
 		return bbsDao.selectBbsView(no);
 	}
 
-	public BbsDto selectBbsEdit(int no) throws Exception
-	{
+	public BbsDto selectBbsEdit(int no) throws Exception {
 		return bbsDao.selectBbsEdit(no);
 	}
 
-	public BbsDto selectBbsReply(int no) throws Exception
-	{
+	public BbsDto selectBbsReply(int no) throws Exception {
 		return bbsDao.selectBbsReply(no);
 	}
 
-	public BbsDto selectBbsDelete(int no) throws Exception
-	{
+	public BbsDto selectBbsDelete(int no) throws Exception {
 		return bbsDao.selectBbsDelete(no);
 	}
 
-	public int insertBbs(BbsDto bbsDto) throws Exception
-	{
+	public int insertBbs(BbsDto bbsDto) throws Exception {
 		int intReturn = bbsDao.insertBbs(bbsDto);
 
 		BbsFileDto bbsFileDto = new BbsFileDto();
@@ -77,8 +67,7 @@ public class BbsServiceImpl implements BbsService
 		return intReturn;
 	}
 
-	public int insertBbsReply(BbsDto bbsDto) throws Exception
-	{
+	public int insertBbsReply(BbsDto bbsDto) throws Exception {
 		int intReturn = bbsDao.insertBbsReply(bbsDto);
 
 		BbsFileDto bbsFileDto = new BbsFileDto();
@@ -97,14 +86,12 @@ public class BbsServiceImpl implements BbsService
 		return intReturn;
 	}
 
-	public int updateBbs(BbsDto bbsDto) throws Exception
-	{
+	public int updateBbs(BbsDto bbsDto) throws Exception {
 		int intReturn = bbsDao.updateBbs(bbsDto);
 
 		String[] arrDeleteBbsFileNo = bbsDto.getDeleteBbsFileNo().split("\\|");
 
-		for (int i = 0, li_size = arrDeleteBbsFileNo.length - 1; i <= li_size; i++)
-		{
+		for (int i = 0, li_size = arrDeleteBbsFileNo.length - 1; i <= li_size; i++) {
 			BbsFileDto bbsFileDto = bbsDao.selectBbsFile(Integer.parseInt(arrDeleteBbsFileNo[i]));
 
 			Upload.deleteFile(bbsFileDto);
@@ -128,28 +115,23 @@ public class BbsServiceImpl implements BbsService
 		return intReturn;
 	}
 
-	public int updateBbsDelete(BbsDto bbsDto) throws Exception
-	{
+	public int updateBbsDelete(BbsDto bbsDto) throws Exception {
 		return bbsDao.updateBbsDelete(bbsDto);
 	}
 
-	public int updateBbsViewCount(int no) throws Exception
-	{
+	public int updateBbsViewCount(int no) throws Exception {
 		return bbsDao.updateBbsViewCount(no);
 	}
 
-	public int updateBbsComCountPlus(int no) throws Exception
-	{
+	public int updateBbsComCountPlus(int no) throws Exception {
 		return bbsDao.updateBbsComCountPlus(no);
 	}
 
-	public int updateBbsComCountMinus(int no) throws Exception
-	{
+	public int updateBbsComCountMinus(int no) throws Exception {
 		return bbsDao.updateBbsComCountMinus(no);
 	}
 
-	public int deleteBbs(int no) throws Exception
-	{
+	public int deleteBbs(int no) throws Exception {
 		List<BbsFileDto> bbsFileDtoList = bbsDao.selectBbsFileList(no);
 
 		Upload.deleteFileList(bbsFileDtoList);
@@ -160,23 +142,19 @@ public class BbsServiceImpl implements BbsService
 		return bbsDao.deleteBbs(no);
 	}
 
-	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception
-	{
+	public int selectBbsCommentDeleteCount(BbsCommentDto bbsCommentDto) throws Exception {
 		return bbsDao.selectBbsCommentDeleteCount(bbsCommentDto);
 	}
 
-	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception
-	{
+	public List<BbsCommentDto> selectBbsCommentList(int pno) throws Exception {
 		return bbsDao.selectBbsCommentList(pno);
 	}
 
-	public BbsCommentDto selectBbsComment(int no) throws Exception
-	{
+	public BbsCommentDto selectBbsComment(int no) throws Exception {
 		return bbsDao.selectBbsComment(no);
 	}
 
-	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
+	public int insertBbsComment(BbsCommentDto bbsCommentDto) throws Exception {
 		int intReturn = bbsDao.insertBbsComment(bbsCommentDto);
 
 		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
@@ -184,8 +162,7 @@ public class BbsServiceImpl implements BbsService
 		return intReturn;
 	}
 
-	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception
-	{
+	public int insertBbsCommentReply(BbsCommentDto bbsCommentDto) throws Exception {
 		int intReturn = bbsDao.insertBbsCommentReply(bbsCommentDto);
 
 		bbsDao.updateBbsComCountPlus(bbsCommentDto.getPno());
@@ -193,35 +170,33 @@ public class BbsServiceImpl implements BbsService
 		return intReturn;
 	}
 
-	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
+	public int updateBbsComment(BbsCommentDto bbsCommentDto) throws Exception {
 		return bbsDao.updateBbsComment(bbsCommentDto);
 	}
 
-	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception
-	{
+	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception {
 		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
 	}
 
-	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception
-	{
+	public int updateBbsName(BbsCommentDto bbsCommentDto) throws Exception {
+		return bbsDao.updateBbsName(bbsCommentDto);
+	}
+
+	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception {
 		bbsDao.updateBbsComCountMinus(bbsCommentDto.getPno());
 
 		return bbsDao.deleteBbsComment(bbsCommentDto.getNo());
 	}
 
-	public List<BbsFileDto> selectBbsFileList(int pno) throws Exception
-	{
+	public List<BbsFileDto> selectBbsFileList(int pno) throws Exception {
 		return bbsDao.selectBbsFileList(pno);
 	}
 
-	public BbsFileDto selectBbsFile(int no) throws Exception
-	{
+	public BbsFileDto selectBbsFile(int no) throws Exception {
 		return bbsDao.selectBbsFile(no);
 	}
 
-	public int updateBbsFileDownCount(int no) throws Exception
-	{
+	public int updateBbsFileDownCount(int no) throws Exception {
 		return bbsDao.updateBbsFileDownCount(no);
 	}
 
