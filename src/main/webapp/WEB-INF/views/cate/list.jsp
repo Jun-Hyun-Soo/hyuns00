@@ -15,8 +15,8 @@
 	<form:form commandName="cateSearchDto" method="post" action="/cate/list">		
 		<form:select path="searchClass">
 			<form:option value="ALL" label="전체"></form:option>
-			<form:option value="SUBJECT" label="게시판명"></form:option>
-			<form:option value="BBS_NAME" label="연결문자"></form:option>
+			<form:option value="BBS_NAME" label="게시판명"></form:option>
+			<form:option value="BBS_ID" label="연결문자"></form:option>
 		</form:select>
 		<form:input path="searchKeyword" size="20" />
 		<input type="image" id="imgBtnSearch" value="" />
@@ -27,8 +27,8 @@
 <table id="tblCateListTable">
 	<tr>
 		<th id="thCateListNo">번호</th>
-		<th id="thCateListSubject">게시판명</th>
-		<th id="thCateListBbsName">연결문자</th>
+		<th id="thCateListBbsName">게시판명</th>
+		<th id="thCateListBbsId">연결문자</th>
 		<th id="thCateListListSize">리스트갯수</th>
 		<th id="thCateListPageSize">페이지갯수</th>
 		<th id="thCateListRegDate">생성일</th>
@@ -46,12 +46,12 @@
 			<c:set value="${pageFirstNo - cateDto.viewNo + 1}" var="viewNo"></c:set>				
 			<c:out value="${viewNo}" escapeXml="true"></c:out>
 		</td>
-		<td class="cssCateListSubject">
-			<a href="${viewUrl}" title="${cateDto.subject}">
-				<c:out value="${cateDto.subject}" escapeXml="true"></c:out>
+		<td class="cssCateListBbsName">
+			<a href="${viewUrl}" title="${cateDto.bbsName}">
+				<c:out value="${cateDto.bbsName}" escapeXml="true"></c:out>
 			</a>
 		</td>
-		<td class="cssCateListBbsName"><c:out value="${cateDto.bbsName}" escapeXml="true"></c:out></td>
+		<td class="cssCateListBbsId"><c:out value="${cateDto.bbsId}" escapeXml="true"></c:out></td>
 		<td class="cssCateListListSize"><c:out value="${cateDto.listSize}" escapeXml="true"></c:out></td>
 		<td class="cssCateListPageSize"><c:out value="${cateDto.pageSize}" escapeXml="true"></c:out></td>
 		<td class="cssCateListRegDate"><c:out value="${cateDto.regDate}" escapeXml="true"></c:out></td>

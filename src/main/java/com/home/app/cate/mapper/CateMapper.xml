@@ -5,39 +5,39 @@
     <resultMap id="cateResultMap" type="com.home.app.cate.dto.CateDto">
         <id     property="no"    		column="NO"				jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="viewNo" 		column="VIEW_NO"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="bbsId" 		column="BBS_ID"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="bbsName" 		column="BBS_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
-        <result property="subject" 		column="SUBJECT"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="listSize" 	column="LIST_SIZE"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="pageSize" 	column="PAGE_SIZE"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="regDate" 		column="REG_DATE"		jdbcType="VARCHAR" 	javaType="java.lang.String" />        
         <result property="useYn" 		column="USE_YN"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
 	</resultMap>
 	
-    <select id="selectBbsNameYn" parameterType="java.lang.String" resultType="java.lang.String">
+    <select id="selectBbsIdYn" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT
 		       (
 		       CASE
 		              WHEN COUNT(*) > 0 THEN 'Y'
 		              ELSE 'N'
 		       END
-		       ) AS BBS_NAME_YN
+		       ) AS BBS_ID_YN
 		  FROM BBS_CATE
-		 WHERE BBS_NAME = #{BBSNAME}
+		 WHERE BBS_ID = #{bbsId}
     </select>
 	
 	<sql id="searchCate">
 		<choose>
 			<when test="searchClass == 'ALL' and searchKeyword != null and searchKeyword != ''">
 		       AND (
-		       			B.BBS_NAME LIKE #{searchKeyword} || '%' 
-		        	 OR B.SUBJECT LIKE #{searchKeyword} || '%' 
+		       			B.BBS_ID LIKE #{searchKeyword} || '%' 
+		        	 OR B.BBS_NAME LIKE #{searchKeyword} || '%' 
 		           )
+			</when> 
+			<when test="searchClass == 'BBS_ID' and searchKeyword != null and searchKeyword != ''">
+		       AND B.BBS_ID LIKE #{searchKeyword} || '%'  
 			</when> 
 			<when test="searchClass == 'BBS_NAME' and searchKeyword != null and searchKeyword != ''">
 		       AND B.BBS_NAME LIKE #{searchKeyword} || '%'  
-			</when> 
-			<when test="searchClass == 'SUBJECT' and searchKeyword != null and searchKeyword != ''">
-		       AND B.SUBJECT LIKE #{searchKeyword} || '%'  
 			</when> 
 		</choose>
 	</sql>
@@ -52,8 +52,8 @@
 	<select id="selectCateList" parameterType="com.home.app.cate.dto.CateSearchDto" resultMap="cateResultMap">
 		SELECT B.NO, 
 		       ROW_NUMBER() OVER (ORDER BY B.NO DESC) AS VIEW_NO,
-		       B.BBS_NAME, 
-		       B.SUBJECT,
+		       B.BBS_ID, 
+		       B.BBS_NAME,
 		       B.LIST_SIZE, 
 		       B.PAGE_SIZE, 
 		       TO_CHAR(B.REG_DATE, 'YYYY-MM-DD') AS REG_DATE, 
@@ -80,58 +80,60 @@
     </select>
 	
     <select id="selectCateView" parameterType="java.lang.Integer" resultMap="cateResultMap">
-		SELECT NO, 
-		       BBS_NAME,
-		       SUBJECT,
-		       LIST_SIZE,
-		       PAGE_SIZE,
-		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE, 
-		       USE_YN 
-		  FROM BBS_CATE 
-		 WHERE NO = #{no} 
+		SELECT A.NO,
+		       A.BBS_ID,
+		       A.BBS_NAME,
+		       A.LIST_SIZE,
+		       A.PAGE_SIZE,
+		       TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
+		       A.USE_YN
+		  FROM BBS_CATE A
+		 WHERE 1 = 1
+		   AND NO = #{no}
     </select>
 
     <select id="selectCateEdit" parameterType="java.lang.Integer" resultMap="cateResultMap">
-		SELECT NO, 
-		       BBS_NAME,
-		       SUBJECT,
-		       LIST_SIZE,
-		       PAGE_SIZE,
-		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE, 
-		       USE_YN 
-		  FROM BBS_CATE 
-		 WHERE NO = #{no} 
+		SELECT A.NO,
+		       A.BBS_ID,
+		       A.BBS_NAME,
+		       A.LIST_SIZE,
+		       A.PAGE_SIZE,
+		       TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH:MI:SS') AS REG_DATE,
+		       A.USE_YN
+		  FROM BBS_CATE A
+		 WHERE 1 = 1
+		   AND NO = #{no}
     </select>
 
-    <select id="selectBbsName" resultMap="cateResultMap">
-		SELECT BBS_NAME,
-		       SUBJECT
+    <select id="selectBbsId" resultMap="cateResultMap">
+		SELECT BBS_ID,
+		       BBS_NAME
 		  FROM BBS_CATE 
 		 WHERE 1 = 1 
 	       AND USE_YN = 'Y' 
-		 ORDER BY SUBJECT ASC		
+		 ORDER BY BBS_NAME ASC		
     </select>
     
     <insert id="insertCate" parameterType="com.home.app.cate.dto.CateDto">    	
 		INSERT INTO BBS_CATE 
 		       ( 
 		           NO, 
+		           BBS_ID,
 		           BBS_NAME,
-		           SUBJECT,
 		           LIST_SIZE,
 		           PAGE_SIZE,
-		           REG_DATE,
-		           USE_YN 
+		           USE_YN, 
+		           REG_DATE
 		       ) 
 		       VALUES 
 		       ( 
 		           BBS_CATE_NO.NEXTVAL, 
+		           #{bbsId},
 		           #{bbsName},
-		           #{subject},
 		           #{listSize},
 		           #{pageSize}, 
-		           SYSDATE, 
-		           #{useYn}
+		           #{useYn},
+		           SYSDATE
 		       )
 		<selectKey keyProperty="no" resultType="java.lang.Integer" order="AFTER">
 			SELECT BBS_CATE_NO.CURRVAL FROM DUAL
@@ -140,12 +142,12 @@
 
     <update id="updateCate" parameterType="com.home.app.cate.dto.CateDto">
 		UPDATE BBS_CATE 
-		   SET BBS_NAME = #{bbsName}, 
-		       SUBJECT = #{subject}, 
+		   SET BBS_ID = #{bbsId}, 
+		       BBS_NAME = #{bbsName}, 
 		       LIST_SIZE = #{listSize}, 
 		       PAGE_SIZE = #{pageSize},
-		       REG_DATE = SYSDATE, 
-		       USE_YN = #{useYn} 
+		       USE_YN = #{useYn}, 
+		       REG_DATE = SYSDATE 
 		 WHERE NO = #{no}  
     </update>
 

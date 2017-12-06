@@ -1,37 +1,30 @@
-/***################################################ �⺻ ��Ÿ�� ���� ################################################***/
-a  
-{ 
-	text-decoration: none; 
-	color:#666666; 
+/*
+a {
+	text-decoration: none;
+	color: #666666;
 }
 
-a:link  
-{ 
-	text-decoration: none; 
-	color: #333333; 
+a:link {
+	text-decoration: none;
+	color: #333333;
 }
 
-a:visited  
-{ 
-	text-decoration: none; 
-	color: #333333; 
+a:visited {
+	text-decoration: none;
+	color: #333333;
 }
 
-a:hover  
-{ 
-	color:#FF6600; 
+a:hover {
+	color: #FF6600;
 	text-decoration: none;
 }
 
-body
-{
+body {
 	margin: 0;
 	padding: 0;
-	
 }
 
-form 
-{ 
-    display : inline;
+form {
+	display: inline;
 }
-/***################################################ �⺻ ��Ÿ�� ���� ################################################***/
+*/

@@ -6,13 +6,13 @@ import com.home.app.cate.dto.CateDto;
 import com.home.app.cate.dto.CateSearchDto;
 
 public interface CateDao {
-	String selectBbsNameYn(String bbsName) throws Exception;
+	String selectBbsIdYn(String bbsId) throws Exception;
 
 	int selectCateCount(CateSearchDto cateSearchDto) throws Exception;
 
 	List<CateDto> selectCateList(CateSearchDto cateSearchDto) throws Exception;
 
-	List<CateDto> selectBbsName() throws Exception;
+	List<CateDto> selectBbsId() throws Exception;
 
 	CateDto selectCateView(int no) throws Exception;
 

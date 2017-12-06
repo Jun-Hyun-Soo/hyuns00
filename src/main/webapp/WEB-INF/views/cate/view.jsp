@@ -29,11 +29,11 @@
 	<caption>※ 게시판 보기</caption>
     <tr>
         <th> 게시판명 :</th>
-        <td><c:out value="${cateDto.subject}" escapeXml="true"></c:out></td>
+        <td><c:out value="${cateDto.bbsName}" escapeXml="true"></c:out></td>
     </tr>
     <tr>
         <th> 연결문자 :</th>
-        <td><c:out value="${cateDto.bbsName}" escapeXml="true"></c:out></td>
+        <td><c:out value="${cateDto.bbsId}" escapeXml="true"></c:out></td>
     </tr>
     <tr>
         <th>리스트갯수 :</th>

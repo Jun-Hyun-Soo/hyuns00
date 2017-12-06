@@ -28,28 +28,28 @@
 	<form:hidden path="searchKeyword" value="${cateSearchDto.searchKeyword}" />
 	<form:hidden path="page" value="${cateSearchDto.page}" />
 	
-	<form:hidden path="bbsNameYn" value="N" />
+	<form:hidden path="bbsIdYn" value="N" />
 
     <table class="cssCateTable">
         <caption>※  게시판 등록</caption>    
 	    <tr>
 		    <th>* 게시판명 :</th>
 		    <td>
-		        <form:input path="subject" maxlength="42" />
+		        <form:input path="bbsName" maxlength="42" />
 		    </td>
 	    </tr>
 	    <tr>
 		    <th>* 연결문자 :</th>
 		    <td>
-		        <form:input path="bbsName" maxlength="20" />
-		        <input type="image" id="imgBtnBbsNameYn" value="" onclick="imgBtnBbsNameYn_click(form); return false;" />
+		        <form:input path="bbsId" maxlength="20" />
+		        <input type="image" id="imgBtnBbsIdYn" value="" onclick="imgBtnBbsIdYn_click(form); return false;" />
 		    </td>
 	    </tr>
 	    <tr>
 		    <th>* 리스트갯수 :</th>
 		    <td>
-				<form:radiobutton path="listSize" value="5" label="5" checked="checked" />
-				<form:radiobutton path="listSize" value="10" label="10" />
+				<form:radiobutton path="listSize" value="5" label="5" />
+				<form:radiobutton path="listSize" value="10" label="10" checked="checked" />
 				<form:radiobutton path="listSize" value="15" label="15" />
 				<form:radiobutton path="listSize" value="20" label="20" />	        
 		    </td>
@@ -57,8 +57,8 @@
 	    <tr>
 		    <th> 페이지갯수 :</th>
 		    <td>
-				<form:radiobutton path="pageSize" value="5" label="5" checked="checked" />
-				<form:radiobutton path="pageSize" value="10" label="10" />
+				<form:radiobutton path="pageSize" value="5" label="5" />
+				<form:radiobutton path="pageSize" value="10" label="10" checked="checked" />
 				<form:radiobutton path="pageSize" value="15" label="15" />
 				<form:radiobutton path="pageSize" value="20" label="20" />	        
 		    </td>

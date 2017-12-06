@@ -14,8 +14,8 @@ public class cateAspect {
 	private CateService cateService;
 
 	@Around("execution(* com.home.app.bbs..controller.*Controller.*(..)) && args(bbsSearchDto,..)")
-	public Object bbsNameYn(ProceedingJoinPoint joinPoint, BbsSearchDto bbsSearchDto) throws Throwable {
-		if (cateService.selectBbsNameYn(bbsSearchDto.getBbsName()).equals("N")) {
+	public Object bbsIdYn(ProceedingJoinPoint joinPoint, BbsSearchDto bbsSearchDto) throws Throwable {
+		if (cateService.selectBbsIdYn(bbsSearchDto.getBbsId()).equals("N")) {
 			throw new Exception("게시판이 존재하지 않습니다!");
 		}
 

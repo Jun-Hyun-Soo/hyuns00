@@ -7,12 +7,12 @@ public class CateDto extends CateSearchDto {
 	private int listSize;
 	private int pageSize;
 
-	private String subject;
+	private String bbsId;
 	private String bbsName;
 	private String regDate;
 	private String useYn;
 
-	private String bbsNameYn;
+	private String bbsIdYn;
 
 	public int getNo() {
 		return no;
@@ -46,12 +46,12 @@ public class CateDto extends CateSearchDto {
 		this.pageSize = pageSize;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getBbsId() {
+		return bbsId;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setBbsId(String bbsId) {
+		this.bbsId = bbsId;
 	}
 
 	public String getBbsName() {
@@ -78,12 +78,12 @@ public class CateDto extends CateSearchDto {
 		this.useYn = useYn;
 	}
 
-	public String getBbsNameYn() {
-		return bbsNameYn;
+	public String getBbsIdYn() {
+		return bbsIdYn;
 	}
 
-	public void setBbsNameYn(String bbsNameYn) {
-		this.bbsNameYn = bbsNameYn;
+	public void setBbsIdYn(String bbsIdYn) {
+		this.bbsIdYn = bbsIdYn;
 	}
 
 }

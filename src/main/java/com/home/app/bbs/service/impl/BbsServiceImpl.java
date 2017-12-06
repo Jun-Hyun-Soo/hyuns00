@@ -178,8 +178,8 @@ public class BbsServiceImpl implements BbsService {
 		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
 	}
 
-	public int updateBbsName(BbsCommentDto bbsCommentDto) throws Exception {
-		return bbsDao.updateBbsName(bbsCommentDto);
+	public int updateBbsId(BbsCommentDto bbsCommentDto) throws Exception {
+		return bbsDao.updateBbsId(bbsCommentDto);
 	}
 
 	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception {

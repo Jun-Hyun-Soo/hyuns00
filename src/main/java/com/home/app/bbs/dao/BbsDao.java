@@ -52,7 +52,7 @@ public interface BbsDao {
 
 	int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception;
 
-	int updateBbsName(BbsCommentDto bbsCommentDto) throws Exception;
+	int updateBbsId(BbsCommentDto bbsCommentDto) throws Exception;
 
 	int deleteBbsCommentList(int pno) throws Exception;
 

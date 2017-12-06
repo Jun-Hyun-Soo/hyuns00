@@ -15,8 +15,8 @@ public class CateServiceImpl implements CateService {
 	@Autowired
 	private CateDao cateDao;
 
-	public String selectBbsNameYn(String bbsName) throws Exception {
-		return cateDao.selectBbsNameYn(bbsName);
+	public String selectBbsIdYn(String bbsId) throws Exception {
+		return cateDao.selectBbsIdYn(bbsId);
 	}
 
 	public int selectCateCount(CateSearchDto cateSearchDto) throws Exception {
@@ -27,8 +27,8 @@ public class CateServiceImpl implements CateService {
 		return cateDao.selectCateList(cateSearchDto);
 	}
 
-	public List<CateDto> selectBbsName() throws Exception {
-		return cateDao.selectBbsName();
+	public List<CateDto> selectBbsId() throws Exception {
+		return cateDao.selectBbsId();
 	}
 
 	public CateDto selectCateView(int no) throws Exception {

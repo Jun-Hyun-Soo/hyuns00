@@ -52,7 +52,7 @@ public interface BbsService {
 
 	public int updateBbsCommentDelete(BbsCommentDto bbsCommentDto) throws Exception;
 
-	public int updateBbsName(BbsCommentDto bbsCommentDto) throws Exception;
+	public int updateBbsId(BbsCommentDto bbsCommentDto) throws Exception;
 
 	public int deleteBbsComment(BbsCommentDto bbsCommentDto) throws Exception;
 

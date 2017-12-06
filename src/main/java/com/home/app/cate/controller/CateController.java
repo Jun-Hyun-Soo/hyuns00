@@ -91,9 +91,9 @@ public class CateController {
 		return cateService.deleteCate(cateDto.getNo());
 	}
 
-	@RequestMapping(value = "/checkBbsNameYn", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
-	public @ResponseBody String checkBbsNameYn(CateDto cateDto) throws Exception {
-		return cateService.selectBbsNameYn(cateDto.getBbsName());
+	@RequestMapping(value = "/checkBbsIdYn", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody String checkBbsIdYn(CateDto cateDto) throws Exception {
+		return cateService.selectBbsIdYn(cateDto.getBbsId());
 	}
 
 }

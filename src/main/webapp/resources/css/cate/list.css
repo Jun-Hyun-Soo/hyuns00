@@ -101,7 +101,7 @@
 
 #thCateListNo 			{ width: 50px;	}
 #thCateListSubject 		{ width: 150px;	}
-#thCateListBbsName 		{ width: 70px; }
+#thCateListBbsId 		{ width: 70px; }
 #thCateListListSize 	{ width: 80px; 	}
 #thCateListPageSize 	{ width: 80px; 	}
 #thCateListRegDate 		{ width: 80px; 	}
@@ -118,7 +118,7 @@
 
 .cssCateListNo			{ text-align: center; 	}
 .cssCateListSubject		{ text-align: center;	 text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.cssCateListBbsName 	{ text-align: center; 	}
+.cssCateListBbsId	 	{ text-align: center; 	}
 .cssCateListListSize 	{ text-align: center; 	}
 .cssCateListPageSize 	{ text-align: center; 	}
 .cssCateListRegDate 	{ text-align: center; 	}

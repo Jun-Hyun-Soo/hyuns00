@@ -1,19 +1,19 @@
 /*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.IX_BOARD_NO
--- ¸¸µç ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:53:24
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:53:24
--- »óÅÂ : VALID
+-- ê°œì²´ ì´ë¦„: HYUNS00.IX_BBS_ID_NOTICE_YN
+-- ë§Œë“  ë‚ ì§œ: 2017-05-23 ì˜¤í›„ 2:30:12
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-23 ì˜¤í›„ 2:30:12
+-- ìƒíƒœ: VALID
 ------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.IX_BOARD_NO;
+DROP INDEX HYUNS00.IX_BBS_ID_NOTICE_YN;
 
-CREATE INDEX HYUNS00.IX_BOARD_NO
-ON HYUNS00.BBS (BBS_NAME, NO)
+CREATE INDEX HYUNS00.IX_BBS_ID_NOTICE_YN
+ON HYUNS00.BBS (BBS_ID, NOTICE_YN)
 PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -23,67 +23,11 @@ LOGGING
 NOPARALLEL
 COMPUTE STATISTICS
 ONLINE;
-
-
 /*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.IX_BOARD_NOTICE_YN
--- ¸¸µç ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:53:27
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-07-20 ¿ÀÀü 9:29:39
--- »óÅÂ : VALID
-------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.IX_BOARD_NOTICE_YN;
-
-CREATE INDEX HYUNS00.IX_BOARD_NOTICE_YN
-ON HYUNS00.BBS (BBS_NAME, NOTICE_YN)
-PCTFREE 10
-INITRANS 2
-MAXTRANS 255
-STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
-    PCTINCREASE 0
-)
-TABLESPACE USERS
-LOGGING
-NOPARALLEL
-COMPUTE STATISTICS
-ONLINE;
-
-
-/*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.IX_BOARD_REG_DATE
--- ¸¸µç ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:53:29
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-07-20 ¿ÀÀü 9:29:46
--- »óÅÂ : VALID
-------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.IX_BOARD_REG_DATE;
-
-CREATE INDEX HYUNS00.IX_BOARD_REG_DATE
-ON HYUNS00.BBS (BBS_NAME, REG_DATE)
-PCTFREE 10
-INITRANS 2
-MAXTRANS 255
-STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
-    PCTINCREASE 0
-)
-TABLESPACE USERS
-LOGGING
-NOPARALLEL
-COMPUTE STATISTICS
-ONLINE;
-
-
-/*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.PK_BBS
--- ¸¸µç ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:53:29
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:53:29
--- »óÅÂ : VALID
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_BBS
+-- ë§Œë“  ë‚ ì§œ: 2017-02-27 ì˜¤í›„ 11:48:05
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-02-27 ì˜¤í›„ 11:48:05
+-- ìƒíƒœ: VALID
 ------------------------------------------------------------------------------*/
 DROP INDEX HYUNS00.PK_BBS;
 
@@ -93,8 +37,8 @@ PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -104,13 +48,36 @@ LOGGING
 NOPARALLEL
 COMPUTE STATISTICS
 ONLINE;
-
-
 /*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.PK_BBS_COMMENT
--- ¸¸µç ³¯Â¥ : 2016-06-27 ¿ÀÈÄ 3:42:01
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-07-20 ¿ÀÀü 9:29:53
--- »óÅÂ : VALID
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_BBS_CATE
+-- ë§Œë“  ë‚ ì§œ: 2017-05-18 ì˜¤í›„ 5:52:33
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-18 ì˜¤í›„ 5:52:33
+-- ìƒíƒœ: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.PK_BBS_CATE;
+
+CREATE UNIQUE INDEX HYUNS00.PK_BBS_CATE
+ON HYUNS00.BBS_CATE (NO)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL
+COMPUTE STATISTICS
+ONLINE;
+/*------------------------------------------------------------------------------
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_BBS_COMMENT
+-- ë§Œë“  ë‚ ì§œ: 2017-02-27 ì˜¤í›„ 11:48:07
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-02-27 ì˜¤í›„ 11:48:07
+-- ìƒíƒœ: VALID
 ------------------------------------------------------------------------------*/
 DROP INDEX HYUNS00.PK_BBS_COMMENT;
 
@@ -120,8 +87,8 @@ PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -131,13 +98,11 @@ LOGGING
 NOPARALLEL
 COMPUTE STATISTICS
 ONLINE;
-
-
 /*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.PK_BBS_FILE
--- ¸¸µç ³¯Â¥ : 2016-05-19 ¿ÀÈÄ 3:32:32
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-07-20 ¿ÀÀü 9:30:00
--- »óÅÂ : VALID
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_BBS_FILE
+-- ë§Œë“  ë‚ ì§œ: 2017-03-22 ì˜¤í›„ 11:53:24
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-03-22 ì˜¤í›„ 11:53:24
+-- ìƒíƒœ: VALID
 ------------------------------------------------------------------------------*/
 DROP INDEX HYUNS00.PK_BBS_FILE;
 
@@ -147,8 +112,8 @@ PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -158,24 +123,22 @@ LOGGING
 NOPARALLEL
 COMPUTE STATISTICS
 ONLINE;
-
-
 /*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.PK_LOGIN_FILE
--- ¸¸µç ³¯Â¥ : 2016-07-19 ¿ÀÈÄ 3:22:29
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-07-19 ¿ÀÈÄ 3:22:29
--- »óÅÂ : VALID
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_BBS_GROUP
+-- ë§Œë“  ë‚ ì§œ: 2017-05-19 ì˜¤í›„ 1:56:05
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-19 ì˜¤í›„ 1:56:05
+-- ìƒíƒœ: VALID
 ------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.PK_LOGIN_FILE;
+DROP INDEX HYUNS00.PK_BBS_GROUP;
 
-CREATE UNIQUE INDEX HYUNS00.PK_LOGIN_FILE
-ON HYUNS00.LOGIN_FILE (NO)
+CREATE UNIQUE INDEX HYUNS00.PK_BBS_GROUP
+ON HYUNS00.MENU (NO)
 PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -185,24 +148,22 @@ LOGGING
 NOPARALLEL
 COMPUTE STATISTICS
 ONLINE;
-
-
 /*------------------------------------------------------------------------------
--- °³Ã¼ ÀÌ¸§ : HYUNS00.PK_NO
--- ¸¸µç ³¯Â¥ : 2016-07-19 ¿ÀÈÄ 3:20:37
--- ¸¶Áö¸·À¸·Î ¼öÁ¤ÇÑ ³¯Â¥ : 2016-07-19 ¿ÀÈÄ 3:20:37
--- »óÅÂ : VALID
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_BBS_SCRAP
+-- ë§Œë“  ë‚ ì§œ: 2017-04-11 ì˜¤í›„ 9:50:38
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-04-11 ì˜¤í›„ 9:50:38
+-- ìƒíƒœ: VALID
 ------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.PK_NO;
+DROP INDEX HYUNS00.PK_BBS_SCRAP;
 
-CREATE UNIQUE INDEX HYUNS00.PK_NO
-ON HYUNS00.LOGIN (USER_ID)
+CREATE UNIQUE INDEX HYUNS00.PK_BBS_SCRAP
+ON HYUNS00.BBS_SCRAP (NO)
 PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -212,4 +173,128 @@ LOGGING
 NOPARALLEL
 COMPUTE STATISTICS
 ONLINE;
+/*------------------------------------------------------------------------------
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_LOGIN
+-- ë§Œë“  ë‚ ì§œ: 2017-03-22 ì˜¤í›„ 11:59:39
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-03-22 ì˜¤í›„ 11:59:39
+-- ìƒíƒœ: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.PK_LOGIN;
 
+CREATE UNIQUE INDEX HYUNS00.PK_LOGIN
+ON HYUNS00.LOGIN (USER_NO)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL
+COMPUTE STATISTICS
+ONLINE;
+/*------------------------------------------------------------------------------
+-- ê°œì²´ ì´ë¦„: HYUNS00.PK_MESSAGE
+-- ë§Œë“  ë‚ ì§œ: 2017-05-19 ì˜¤í›„ 1:44:04
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-19 ì˜¤í›„ 1:44:04
+-- ìƒíƒœ: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.PK_MESSAGE;
+
+CREATE UNIQUE INDEX HYUNS00.PK_MESSAGE
+ON HYUNS00.MESSAGE (NO)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL
+COMPUTE STATISTICS
+ONLINE;
+/*------------------------------------------------------------------------------
+-- ê°œì²´ ì´ë¦„: HYUNS00.UNI_BBS_CATE
+-- ë§Œë“  ë‚ ì§œ: 2017-05-19 ì˜¤ì „ 11:33:05
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-19 ì˜¤ì „ 11:33:05
+-- ìƒíƒœ: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.UNI_BBS_CATE;
+
+CREATE UNIQUE INDEX HYUNS00.UNI_BBS_CATE
+ON HYUNS00.BBS_CATE (BBS_ID)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL
+COMPUTE STATISTICS
+ONLINE;
+/*------------------------------------------------------------------------------
+-- ê°œì²´ ì´ë¦„: HYUNS00.UNI_BBS_GROUP
+-- ë§Œë“  ë‚ ì§œ: 2017-05-19 ì˜¤í›„ 1:55:44
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-19 ì˜¤í›„ 1:55:44
+-- ìƒíƒœ: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.UNI_BBS_GROUP;
+
+CREATE UNIQUE INDEX HYUNS00.UNI_BBS_GROUP
+ON HYUNS00.MENU (MENU_ID)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL
+COMPUTE STATISTICS
+ONLINE;
+/*------------------------------------------------------------------------------
+-- ê°œì²´ ì´ë¦„: HYUNS00.UNI_LOGIN
+-- ë§Œë“  ë‚ ì§œ: 2017-05-19 ì˜¤ì „ 11:35:08
+-- ë§ˆì§€ë§‰ìœ¼ë¡œ ìˆ˜ì •í•œ ë‚ ì§œ: 2017-05-19 ì˜¤ì „ 11:35:08
+-- ìƒíƒœ: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.UNI_LOGIN;
+
+CREATE UNIQUE INDEX HYUNS00.UNI_LOGIN
+ON HYUNS00.LOGIN (USER_ID, USER_EMAIL, USER_NICK)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL
+COMPUTE STATISTICS
+ONLINE;

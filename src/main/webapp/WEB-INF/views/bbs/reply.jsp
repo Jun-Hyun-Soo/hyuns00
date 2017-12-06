@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/resources/css/bbs/reply.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 	
-<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
+<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsId}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -25,7 +25,7 @@
 	<sec:authentication property="principal.userId" var="userId" />
 </sec:authorize>
 
-<form:form commandName="bbsDto" method="post" enctype="multipart/form-data" action="/bbs/replyOk/${bbsSearchDto.bbsName}/${bbsDto.no}">
+<form:form commandName="bbsDto" method="post" enctype="multipart/form-data" action="/bbs/replyOk/${bbsSearchDto.bbsId}/${bbsDto.no}">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true" />	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">

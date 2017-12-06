@@ -17,7 +17,7 @@ public class BbsDto extends BbsSearchDto {
 	private int comCount;
 	private int viewCount;
 
-	private String bbsName;
+	private String bbsId;
 	private String userId;
 
 	// @NotNull @Size(min = 4, message = "비밀번호를 입력해 주세요!")
@@ -108,12 +108,12 @@ public class BbsDto extends BbsSearchDto {
 		this.viewCount = viewCount;
 	}
 
-	public String getBbsName() {
-		return bbsName;
+	public String getBbsId() {
+		return bbsId;
 	}
 
-	public void setBbsName(String bbsName) {
-		this.bbsName = bbsName;
+	public void setBbsId(String bbsId) {
+		this.bbsId = bbsId;
 	}
 
 	public String getUserId() {

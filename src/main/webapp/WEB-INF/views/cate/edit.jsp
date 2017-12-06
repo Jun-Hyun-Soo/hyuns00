@@ -28,7 +28,7 @@
 	<form:hidden path="searchKeyword" value="${cateSearchDto.searchKeyword}" />
 	<form:hidden path="page" value="${cateSearchDto.page}" />
 	
-	<form:hidden path="bbsNameYn" value="N" />
+	<form:hidden path="bbsIdYn" value="N" />
 	
 	<form:hidden path="no" value="${cateDto.no}" />
 	    
@@ -37,13 +37,13 @@
 	    <tr>
 		    <th>* 게시판명 :</th>
 		    <td>
-		        <form:input path="subject" maxlength="42" />
+		        <form:input path="bbsName" maxlength="42" />
 		    </td>
 	    </tr>
 	    <tr>
 		    <th>* 연결문자 :</th>
 		    <td>
-		        <form:input path="bbsName" maxlength="20" readonly="true" />
+		        <form:input path="bbsId" maxlength="20" readonly="true" />
 		    </td>
 	    </tr>
 	    <tr>

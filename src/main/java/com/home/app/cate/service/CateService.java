@@ -6,13 +6,13 @@ import com.home.app.cate.dto.CateDto;
 import com.home.app.cate.dto.CateSearchDto;
 
 public interface CateService {
-	public String selectBbsNameYn(String bbsName) throws Exception;
+	public String selectBbsIdYn(String bbsId) throws Exception;
 
 	public int selectCateCount(CateSearchDto cateSearchDto) throws Exception;
 
 	public List<CateDto> selectCateList(CateSearchDto cateSearchDto) throws Exception;
 
-	public List<CateDto> selectBbsName() throws Exception;
+	public List<CateDto> selectBbsId() throws Exception;
 
 	public CateDto selectCateView(int no) throws Exception;
 

@@ -121,19 +121,19 @@ function imgBtnBbsCommentWrite_Click(form, isAuthenticated, commentType) {
 
 	switch (commentType) {
 		case "Write":
-			form.action = "/bbs/commentWriteOk/" + form.bbsName.value + "/" + form.pno.value;
+			form.action = "/bbs/commentWriteOk/" + form.bbsId.value + "/" + form.pno.value;
 			break;
 		case "Edit":
-			form.action = "/bbs/commentEditOk/" + form.bbsName.value + "/" + form.pno.value;
+			form.action = "/bbs/commentEditOk/" + form.bbsId.value + "/" + form.pno.value;
 			break;
 		case "Reply":
-			form.action = "/bbs/commentReplyOk/" + form.bbsName.value + "/" + form.pno.value;
+			form.action = "/bbs/commentReplyOk/" + form.bbsId.value + "/" + form.pno.value;
 			break;
 		case "Delete":
-			form.action = "/bbs/commentDeleteOk/" + form.bbsName.value + "/" + form.pno.value;
+			form.action = "/bbs/commentDeleteOk/" + form.bbsId.value + "/" + form.pno.value;
 			break;
 		default:
-			form.action = "/bbs/commentWriteOk/" + form.bbsName.value + "/" + form.pno.value;
+			form.action = "/bbs/commentWriteOk/" + form.bbsId.value + "/" + form.pno.value;
 			break;
 	}
 
@@ -343,12 +343,12 @@ function checkBbsUserPw(url, no, userPw) {
 // 글이동에서 체크하는 부분
 // ***********************************************************************************************************
 function imgBtnMove_click(moveUrl, listUrl, form) {
-	var bbsName = $("#" + form.bbsName.id).val();
+	var bbsId = $("#" + form.bbsId.id).val();
 	var bbsList = $("#" + form.bbsList.id + " option:selected").val();
 	var bbsListText = $("#" + form.bbsList.id + " option:selected").text();
-	// var preNo = $("#" + form.bbsName.id).val();
+	// var preNo = $("#" + form.bbsId.id).val();
 
-	if (bbsName == bbsList) {
+	if (bbsId == bbsList) {
 		createDialog({
 			"title" : "경고",
 			"alertMsg" : "같은 게시판으로 이동할 수 없습니다!"
@@ -378,7 +378,7 @@ function imgBtnMove_click(moveUrl, listUrl, form) {
 							"title" : "알림",
 							"alertMsg" : bbsListText + "으로 게시물을 이동하였습니다."
 						}).done(function() {
-							location.href = listUrl.replace(bbsName, bbsList);
+							location.href = listUrl.replace(bbsId, bbsList);
 						});
 					} else {
 						createDialog({

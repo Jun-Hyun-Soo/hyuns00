@@ -24,12 +24,12 @@
 				 ORDER BY NO ASC		
 		 	</when> 
     		<when test="@com.home.app.util.Util@isEquals(comboType, 'cate')">
-				SELECT BBS_NAME AS CODE_ID,
-				       SUBJECT AS CODE_NAME
+				SELECT BBS_ID AS CODE_ID,
+				       BBS_NAME AS CODE_NAME
 				  FROM BBS_CATE 
 				 WHERE 1 = 1 
 			       AND USE_YN = 'Y' 
-				 ORDER BY SUBJECT ASC		
+				 ORDER BY BBS_NAME ASC		
 		 	</when> 
 		 </choose> 
     </select>

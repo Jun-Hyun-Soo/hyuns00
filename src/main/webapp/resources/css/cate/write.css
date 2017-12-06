@@ -40,11 +40,11 @@
 }
 
 #subject 	{ width: 511px; }
-#bbsName 	{ width: 169px; }
+#bbsId	 	{ width: 169px; }
 #listSize 	{ width: 169px; }
 #pageSize 	{ width: 169px; }
 
-#imgBtnBbsNameYn	
+#imgBtnBbsIdYn	
 {  
 	background-image: url("/resources/images/button/btn_duplicate.gif");
 	background-repeat: no-repeat;

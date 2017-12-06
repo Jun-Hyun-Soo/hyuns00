@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/resources/css/bbs/write.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 	
-<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">
+<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsId}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -25,7 +25,7 @@
 	<sec:authentication property="principal.userId" var="userId" />
 </sec:authorize>
 
-<form:form commandName="bbsDto" method="post" enctype="multipart/form-data" action="/bbs/writeOk/${bbsSearchDto.bbsName}">
+<form:form commandName="bbsDto" method="post" enctype="multipart/form-data" action="/bbs/writeOk/${bbsSearchDto.bbsId}" cssClass="form-horizontal" role="form">
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true" />	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -44,13 +44,20 @@
 	
 	<form:hidden path="deleteBbsFileNo" value="" />		
 	<form:hidden path="userId" value="${userId}" />
+   
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="subject">* 제목 :</label>
+		<div class="control col-sm-10">
+			<input type="text" class="form-control" id="email" placeholder="Enter email">
+			<form:input path="subject" cssClass="form-control" placeholder="제목을 입력해 주세요!" />
+		</div>
+	</div>
 
     <table class="cssBbsTable">
         <caption>※  글 쓰기</caption>    
 	    <tr>
 		    <th>* 제목 :</th>
 		    <td colspan="3">
-		        <form:input path="subject" maxlength="42" />
 		    </td>
 	    </tr>
 		<sec:authorize access="isAnonymous()">		    

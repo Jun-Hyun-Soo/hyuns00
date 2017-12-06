@@ -1,39 +1,52 @@
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.BBS
--- ∏∏µÁ ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:53:12
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 9:20:04
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.BBS
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-02-27 Ïò§ÌõÑ 11:48:02
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-23 Ïò§ÌõÑ 2:30:12
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
 DROP TABLE HYUNS00.BBS CASCADE CONSTRAINTS;
 
 CREATE TABLE HYUNS00.BBS (
-  NO            NUMBER             NOT NULL,
-  PRE_NO        NUMBER             NOT NULL,
-  SUB_NO        NUMBER             NOT NULL,
-  DEP_NO        NUMBER             NOT NULL,
-  COM_COUNT     NUMBER             NOT NULL,
-  VIEW_COUNT    NUMBER             NOT NULL,
-  BBS_NAME      NVARCHAR2(200)     NOT NULL,
-  USER_ID       NVARCHAR2(200)         NULL,
-  USER_PW       NVARCHAR2(200)     NOT NULL,
-  USER_NAME     NVARCHAR2(200)     NOT NULL,
-  USER_EMAIL    NVARCHAR2(200)         NULL,
-  SUBJECT       NVARCHAR2(200)     NOT NULL,
-  USER_IP       NVARCHAR2(200)     NOT NULL,
-  NOTICE_YN     CHAR(1)            NOT NULL,
-  REG_DATE      DATE               NOT NULL,
-  CONTENT       CLOB               NOT NULL
+  NO            NUMBER                  NOT NULL,
+  PRE_NO        NUMBER                  NOT NULL,
+  SUB_NO        NUMBER                  NOT NULL,
+  DEP_NO        NUMBER                  NOT NULL,
+  COM_COUNT     NUMBER                  NOT NULL,
+  VIEW_COUNT    NUMBER                  NOT NULL,
+  BBS_ID        NVARCHAR2(20 CHAR)      NOT NULL,
+  USER_ID       NVARCHAR2(200 CHAR)         NULL,
+  USER_PW       NVARCHAR2(200 CHAR)     NOT NULL,
+  USER_NAME     NVARCHAR2(200 CHAR)     NOT NULL,
+  USER_EMAIL    NVARCHAR2(200 CHAR)         NULL,
+  USER_IP       NVARCHAR2(200 CHAR)     NOT NULL,
+  SUBJECT       NVARCHAR2(200 CHAR)     NOT NULL,
+  NOTICE_YN     CHAR(1 BYTE)            NOT NULL,
+  REG_DATE      DATE                    NOT NULL,
+  CONTENT       CLOB                    NOT NULL
+)
+LOB (CONTENT) STORE AS (
+    TABLESPACE USERS
+    ENABLE STORAGE IN ROW
+    CHUNK 8192
+    NOCACHE
+    LOGGING
+    STORAGE (
+        INITIAL     64K
+        NEXT        1M
+        MINEXTENTS  1
+        MAXEXTENTS  UNLIMITED
+    )
 )
 TABLESPACE USERS
-PCTFREE 10
-PCTUSED 0
-INITRANS 1
-MAXTRANS 255
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
 )
 LOGGING
 NOCACHE
@@ -41,104 +54,56 @@ MONITORING
 NOPARALLEL
 ;
 
-COMMENT ON TABLE HYUNS00.BBS IS '∞‘Ω√';
+COMMENT ON TABLE HYUNS00.BBS IS 'Í≤åÏãúÌåê';
 
-COMMENT ON COLUMN HYUNS00.BBS.CONTENT IS '≥ªøÎ';
+COMMENT ON COLUMN HYUNS00.BBS.NO IS 'Í∏ÄÎ≤àÌò∏';
 
-COMMENT ON COLUMN HYUNS00.BBS.NO IS '±€π¯»£';
+COMMENT ON COLUMN HYUNS00.BBS.PRE_NO IS 'ÏúÑÍ∏ÄÎ≤àÌò∏';
 
-COMMENT ON COLUMN HYUNS00.BBS.PRE_NO IS '¿ß±€π¯»£';
+COMMENT ON COLUMN HYUNS00.BBS.SUB_NO IS 'Í∏ÄÏ†ïÎ†¨';
 
-COMMENT ON COLUMN HYUNS00.BBS.SUB_NO IS '±€¡§∑ƒ';
+COMMENT ON COLUMN HYUNS00.BBS.DEP_NO IS 'Í∏ÄÎã®Í≥Ñ';
 
-COMMENT ON COLUMN HYUNS00.BBS.DEP_NO IS '±€¥‹∞Ë';
+COMMENT ON COLUMN HYUNS00.BBS.COM_COUNT IS 'ÎåìÍ∏ÄÍ∞úÏàò';
 
-COMMENT ON COLUMN HYUNS00.BBS.COM_COUNT IS '¥Ò±€∞≥ºˆ';
+COMMENT ON COLUMN HYUNS00.BBS.VIEW_COUNT IS 'ÏùΩÏùÄÏà´Ïûê';
 
-COMMENT ON COLUMN HYUNS00.BBS.VIEW_COUNT IS '¿–¿∫º˝¿⁄';
+COMMENT ON COLUMN HYUNS00.BBS.BBS_ID IS 'Í≤åÏãúÌåêÎ™Ö';
 
-COMMENT ON COLUMN HYUNS00.BBS.BBS_NAME IS '∞‘Ω√∆«∏Ì';
+COMMENT ON COLUMN HYUNS00.BBS.USER_ID IS 'Ïú†Ï†ÄID';
 
-COMMENT ON COLUMN HYUNS00.BBS.USER_ID IS '¿Ø¿˙ID';
+COMMENT ON COLUMN HYUNS00.BBS.USER_PW IS 'ÎπÑÎ∞ÄÎ≤àÌò∏';
 
-COMMENT ON COLUMN HYUNS00.BBS.USER_PW IS '∫Òπ–π¯»£';
+COMMENT ON COLUMN HYUNS00.BBS.USER_NAME IS 'Í∏ÄÏì¥Ïù¥';
 
-COMMENT ON COLUMN HYUNS00.BBS.USER_NAME IS '±€æ¥¿Ã';
+COMMENT ON COLUMN HYUNS00.BBS.USER_EMAIL IS 'Ïù¥Î©îÏùº';
 
-COMMENT ON COLUMN HYUNS00.BBS.USER_EMAIL IS '¿Ã∏ﬁ¿œ';
+COMMENT ON COLUMN HYUNS00.BBS.USER_IP IS 'Ï†úÎ™©';
 
-COMMENT ON COLUMN HYUNS00.BBS.SUBJECT IS '¡¶∏Ò';
+COMMENT ON COLUMN HYUNS00.BBS.SUBJECT IS 'Ïú†Ï†ÄIP';
 
-COMMENT ON COLUMN HYUNS00.BBS.USER_IP IS '¿Ø¿˙IP';
+COMMENT ON COLUMN HYUNS00.BBS.NOTICE_YN IS 'Í≥µÏßÄÍ∏Ä';
 
-COMMENT ON COLUMN HYUNS00.BBS.NOTICE_YN IS '∞¯¡ˆ±€';
+COMMENT ON COLUMN HYUNS00.BBS.REG_DATE IS 'Îì±Î°ùÏùºÏûê';
 
-COMMENT ON COLUMN HYUNS00.BBS.REG_DATE IS 'µÓ∑œ¿œ¿⁄';
+COMMENT ON COLUMN HYUNS00.BBS.CONTENT IS 'ÎÇ¥Ïö©';
 
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.IX_BOARD_NO
--- ∏∏µÁ ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:53:24
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:53:24
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.IX_BBS_ID_NOTICE_YN
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-05-23 Ïò§ÌõÑ 2:30:12
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-23 Ïò§ÌõÑ 2:30:12
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.IX_BOARD_NO;
+DROP INDEX HYUNS00.IX_BBS_ID_NOTICE_YN;
 
-CREATE INDEX HYUNS00.IX_BOARD_NO
-ON HYUNS00.BBS (BBS_NAME, NO)
+CREATE INDEX HYUNS00.IX_BBS_ID_NOTICE_YN
+ON HYUNS00.BBS (BBS_ID, NOTICE_YN)
 PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
-    PCTINCREASE 0
-)
-TABLESPACE USERS
-LOGGING
-NOPARALLEL;
-
-/*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.IX_BOARD_NOTICE_YN
--- ∏∏µÁ ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:53:27
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 9:29:39
--- ªÛ≈¬ : VALID
-------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.IX_BOARD_NOTICE_YN;
-
-CREATE INDEX HYUNS00.IX_BOARD_NOTICE_YN
-ON HYUNS00.BBS (BBS_NAME, NOTICE_YN)
-PCTFREE 10
-INITRANS 2
-MAXTRANS 255
-STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
-    PCTINCREASE 0
-)
-TABLESPACE USERS
-LOGGING
-NOPARALLEL;
-
-/*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.IX_BOARD_REG_DATE
--- ∏∏µÁ ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:53:29
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 9:29:46
--- ªÛ≈¬ : VALID
-------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.IX_BOARD_REG_DATE;
-
-CREATE INDEX HYUNS00.IX_BOARD_REG_DATE
-ON HYUNS00.BBS (BBS_NAME, REG_DATE)
-PCTFREE 10
-INITRANS 2
-MAXTRANS 255
-STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -157,46 +122,39 @@ ALTER TABLE HYUNS00.BBS ADD
         INITRANS 2
         MAXTRANS 255
         STORAGE (
-            INITIAL 64 K
-            NEXT 1024 K
+            INITIAL 64K
+            NEXT 1M
             MINEXTENTS 1
             MAXEXTENTS UNLIMITED
         )
 );
-
-
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.BBS_COMMENT
--- ∏∏µÁ ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:42:01
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 10:55:23
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.BBS_CATE
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-05-18 Ïò§ÌõÑ 5:52:33
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-20 Ïò§Ï†Ñ 11:24:14
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
-DROP TABLE HYUNS00.BBS_COMMENT CASCADE CONSTRAINTS;
+DROP TABLE HYUNS00.BBS_CATE CASCADE CONSTRAINTS;
 
-CREATE TABLE HYUNS00.BBS_COMMENT (
-  NO           NUMBER             NOT NULL,
-  PNO          NUMBER             NOT NULL,
-  PRE_NO       NUMBER             NOT NULL,
-  SUB_NO       NUMBER             NOT NULL,
-  DEP_NO       NUMBER             NOT NULL,
-  BBS_NAME     NVARCHAR2(200)     NOT NULL,
-  USER_ID      NVARCHAR2(200)         NULL,
-  USER_PW      NVARCHAR2(200)     NOT NULL,
-  USER_NAME    NVARCHAR2(200)     NOT NULL,
-  USER_IP      NVARCHAR2(200)     NOT NULL,
-  REG_DATE     DATE               NOT NULL,
-  CONTENT      CLOB               NOT NULL
+CREATE TABLE HYUNS00.BBS_CATE (
+  NO           NUMBER                  NOT NULL,
+  BBS_ID       NVARCHAR2(200 CHAR)     NOT NULL,
+  BBS_NAME     NVARCHAR2(200 CHAR)     NOT NULL,
+  LIST_SIZE    NUMBER                  NOT NULL,
+  PAGE_SIZE    NUMBER                  NOT NULL,
+  USE_YN       CHAR(1 BYTE)           DEFAULT 'Y'            NOT NULL,
+  REG_DATE     DATE                    NOT NULL
 )
 TABLESPACE USERS
-PCTFREE 10
-PCTUSED 0
-INITRANS 1
-MAXTRANS 255
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
 )
 LOGGING
 NOCACHE
@@ -204,37 +162,135 @@ MONITORING
 NOPARALLEL
 ;
 
-COMMENT ON TABLE HYUNS00.BBS_COMMENT IS 'µ°±€';
+COMMENT ON TABLE HYUNS00.BBS_CATE IS 'Î∂ÑÎ•ò';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.NO IS 'µ°±€π¯»£';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.NO IS 'Î≤àÌò∏';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.PNO IS '∫Œ∏±€π¯»£';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.BBS_ID IS 'Í≤åÏãúÌåêID';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.PRE_NO IS '¿ßµ°±€π¯»£';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.BBS_NAME IS 'Í≤åÏãúÌåêÎ™Ö';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.SUB_NO IS 'µ°±€¡§∑ƒ';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.LIST_SIZE IS 'Î¶¨Ïä§Ìä∏ Í∞ØÏàò';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.DEP_NO IS 'µ°±€¥‹∞Ë';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.PAGE_SIZE IS 'ÌéòÏù¥ÏßÄ Í∞ØÏàò';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.BBS_NAME IS '∞‘Ω√∆«∏Ì';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.USE_YN IS 'ÏÇ¨Ïö©Ïú†Î¨¥';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_ID IS '¿Ø¿˙ID';
+COMMENT ON COLUMN HYUNS00.BBS_CATE.REG_DATE IS 'Îì±Î°ùÏùº';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_PW IS '∫Òπ–π¯»£';
+ALTER TABLE HYUNS00.BBS_CATE ADD
+(
+    CONSTRAINT PK_BBS_CATE
+    PRIMARY KEY ( NO )
+        USING INDEX
+        TABLESPACE USERS
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64K
+            NEXT 1M
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+);
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_NAME IS '±€æ¥¿Ã';
+ALTER TABLE HYUNS00.BBS_CATE ADD
+(
+    CONSTRAINT UNI_BBS_CATE
+    UNIQUE ( BBS_ID )
+        USING INDEX
+        TABLESPACE USERS
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64K
+            NEXT 1M
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+);
+/*------------------------------------------------------------------------------
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.BBS_COMMENT
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-02-27 Ïò§ÌõÑ 11:48:06
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-04-13 Ïò§ÌõÑ 4:23:31
+-- ÏÉÅÌÉú: VALID
+------------------------------------------------------------------------------*/
+DROP TABLE HYUNS00.BBS_COMMENT CASCADE CONSTRAINTS;
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_IP IS '¿Ø¿˙IP';
+CREATE TABLE HYUNS00.BBS_COMMENT (
+  NO           NUMBER                  NOT NULL,
+  PNO          NUMBER                  NOT NULL,
+  PRE_NO       NUMBER                  NOT NULL,
+  SUB_NO       NUMBER                  NOT NULL,
+  DEP_NO       NUMBER                  NOT NULL,
+  USER_ID      NVARCHAR2(200 CHAR)         NULL,
+  USER_PW      NVARCHAR2(200 CHAR)     NOT NULL,
+  USER_NAME    NVARCHAR2(200 CHAR)     NOT NULL,
+  USER_IP      NVARCHAR2(200 CHAR)     NOT NULL,
+  REG_DATE     DATE                    NOT NULL,
+  CONTENT      CLOB                    NOT NULL
+)
+LOB (CONTENT) STORE AS (
+    TABLESPACE USERS
+    ENABLE STORAGE IN ROW
+    CHUNK 8192
+    NOCACHE
+    LOGGING
+    STORAGE (
+        INITIAL     64K
+        NEXT        1M
+        MINEXTENTS  1
+        MAXEXTENTS  UNLIMITED
+    )
+)
+TABLESPACE USERS
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
+STORAGE (
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
+)
+LOGGING
+NOCACHE
+MONITORING
+NOPARALLEL
+;
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.REG_DATE IS 'µÓ∑œ¿œ¿⁄';
+COMMENT ON TABLE HYUNS00.BBS_COMMENT IS 'ÎçßÍ∏Ä';
 
-COMMENT ON COLUMN HYUNS00.BBS_COMMENT.CONTENT IS '≥ªøÎ';
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.CONTENT IS 'ÎÇ¥Ïö©';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.NO IS 'ÎçßÍ∏ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.PNO IS 'Î∂ÄÎ™®Í∏ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.PRE_NO IS 'ÏúÑÎçßÍ∏ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.SUB_NO IS 'ÎçßÍ∏ÄÏ†ïÎ†¨';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.DEP_NO IS 'ÎçßÍ∏ÄÎã®Í≥Ñ';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_ID IS 'Ïú†Ï†ÄID';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_PW IS 'ÎπÑÎ∞ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_NAME IS 'Í∏ÄÏì¥Ïù¥';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.USER_IP IS 'Ïú†Ï†ÄIP';
+
+COMMENT ON COLUMN HYUNS00.BBS_COMMENT.REG_DATE IS 'Îì±Î°ùÏùºÏûê';
 
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.PK_BBS_COMMENT
--- ∏∏µÁ ≥Ø¬• : 2016-06-27 ø¿»ƒ 3:42:01
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 9:29:53
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.PK_BBS_COMMENT
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-02-27 Ïò§ÌõÑ 11:48:07
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-02-27 Ïò§ÌõÑ 11:48:07
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
 DROP INDEX HYUNS00.PK_BBS_COMMENT;
 
@@ -244,8 +300,8 @@ PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -259,35 +315,34 @@ ALTER TABLE HYUNS00.BBS_COMMENT ADD
     CONSTRAINT PK_BBSCOMMENT
     PRIMARY KEY ( NO )
 );
-
-
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.BBS_FILE
--- ∏∏µÁ ≥Ø¬• : 2016-05-19 ø¿»ƒ 3:32:32
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 9:22:58
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.BBS_FILE
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-03-21 Ïò§ÌõÑ 9:43:16
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:47:56
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
 DROP TABLE HYUNS00.BBS_FILE CASCADE CONSTRAINTS;
 
 CREATE TABLE HYUNS00.BBS_FILE (
-  NO            NUMBER            NOT NULL,
-  PNO           NUMBER                NULL,
-  FILE_PATH     VARCHAR2(200)         NULL,
-  FILE_NAME     VARCHAR2(200)         NULL,
-  SAVE_NAME     VARCHAR2(200)         NULL,
-  FILE_SIZE     NUMBER                NULL,
-  DOWN_COUNT    NUMBER                NULL
+  NO            NUMBER                  NOT NULL,
+  PNO           NUMBER                  NOT NULL,
+  FILE_BASE     NVARCHAR2(200 CHAR)     NOT NULL,
+  FILE_PATH     NVARCHAR2(200 CHAR)     NOT NULL,
+  FILE_NAME     NVARCHAR2(200 CHAR)     NOT NULL,
+  SAVE_NAME     NVARCHAR2(200 CHAR)     NOT NULL,
+  FILE_SIZE     NUMBER                  NOT NULL,
+  DOWN_COUNT    NUMBER                  NOT NULL
 )
 TABLESPACE USERS
-PCTFREE 10
-PCTUSED 0
-INITRANS 1
-MAXTRANS 255
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
 )
 LOGGING
 NOCACHE
@@ -295,24 +350,264 @@ MONITORING
 NOPARALLEL
 ;
 
-COMMENT ON TABLE HYUNS00.BBS_FILE IS '∆ƒ¿œ';
+COMMENT ON TABLE HYUNS00.BBS_FILE IS 'ÏóÖÎ°úÎìú';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.NO IS 'ÌååÏùºÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.PNO IS 'Í∏ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.FILE_BASE IS 'Í∏∞Î≥∏Í≤ΩÎ°ú';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.FILE_PATH IS 'ÌååÏùºÍ≤ΩÎ°ú';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.FILE_NAME IS 'ÌååÏùºÎ™Ö';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.SAVE_NAME IS 'Ï†ÄÏû•ÌååÏùºÎ™Ö';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.FILE_SIZE IS 'ÌååÏùºÌÅ¨Í∏∞';
+
+COMMENT ON COLUMN HYUNS00.BBS_FILE.DOWN_COUNT IS 'Îã§Ïö¥Ïà´Ïûê';
+
+ALTER TABLE HYUNS00.BBS_FILE ADD
+(
+    CONSTRAINT PK_BBS_FILE
+    PRIMARY KEY ( NO )
+        USING INDEX
+        TABLESPACE USERS
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64K
+            NEXT 1M
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+);
+/*------------------------------------------------------------------------------
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.BBS_SCRAP
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-04-11 Ïò§ÌõÑ 9:50:38
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-20 Ïò§ÌõÑ 12:31:14
+-- ÏÉÅÌÉú: VALID
+------------------------------------------------------------------------------*/
+DROP TABLE HYUNS00.BBS_SCRAP CASCADE CONSTRAINTS;
+
+CREATE TABLE HYUNS00.BBS_SCRAP (
+  NO          NUMBER                 NOT NULL,
+  PNO         NUMBER                 NOT NULL,
+  BBS_ID      NVARCHAR2(20 CHAR)     NOT NULL,
+  USER_ID     NVARCHAR2(20 CHAR)     NOT NULL,
+  REG_DATE    DATE                   NOT NULL
+)
+TABLESPACE USERS
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
+STORAGE (
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
+)
+LOGGING
+NOCACHE
+MONITORING
+NOPARALLEL
+;
+
+COMMENT ON TABLE HYUNS00.BBS_SCRAP IS 'Ïä§ÌÅ¨Îû©';
+
+COMMENT ON COLUMN HYUNS00.BBS_SCRAP.NO IS 'Î≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_SCRAP.PNO IS 'Í≤åÏãúÌåêÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.BBS_SCRAP.BBS_ID IS 'Í≤åÏãúÌåêÎ™Ö';
+
+COMMENT ON COLUMN HYUNS00.BBS_SCRAP.USER_ID IS 'Îì±Î°ù Ïú†Ï†Ä ID';
+
+COMMENT ON COLUMN HYUNS00.BBS_SCRAP.REG_DATE IS 'Îì±Î°ùÏùº';
+
+ALTER TABLE HYUNS00.BBS_SCRAP ADD
+(
+    CONSTRAINT PK_BBS_SCRAP
+    PRIMARY KEY ( NO )
+        USING INDEX
+        TABLESPACE USERS
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64K
+            NEXT 1M
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+);
+/*------------------------------------------------------------------------------
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.LOGIN
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-03-01 Ïò§ÌõÑ 11:49:24
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:49:49
+-- ÏÉÅÌÉú: VALID
+------------------------------------------------------------------------------*/
+DROP TABLE HYUNS00.LOGIN CASCADE CONSTRAINTS;
+
+CREATE TABLE HYUNS00.LOGIN (
+  USER_NO        NUMBER                  NOT NULL,
+  USER_ID        NVARCHAR2(100 CHAR)     NOT NULL,
+  USER_PW        NVARCHAR2(100 CHAR)     NOT NULL,
+  USER_NAME      NVARCHAR2(100 CHAR)     NOT NULL,
+  USER_ROLE      NVARCHAR2(200 CHAR)     NOT NULL,
+  USER_EMAIL     NVARCHAR2(200 CHAR)     NOT NULL,
+  USER_NICK      NVARCHAR2(100 CHAR)     NOT NULL,
+  IMAGE_PATH     NVARCHAR2(200 CHAR)         NULL,
+  IMAGE_NAME     NVARCHAR2(200 CHAR)         NULL,
+  JOIN_DATE      DATE                    NOT NULL,
+  LAST_DATE      DATE                        NULL,
+  EXIT_DATE      DATE                        NULL,
+  EXIT_YN        CHAR(1 BYTE)            NOT NULL,
+  VISIT_COUNT    NUMBER                  NOT NULL
+)
+TABLESPACE USERS
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
+STORAGE (
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
+)
+LOGGING
+NOCACHE
+MONITORING
+NOPARALLEL
+;
+
+COMMENT ON TABLE HYUNS00.LOGIN IS 'Î°úÍ∑∏Ïù∏';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_NO IS 'Ïú†Ï†ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_ID IS 'Ïú†Ï†ÄID';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_PW IS 'ÎπÑÎ∞ÄÎ≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_NAME IS 'Ïú†Ï†ÄÎ™Ö';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_ROLE IS 'Í∂åÌïú';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_EMAIL IS 'Ïù¥Î©îÏùº';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.USER_NICK IS 'ÎãâÎÑ§ÏûÑ';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.IMAGE_PATH IS 'Ïù¥ÎØ∏ÏßÄÍ≤ΩÎ°ú';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.IMAGE_NAME IS 'Ïù¥ÎØ∏ÏßÄÎ™Ö';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.JOIN_DATE IS 'Í∞ÄÏûÖÏùºÏãú';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.LAST_DATE IS 'Ï†ëÏÜçÏùºÏãú';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.EXIT_DATE IS 'ÌÉàÌá¥ÏùºÏãú';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.EXIT_YN IS 'ÌÉàÌá¥Ïú†Î¨¥';
+
+COMMENT ON COLUMN HYUNS00.LOGIN.VISIT_COUNT IS 'Î∞©Î¨∏ÌöüÏàò';
+
+ALTER TABLE HYUNS00.LOGIN ADD
+(
+    CONSTRAINT PK_LOGIN
+    PRIMARY KEY ( USER_NO )
+        USING INDEX
+        TABLESPACE USERS
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64K
+            NEXT 1M
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+);
+
+ALTER TABLE HYUNS00.LOGIN ADD
+(
+    CONSTRAINT UNI_LOGIN
+    UNIQUE ( USER_ID, USER_EMAIL, USER_NICK )
+        USING INDEX
+        TABLESPACE USERS
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64K
+            NEXT 1M
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+);
+/*------------------------------------------------------------------------------
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.MENU
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:55:44
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-20 Ïò§Ï†Ñ 11:23:51
+-- ÏÉÅÌÉú: VALID
+------------------------------------------------------------------------------*/
+DROP TABLE HYUNS00.MENU CASCADE CONSTRAINTS;
+
+CREATE TABLE HYUNS00.MENU (
+  NO           NUMBER                  NOT NULL,
+  MENU_ID      NVARCHAR2(20 CHAR)      NOT NULL,
+  MENU_NAME    NVARCHAR2(200 CHAR)     NOT NULL,
+  USE_YN       CHAR(1 BYTE)           DEFAULT 'Y'            NOT NULL,
+  REG_DATE     DATE                    NOT NULL
+)
+TABLESPACE USERS
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
+STORAGE (
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
+)
+LOGGING
+NOCACHE
+MONITORING
+NOPARALLEL
+;
+
+COMMENT ON TABLE HYUNS00.MENU IS 'Î©îÎâ¥';
+
+COMMENT ON COLUMN HYUNS00.MENU.NO IS 'Î≤àÌò∏';
+
+COMMENT ON COLUMN HYUNS00.MENU.MENU_ID IS 'Í∑∏Î£πID';
+
+COMMENT ON COLUMN HYUNS00.MENU.MENU_NAME IS 'Í∑∏Î£πÎ™Ö';
+
+COMMENT ON COLUMN HYUNS00.MENU.USE_YN IS 'ÏÇ¨Ïö©Ïú†Î¨¥';
+
+COMMENT ON COLUMN HYUNS00.MENU.REG_DATE IS 'Îì±Î°ùÏùº';
 
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.PK_BBS_FILE
--- ∏∏µÁ ≥Ø¬• : 2016-05-19 ø¿»ƒ 3:32:32
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-20 ø¿¿¸ 9:30:00
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.UNI_BBS_GROUP
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:55:44
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:55:44
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
-DROP INDEX HYUNS00.PK_BBS_FILE;
+DROP INDEX HYUNS00.UNI_BBS_GROUP;
 
-CREATE UNIQUE INDEX HYUNS00.PK_BBS_FILE
-ON HYUNS00.BBS_FILE (NO)
+CREATE UNIQUE INDEX HYUNS00.UNI_BBS_GROUP
+ON HYUNS00.MENU (MENU_ID)
 PCTFREE 10
 INITRANS 2
 MAXTRANS 255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
+    INITIAL 64K
+    NEXT 1M
     MINEXTENTS 1
     MAXEXTENTS UNLIMITED
     PCTINCREASE 0
@@ -321,47 +616,81 @@ TABLESPACE USERS
 LOGGING
 NOPARALLEL;
 
-ALTER TABLE HYUNS00.BBS_FILE ADD
+/*------------------------------------------------------------------------------
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.PK_BBS_GROUP
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:56:05
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:56:05
+-- ÏÉÅÌÉú: VALID
+------------------------------------------------------------------------------*/
+DROP INDEX HYUNS00.PK_BBS_GROUP;
+
+CREATE UNIQUE INDEX HYUNS00.PK_BBS_GROUP
+ON HYUNS00.MENU (NO)
+PCTFREE 10
+INITRANS 2
+MAXTRANS 255
+STORAGE (
+    INITIAL 64K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    PCTINCREASE 0
+)
+TABLESPACE USERS
+LOGGING
+NOPARALLEL;
+
+ALTER TABLE HYUNS00.MENU ADD
 (
-    CONSTRAINT PK_BBSFILE
+    CONSTRAINT PK_BBS_MENU
     PRIMARY KEY ( NO )
 );
 
-
+ALTER TABLE HYUNS00.MENU ADD
+(
+    CONSTRAINT UNI_BBS_MENU
+    UNIQUE ( MENU_ID )
+);
 /*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.LOGIN
--- ∏∏µÁ ≥Ø¬• : 2016-07-19 ø¿»ƒ 3:20:36
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-19 ø¿»ƒ 3:20:37
--- ªÛ≈¬ : VALID
+-- Í∞úÏ≤¥ Ïù¥Î¶Ñ: HYUNS00.MESSAGE
+-- ÎßåÎì† ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:44:04
+-- ÎßàÏßÄÎßâÏúºÎ°ú ÏàòÏ†ïÌïú ÎÇ†Ïßú: 2017-05-19 Ïò§ÌõÑ 1:44:04
+-- ÏÉÅÌÉú: VALID
 ------------------------------------------------------------------------------*/
-DROP TABLE HYUNS00.LOGIN CASCADE CONSTRAINTS;
+DROP TABLE HYUNS00.MESSAGE CASCADE CONSTRAINTS;
 
-CREATE TABLE HYUNS00.LOGIN (
-  NO             NUMBER            NOT NULL,
-  USER_ID        VARCHAR2(100)     NOT NULL,
-  USER_PW        VARCHAR2(100)     NOT NULL,
-  USER_NAME      VARCHAR2(101)     NOT NULL,
-  USER_ROLE      VARCHAR2(200)     NOT NULL,
-  USER_EMAIL     VARCHAR2(200)     NOT NULL,
-  NICK_NAME      VARCHAR2(100)         NULL,
-  QUESTION       VARCHAR2(200)     NOT NULL,
-  ANSWER         VARCHAR2(200)     NOT NULL,
-  JOIN_DATE      DATE              NOT NULL,
-  LAST_DATE      DATE                  NULL,
-  EXIT_DATE      DATE                  NULL,
-  EXIT_YN        VARCHAR2(1)       NOT NULL,
-  VISIT_COUNT    NUMBER            NOT NULL
+CREATE TABLE HYUNS00.MESSAGE (
+  NO            NUMBER                 NOT NULL,
+  PNO           NUMBER                 NOT NULL,
+  SEND_ID       VARCHAR2(100 BYTE)     NOT NULL,
+  RECEIVE_ID    VARCHAR2(100 BYTE)     NOT NULL,
+  SUBJECT       VARCHAR2(200 BYTE)     NOT NULL,
+  REG_DATE      DATE                   NOT NULL,
+  CONTENT       CLOB                   NOT NULL
+)
+LOB (CONTENT) STORE AS (
+    TABLESPACE USERS
+    ENABLE STORAGE IN ROW
+    CHUNK 8192
+    NOCACHE
+    LOGGING
+    STORAGE (
+        INITIAL     64K
+        NEXT        1M
+        MINEXTENTS  1
+        MAXEXTENTS  UNLIMITED
+    )
 )
 TABLESPACE USERS
-PCTFREE 10
-PCTUSED 0
-INITRANS 1
-MAXTRANS 255
+PCTFREE    10
+PCTUSED    0
+INITRANS   1
+MAXTRANS   255
 STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
+    INITIAL     64K
+    NEXT        1M
+    MINEXTENTS  1
+    MAXEXTENTS  UNLIMITED
 )
 LOGGING
 NOCACHE
@@ -369,93 +698,25 @@ MONITORING
 NOPARALLEL
 ;
 
-COMMENT ON TABLE HYUNS00.LOGIN IS '∑Œ±◊¿Œ';
+COMMENT ON TABLE HYUNS00.MESSAGE IS 'Î©îÏãúÏßÄ';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.NO IS 'π¯»£';
+COMMENT ON COLUMN HYUNS00.MESSAGE.NO IS 'Î≤àÌò∏';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.USER_ID IS '¿Ø¿˙ID';
+COMMENT ON COLUMN HYUNS00.MESSAGE.PNO IS 'Î∂ÄÎ™®Î≤àÌò∏';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.USER_PW IS '∫Òπ–π¯»£';
+COMMENT ON COLUMN HYUNS00.MESSAGE.SEND_ID IS 'Î≥¥ÎÇ∏ ID';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.USER_NAME IS '¿Ø¿˙∏Ì';
+COMMENT ON COLUMN HYUNS00.MESSAGE.RECEIVE_ID IS 'Î∞õÏùÄ ID';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.USER_ROLE IS '±««—';
+COMMENT ON COLUMN HYUNS00.MESSAGE.SUBJECT IS 'Ï†úÎ™©';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.USER_EMAIL IS '¿Ã∏ﬁ¿œ';
+COMMENT ON COLUMN HYUNS00.MESSAGE.REG_DATE IS 'Îì±Î°ùÏùº';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.NICK_NAME IS '¥–≥◊¿”';
+COMMENT ON COLUMN HYUNS00.MESSAGE.CONTENT IS 'ÎÇ¥Ïö©';
 
-COMMENT ON COLUMN HYUNS00.LOGIN.QUESTION IS '∫∏æ»¡˙πÆ';
-
-COMMENT ON COLUMN HYUNS00.LOGIN.ANSWER IS '∫∏æ»¥Î¥‰';
-
-COMMENT ON COLUMN HYUNS00.LOGIN.JOIN_DATE IS '∞°¿‘¿œΩ√';
-
-COMMENT ON COLUMN HYUNS00.LOGIN.LAST_DATE IS '¡¢º”¿œΩ√';
-
-COMMENT ON COLUMN HYUNS00.LOGIN.EXIT_DATE IS '≈ª≈¿œΩ√';
-
-COMMENT ON COLUMN HYUNS00.LOGIN.EXIT_YN IS '≈ª≈¿Øπ´';
-
-COMMENT ON COLUMN HYUNS00.LOGIN.VISIT_COUNT IS 'πÊπÆ»Ωºˆ';
-
-ALTER TABLE HYUNS00.LOGIN ADD
+ALTER TABLE HYUNS00.MESSAGE ADD
 (
-    CONSTRAINT PK_NO
-    PRIMARY KEY ( USER_ID )
-        USING INDEX
-        TABLESPACE USERS
-        PCTFREE 10
-        INITRANS 2
-        MAXTRANS 255
-        STORAGE (
-            INITIAL 64 K
-            NEXT 1024 K
-            MINEXTENTS 1
-            MAXEXTENTS UNLIMITED
-        )
-);
-
-
-/*------------------------------------------------------------------------------
--- ∞≥√º ¿Ã∏ß : HYUNS00.LOGIN_FILE
--- ∏∏µÁ ≥Ø¬• : 2016-07-19 ø¿»ƒ 3:22:29
--- ∏∂¡ˆ∏∑¿∏∑Œ ºˆ¡§«— ≥Ø¬• : 2016-07-19 ø¿»ƒ 3:22:29
--- ªÛ≈¬ : VALID
-------------------------------------------------------------------------------*/
-DROP TABLE HYUNS00.LOGIN_FILE CASCADE CONSTRAINTS;
-
-CREATE TABLE HYUNS00.LOGIN_FILE (
-  NO            NUMBER            NOT NULL,
-  PNO           NUMBER                NULL,
-  FILE_PATH     VARCHAR2(200)         NULL,
-  FILE_NAME     VARCHAR2(200)         NULL,
-  SAVE_NAME     VARCHAR2(200)         NULL,
-  FILE_SIZE     NUMBER                NULL,
-  DOWN_COUNT    NUMBER                NULL
-)
-TABLESPACE USERS
-PCTFREE 10
-PCTUSED 0
-INITRANS 1
-MAXTRANS 255
-STORAGE (
-    INITIAL 64 K
-    NEXT 1024 K
-    MINEXTENTS 1
-    MAXEXTENTS UNLIMITED
-)
-LOGGING
-NOCACHE
-MONITORING
-NOPARALLEL
-;
-
-COMMENT ON TABLE HYUNS00.LOGIN_FILE IS '∆ƒ¿œ';
-
-ALTER TABLE HYUNS00.LOGIN_FILE ADD
-(
-    CONSTRAINT PK_LOGIN_FILE
+    CONSTRAINT PK_MESSAGE
     PRIMARY KEY ( NO )
         USING INDEX
         TABLESPACE USERS
@@ -463,10 +724,9 @@ ALTER TABLE HYUNS00.LOGIN_FILE ADD
         INITRANS 2
         MAXTRANS 255
         STORAGE (
-            INITIAL 64 K
-            NEXT 1024 K
+            INITIAL 64K
+            NEXT 1M
             MINEXTENTS 1
             MAXEXTENTS UNLIMITED
         )
 );
-

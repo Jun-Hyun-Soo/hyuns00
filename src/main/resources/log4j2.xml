@@ -14,9 +14,10 @@
 				<Pattern>${logPattern}</Pattern>
 			</PatternLayout>
 			<Policies>
-				<SizeBasedTriggeringPolicy size="100MB" /> <!-- 이 용량이 초과되면 아래 DefaultRolloverStrategy 정책만큼 넘버링 할거다. -->
+				<SizeBasedTriggeringPolicy size="100 MB" />
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
-			<DefaultRolloverStrategy max="1000" fileIndex="min" /><!-- 0부터 1000개 까지만 만들거다 1000개 초과되면 파일이 더생성안된다. -->
+			<DefaultRolloverStrategy max="1000" fileIndex="min" />
 		</RollingFile>
 	   
         <Console name="console" target="SYSTEM_OUT">

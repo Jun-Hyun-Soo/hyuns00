@@ -11,6 +11,7 @@
         <result property="comCount" 	column="COM_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="viewCount" 	column="VIEW_COUNT"		jdbcType="INTEGER" 	javaType="java.lang.Integer" />
         <result property="totalCount" 	column="TOTAL_COUNT"	jdbcType="INTEGER" 	javaType="java.lang.Integer" />
+        <result property="bbsId" 		column="BBS_ID"			jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="bbsName" 		column="BBS_NAME"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userId" 		column="USER_ID"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
         <result property="userPw" 		column="USER_PW"		jdbcType="VARCHAR" 	javaType="java.lang.String" />
@@ -51,32 +52,23 @@
 	
 	<sql id="searchBbs">
 		<choose>
-			<when test="searchClass == 'ALL' and searchKeyword != null and searchKeyword != ''">
+			<when test="searchKeyword != null and searchKeyword != ''">
 		       AND (
 		       			B.USER_NAME LIKE #{searchKeyword} || '%' 
 		        	 OR B.SUBJECT LIKE #{searchKeyword} || '%' 
 		        	 OR B.CONTENT LIKE #{searchKeyword} || '%'
 		           )
 			</when> 
-			<when test="searchClass == 'USER_NAME' and searchKeyword != null and searchKeyword != ''">
-		       AND B.USER_NAME LIKE #{searchKeyword} || '%'  
-			</when> 
-			<when test="searchClass == 'SUBJECT' and searchKeyword != null and searchKeyword != ''">
-		       AND B.SUBJECT LIKE #{searchKeyword} || '%'  
-			</when> 
-			<when test="searchClass == 'CONTENT' and searchKeyword != null and searchKeyword != ''"> 
-		       AND B.CONTENT LIKE #{searchKeyword} || '%'  
-			</when> 
 		</choose>
 	</sql>
 
 	<select id="selectBbsCount" parameterType="com.home.app.bbs.dto.BbsSearchDto" resultType="java.lang.Integer">
 		SELECT 
-		       /*+ INDEX_FFS(BBS, IX_BBS_NAME_NOTICE_YN) */ 
+		       /*+ INDEX_FFS(BBS, IX_BBS_ID_NOTICE_YN) */ 
 		       COUNT( *) TOTAL_COUNT
 		  FROM BBS B
 		 WHERE 1 = 1 
-		   AND BBS_NAME = #{bbsName} 
+		   AND BBS_ID = #{bbsId} 
 		   AND NOTICE_YN = 'N'  		
 		<include refid="searchBbs" />
     </select>
@@ -104,11 +96,11 @@
 		  FROM 
 		       ( 
 		       SELECT 
-		              /*+ INDEX_DESC(BBS, IX_BBS_NAME_NOTICE_YN) */ 
+		              /*+ INDEX_DESC(BBS, IX_BBS_ID_NOTICE_YN) */ 
 		              ROWNUM RN, 
 		              ROWID RI 
 		         FROM BBS 
-		        WHERE BBS_NAME = #{bbsName} 
+		        WHERE BBS_ID = #{bbsId} 
 		          AND NOTICE_YN = 'Y' 
 		       ) A, 
 		       BBS B 
@@ -116,7 +108,7 @@
 		   AND A.RI = B.ROWID 
 	     UNION ALL
 		SELECT 
-		       /*+ INDEX_DESC(BBS, IX_BBS_NAME_NO) */ 
+		       /*+ INDEX_DESC(BBS, IX_BBS_ID_NO) */ 
 		       B.NO, 
 		       ROW_NUMBER() OVER (ORDER BY B.SUB_NO DESC) AS VIEW_NO,
 		       B.SUB_NO,
@@ -138,7 +130,7 @@
 		              SELECT ROW_NUMBER() OVER(ORDER BY NO DESC, ROWID DESC) RN, 
 		                     NO 
 		                FROM BBS B
-		               WHERE BBS_NAME = #{bbsName}
+		               WHERE BBS_ID = #{bbsId}
 		                 AND NOTICE_YN = 'N' 
 					<include refid="searchBbs" />		                 
 		              ) 
@@ -221,6 +213,7 @@
 		           DEP_NO,
 		           COM_COUNT,
 		           VIEW_COUNT,
+		           BBS_ID,
 		           BBS_NAME,
 		           USER_ID,
 		           USER_PW,
@@ -240,6 +233,7 @@
 		           0,
 		           0,
 		           0,
+		           #{bbsId},
 		           #{bbsName},
 		           #{userId},
 		           #{userPw},
@@ -268,6 +262,7 @@
 		           DEP_NO,
 		           COM_COUNT,
 		           VIEW_COUNT,
+		           BBS_ID,
 		           BBS_NAME,
 		           USER_ID,
 		           USER_PW,
@@ -285,7 +280,8 @@
 		       #{depNo} + 1, 
 		       0, 
 		       0, 
-		       #{bbsName}, 
+		       #{bbsId}, 
+		       #{bbsName},
 		       #{userId}, 
 		       #{userPw}, 
 		       #{userName}, 
@@ -445,9 +441,9 @@
 		 WHERE NO = #{no}  
     </update>
 
-    <update id="updateBbsName" parameterType="com.home.app.bbs.dto.BbsCommentDto">
+    <update id="updateBbsId" parameterType="com.home.app.bbs.dto.BbsCommentDto">
 		UPDATE BBS 
-		   SET BBS_NAME = #{bbsList} 
+		   SET BBS_ID = #{bbsList} 
 		 WHERE (NO = #{pno} OR PRE_NO = #{pno})  
     </update>
 

@@ -149,10 +149,10 @@ public class BbsDaoImpl implements BbsDao {
 		return bbsDao.updateBbsCommentDelete(bbsCommentDto);
 	}
 
-	public int updateBbsName(BbsCommentDto bbsCommentDto) throws Exception {
+	public int updateBbsId(BbsCommentDto bbsCommentDto) throws Exception {
 		BbsDao bbsDao = sqlSessionTemplate.getMapper(BbsDao.class);
 
-		return bbsDao.updateBbsName(bbsCommentDto);
+		return bbsDao.updateBbsId(bbsCommentDto);
 	}
 
 	public int deleteBbsCommentList(int pno) throws Exception {

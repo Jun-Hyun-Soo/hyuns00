@@ -15,10 +15,10 @@ public class CateDaoImpl implements CateDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
-	public String selectBbsNameYn(String bbsName) throws Exception {
+	public String selectBbsIdYn(String bbsId) throws Exception {
 		CateDao cateDao = sqlSessionTemplate.getMapper(CateDao.class);
 
-		return cateDao.selectBbsNameYn(bbsName);
+		return cateDao.selectBbsIdYn(bbsId);
 	}
 
 	public int selectCateCount(CateSearchDto cateSearchDto) throws Exception {
@@ -33,10 +33,10 @@ public class CateDaoImpl implements CateDao {
 		return cateDao.selectCateList(cateSearchDto);
 	}
 
-	public List<CateDto> selectBbsName() throws Exception {
+	public List<CateDto> selectBbsId() throws Exception {
 		CateDao cateDao = sqlSessionTemplate.getMapper(CateDao.class);
 
-		return cateDao.selectBbsName();
+		return cateDao.selectBbsId();
 	}
 
 	public CateDto selectCateView(int no) throws Exception {

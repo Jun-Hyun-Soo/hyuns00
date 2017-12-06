@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/resources/css/bbs/view.css"></link>
 <script type="text/javascript" src="/resources/js/bbs/bbs.js"></script>	
 
-<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsName}">		
+<c:url var="listUrl" value="/bbs/list/${bbsSearchDto.bbsId}">		
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -15,7 +15,7 @@
 	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 
-<c:url var="editUrl" value="/bbs/edit/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
+<c:url var="editUrl" value="/bbs/edit/${bbsSearchDto.bbsId}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -23,7 +23,7 @@
 	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 
-<c:url var="deleteUrl" value="/bbs/delete/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
+<c:url var="deleteUrl" value="/bbs/delete/${bbsSearchDto.bbsId}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -31,7 +31,7 @@
 	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 	
-<c:url var="replyUrl" value="/bbs/reply/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
+<c:url var="replyUrl" value="/bbs/reply/${bbsSearchDto.bbsId}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -39,7 +39,7 @@
 	<c:param name="pageSize" value="${bbsSearchDto.pageSize}" />
 </c:url>
 	
-<c:url var="moveUrl" value="/bbs/moveOk/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">
+<c:url var="moveUrl" value="/bbs/moveOk/${bbsSearchDto.bbsId}/${bbsSearchDto.no}">
 	<c:param name="searchClass" value="${bbsSearchDto.searchClass}" />
 	<c:param name="searchKeyword" value="${bbsSearchDto.searchKeyword}" />
 	<c:param name="page" value="${bbsSearchDto.page}" />
@@ -57,7 +57,7 @@
 	<sec:authentication property="principal.userId" var="userId" />
 </sec:authorize>
 
-<form:form commandName="bbsCommentDto" method="post" action="/bbs/commentOk/${bbsSearchDto.bbsName}/${bbsSearchDto.no}">			
+<form:form commandName="bbsCommentDto" method="post" action="/bbs/commentOk/${bbsSearchDto.bbsId}/${bbsSearchDto.no}">			
 	<spring:bind path="*">
 		<c:set var="loopStatus" value="true" />	
 	  	<c:forEach items="${status.errorMessages}" var="error" varStatus="status">
@@ -77,7 +77,7 @@
 	<form:hidden path="userId" value="${userId}" />
 	<form:hidden path="commentType" value="Write" />
 	
-	<form:hidden path="bbsName" value="${bbsSearchDto.bbsName}" />
+	<form:hidden path="bbsId" value="${bbsSearchDto.bbsId}" />
 	
 	<form:hidden path="pno" value="${bbsSearchDto.no}" />
 	<form:hidden path="no" value="0" />
@@ -205,7 +205,7 @@
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 	    	<form:select path="bbsList">
 	    		<form:option value="" label="선택" />
-	    		<form:options items="${bbsNameDtoList}" itemValue="bbsName" itemLabel="subject" />
+	    		<form:options items="${bbsIdDtoList}" itemValue="bbsId" itemLabel="subject" />
 	    	</form:select>
 			<input type="image" id="imgBtnMove" value="" onclick="imgBtnMove_click('${moveUrl}', '${listUrl}', form); return false;" />
 		</sec:authorize>

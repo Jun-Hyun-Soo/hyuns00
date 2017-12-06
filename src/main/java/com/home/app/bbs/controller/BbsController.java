@@ -51,7 +51,7 @@ public class BbsController {
 	@Resource(name = "uploadPathBbs")
 	public String uploadPathBbs;
 
-	@RequestMapping(value = "/list/{bbsName}", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value = "/list/{bbsId}", produces = "text/plain; charset=UTF-8")
 	public String list(BbsSearchDto bbsSearchDto, Model model) throws Exception {
 		bbsSearchDto.setTotalCount(bbsService.selectBbsCount(bbsSearchDto));
 
@@ -62,19 +62,19 @@ public class BbsController {
 		return "/bbs/list";
 	}
 
-	@RequestMapping(value = "/view/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/view/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String view(BbsSearchDto bbsSearchDto, Model model) throws Exception {
 		model.addAttribute("bbsDto", bbsService.selectBbsView(bbsSearchDto.getNo()));
 		model.addAttribute("bbsFileDtoList", bbsService.selectBbsFileList(bbsSearchDto.getNo()));
 		model.addAttribute("bbsCommentDtoList", bbsService.selectBbsCommentList(bbsSearchDto.getNo()));
 		model.addAttribute("bbsCommentDto", new BbsCommentDto());
-		model.addAttribute("bbsNameDtoList", cateService.selectBbsName());
+		model.addAttribute("bbsIdDtoList", cateService.selectBbsId());
 		model.addAttribute("util", new Util());
 
 		return "/bbs/view";
 	}
 
-	@RequestMapping(value = "/write/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/write/{bbsId}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String write(BbsSearchDto bbsSearchDto, Model model) throws Exception {
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDto", new BbsDto());
@@ -82,7 +82,7 @@ public class BbsController {
 		return "/bbs/write";
 	}
 
-	@RequestMapping(value = "/writeOk/{bbsName}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/writeOk/{bbsId}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String writeOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("bbsSearchDto", bbsDto);
@@ -101,7 +101,7 @@ public class BbsController {
 		}
 
 		bbsDto.setUploadPathBase(uploadPathBase);
-		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsId() + "\\");
 		bbsDto.setThumbnailYn("N");
 		bbsDto.setUserIp(Util.getUserIp());
 
@@ -109,10 +109,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBbsName();
+		return "redirect:/bbs/list/" + bbsDto.getBbsId();
 	}
 
-	@RequestMapping(value = "/edit/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String edit(BbsSearchDto bbsSearchDto, Model model) throws Exception {
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDto", bbsService.selectBbsEdit(bbsSearchDto.getNo()));
@@ -121,7 +121,7 @@ public class BbsController {
 		return "/bbs/edit";
 	}
 
-	@RequestMapping(value = "/editOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/editOk/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String editOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception {
 		BbsDto passwdDto = bbsService.selectBbsEdit(bbsDto.getNo());
 
@@ -155,7 +155,7 @@ public class BbsController {
 		}
 
 		bbsDto.setUploadPathBase(uploadPathBase);
-		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsId() + "\\");
 		bbsDto.setThumbnailYn("N");
 		bbsDto.setUserIp(Util.getUserIp());
 
@@ -163,10 +163,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBbsName();
+		return "redirect:/bbs/list/" + bbsDto.getBbsId();
 	}
 
-	@RequestMapping(value = "/delete/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String delete(BbsSearchDto bbsSearchDto, Model model) throws Exception {
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDto", bbsService.selectBbsDelete(bbsSearchDto.getNo()));
@@ -174,7 +174,7 @@ public class BbsController {
 		return "/bbs/delete";
 	}
 
-	@RequestMapping(value = "/deleteOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteOk/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String deleteOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception {
 		BbsDto passwdDto = bbsService.selectBbsDelete(bbsDto.getNo());
 
@@ -201,7 +201,7 @@ public class BbsController {
 		}
 
 		bbsDto.setUploadPathBase(uploadPathBase);
-		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsId() + "\\");
 		bbsDto.setThumbnailYn("N");
 		bbsDto.setUserIp(Util.getUserIp());
 
@@ -215,10 +215,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBbsName();
+		return "redirect:/bbs/list/" + bbsDto.getBbsId();
 	}
 
-	@RequestMapping(value = "/reply/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/reply/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.GET)
 	public String reply(BbsSearchDto bbsSearchDto, Model model) throws Exception {
 		model.addAttribute("bbsSearchDto", bbsSearchDto);
 		model.addAttribute("bbsDto", bbsService.selectBbsReply(bbsSearchDto.getNo()));
@@ -226,7 +226,7 @@ public class BbsController {
 		return "/bbs/reply";
 	}
 
-	@RequestMapping(value = "/replyOk/{bbsName}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/replyOk/{bbsId}/{no}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String replyOk(RedirectAttributes redirectAttributes, @Valid BbsDto bbsDto, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("bbsSearchDto", bbsDto);
@@ -245,7 +245,7 @@ public class BbsController {
 		}
 
 		bbsDto.setUploadPathBase(uploadPathBase);
-		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsName() + "\\");
+		bbsDto.setUploadPathBbs(uploadPathBbs + bbsDto.getBbsId() + "\\");
 		bbsDto.setThumbnailYn("N");
 		bbsDto.setUserIp(Util.getUserIp());
 
@@ -253,10 +253,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsDto);
 
-		return "redirect:/bbs/list/" + bbsDto.getBbsName();
+		return "redirect:/bbs/list/" + bbsDto.getBbsId();
 	}
 
-	@RequestMapping(value = "/commentWriteOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentWriteOk/{bbsId}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentWriteOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
@@ -279,10 +279,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsId() + "/" + bbsCommentDto.getPno();
 	}
 
-	@RequestMapping(value = "/commentEditOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentEditOk/{bbsId}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentEditOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
@@ -323,10 +323,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsId() + "/" + bbsCommentDto.getPno();
 	}
 
-	@RequestMapping(value = "/commentReplyOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentReplyOk/{bbsId}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentReplyOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
@@ -349,10 +349,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsId() + "/" + bbsCommentDto.getPno();
 	}
 
-	@RequestMapping(value = "/commentDeleteOk/{bbsName}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentDeleteOk/{bbsId}/{pno}", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String commentDeleteOk(RedirectAttributes redirectAttributes, @Valid BbsCommentDto bbsCommentDto, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("bbsSearchDto", bbsCommentDto);
@@ -390,10 +390,10 @@ public class BbsController {
 
 		redirectAttributes.addFlashAttribute("bbsSearchDto", bbsCommentDto);
 
-		return "redirect:/bbs/view/" + bbsCommentDto.getBbsName() + "/" + bbsCommentDto.getPno();
+		return "redirect:/bbs/view/" + bbsCommentDto.getBbsId() + "/" + bbsCommentDto.getPno();
 	}
 
-	@RequestMapping(value = "/moveOk/{bbsName}/{pno}", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/moveOk/{bbsId}/{pno}", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
 	public ModelAndView moveOk(BbsCommentDto bbsCommentDto) throws Exception {
 		String returnMsg = "";
 
@@ -403,7 +403,7 @@ public class BbsController {
 			if (!customUserDetails.getUserRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
 				returnMsg = "관리자가 아닙니다!";
 			} else {
-				bbsService.updateBbsName(bbsCommentDto);
+				bbsService.updateBbsId(bbsCommentDto);
 
 				returnMsg = "Success";
 			}
@@ -419,8 +419,7 @@ public class BbsController {
 	}
 
 	@RequestMapping(value = "/file/{pno}/{no}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
-	@ResponseBody
-	public FileSystemResource file(BbsFileDto bbsFileDto, HttpServletResponse response) throws Exception {
+	public @ResponseBody FileSystemResource file(BbsFileDto bbsFileDto, HttpServletResponse response) throws Exception {
 		bbsService.updateBbsFileDownCount(bbsFileDto.getNo());
 
 		bbsFileDto = bbsService.selectBbsFile(bbsFileDto.getNo());
@@ -456,7 +455,7 @@ public class BbsController {
 		}
 	}
 
-	@RequestMapping(value = "/jsonView/{bbsName}", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value = "/jsonView/{bbsId}", produces = "text/plain; charset=UTF-8")
 	public ModelAndView jsonView(BbsSearchDto bbsSearchDto) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -467,7 +466,7 @@ public class BbsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/jsonBody/{bbsName}", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value = "/jsonBody/{bbsId}", produces = "text/plain; charset=UTF-8")
 	public @ResponseBody List<BbsDto> jsonBody(BbsSearchDto bbsSearchDto) throws Exception {
 		List<BbsDto> bbsDtoList = bbsService.selectBbsList(bbsSearchDto);
 
