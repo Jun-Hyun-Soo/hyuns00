@@ -12,7 +12,7 @@
 	}
 	
 	function loadImageUrl() {
-		$("#imgPreview").attr("src", "/upload/" + $("#currImagePath").val() + $("#currImageName").val());
+		$("#imgPreview").attr("src", "/upload" + $("#currImagePath").val() + "s_" + $("#currImageName").val());
 	}
 </script>
 
@@ -69,12 +69,14 @@
 	    </tr>
 	    <tr>
 		    <th>* 닉네임 :</th>
-		    <td>
+		    <td colspan="3">
 		        <form:input path="userNick" maxlength="20" />
 		        <input type="image" id="imgBtnUserNickYn" value="" onclick="imgBtnUserNickYn_click(form); return false;" />
 		    </td>
+	    </tr>
+	    <tr>
 		    <th>* 이메일 :</th>
-		    <td>		        
+		    <td colspan="3">		        
 		        <form:input path="userEmail" maxlength="100" />
 		        <input type="image" id="imgBtnUserEmailYn" value="" onclick="imgBtnUserEmailYn_click(form); return false;" />
 		    </td>

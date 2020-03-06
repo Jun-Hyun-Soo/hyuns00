@@ -8,11 +8,26 @@
 <script type="text/javascript">
 	function pageLoad() {
 		createComboBox({"id" : "cboCate", "url" : "/common/comboJson?comboType=cate"});
+		$('.materialboxed').materialbox();
 	}
 </script>
 
 Home <br />
 ${serverTime} <br />
+
+    <ul class="pagination">
+      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+      <li class="active"><a href="#!">1</a></li>
+      <li class="waves-effect"><a href="#!">2</a></li>
+      <li class="waves-effect"><a href="#!">3</a></li>
+      <li class="waves-effect"><a href="#!">4</a></li>
+      <li class="waves-effect"><a href="#!">5</a></li>
+      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+    
+<div class="material-placeholder">
+  <img class="materialboxed responsive-img" width="650" src="https://materializecss.com/images/sample-1.jpg">
+</div>
 
 <c:url value="/login/login" var="loginUrl"></c:url>
 <c:url value="/login/logout" var="logoutUrl"></c:url>

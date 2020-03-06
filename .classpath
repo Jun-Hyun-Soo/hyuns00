@@ -11,16 +11,36 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13.0.2">
 		<attributes>
 			<attribute name="module" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/hyuns/.m2/repository/org/aspectj/aspectjtools/1.8.10/aspectjtools-1.8.10.jar" sourcepath="C:/Users/hyuns/.m2/repository/org/aspectj/aspectjtools/1.8.10/aspectjtools-1.8.10-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.archivename" value="aspectjtools-1.8.10.jar"/>
+			<attribute name="maven.groupId" value="org.aspectj"/>
+			<attribute name="maven.artifactId" value="aspectjtools"/>
+			<attribute name="maven.version" value="1.8.10"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/hyuns/.m2/repository/org/apache/velocity/velocity/1.6.2/velocity-1.6.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/hyuns/.m2/repository/org/apache/velocity/velocity/1.6.2/velocity-1.6.2-javadoc.jar!/"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.archivename" value="velocity-1.6.2.jar"/>
+			<attribute name="maven.groupId" value="org.apache.velocity"/>
+			<attribute name="maven.artifactId" value="velocity"/>
+			<attribute name="maven.version" value="1.6.2"/>
+			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
