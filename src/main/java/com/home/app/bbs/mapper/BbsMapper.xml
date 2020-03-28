@@ -93,24 +93,13 @@
 		       TO_CHAR(B.REG_DATE, 'YYYY-MM-DD') AS REG_DATE, 
 		       B.NOTICE_YN, 
 		       B.CONTENT 
-		  FROM 
-		       ( 
-		       SELECT 
-		              /*+ INDEX_DESC(BBS, IX_BBS_ID_NOTICE_YN) */ 
-		              ROWNUM RN, 
-		              ROWID RI 
-		         FROM BBS 
-		        WHERE BBS_ID = #{bbsId} 
-		          AND NOTICE_YN = 'Y' 
-		       ) A, 
-		       BBS B 
+		  FROM BBS B 
 		 WHERE 1 = 1 
-		   AND A.RI = B.ROWID 
+		   AND B.BBS_ID = #{bbsId} 
+		   AND B.NOTICE_YN = 'Y'
 	     UNION ALL
-		SELECT 
-		       /*+ INDEX_DESC(BBS, IX_BBS_ID_NO) */ 
-		       B.NO, 
-		       ROW_NUMBER() OVER (ORDER BY B.SUB_NO DESC) AS VIEW_NO,
+		SELECT B.NO, 
+		       ROW_NUMBER() OVER (ORDER BY B.SUB_NO ASC) AS VIEW_NO,
 		       B.SUB_NO,
 		       B.DEP_NO,
 		       B.COM_COUNT, 
@@ -122,26 +111,11 @@
 		       B.NOTICE_YN, 
 		       B.CONTENT 
 		  FROM BBS B
-		 WHERE NO <![CDATA[<=]]> 
-		       ( 
-		       SELECT NO 
-		         FROM 
-		              ( 
-		              SELECT ROW_NUMBER() OVER(ORDER BY NO DESC, ROWID DESC) RN, 
-		                     NO 
-		                FROM BBS B
-		               WHERE BBS_ID = #{bbsId}
-		                 AND NOTICE_YN = 'N' 
-					<include refid="searchBbs" />		                 
-		              ) 
-		        WHERE 1 = 1 
-		          AND RN = ((${page} - 1) * ${listSize} + 1) 
-		          AND ROWNUM = 1 
-		       ) 
-		   AND ROWNUM <![CDATA[<=]]> ${listSize} 
+		 WHERE BBS_ID = #{bbsId}
 		   AND NOTICE_YN = 'N'
 		<include refid="searchBbs" />
-		 ORDER BY NOTICE_YN DESC, SUB_NO DESC 		   
+		 ORDER BY NOTICE_YN DESC, SUB_NO DESC 	
+		 OFFSET ((${page} - 1) * ${listSize}) ROWS FETCH NEXT ${listSize} ROWS ONLY
     </select>
 	
     <select id="selectBbsView" parameterType="java.lang.Integer" resultMap="bbsResultMap">

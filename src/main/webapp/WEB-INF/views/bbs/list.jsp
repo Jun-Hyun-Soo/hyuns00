@@ -50,7 +50,8 @@
 		</c:url>
 		<tr>
 			<td class="text-center">	
-				<c:set value="${pageFirstNo - bbsDto.viewNo + 1}" var="viewNo"></c:set>				
+				<!--<c:set value="${pageFirstNo - bbsDto.viewNo + 1}" var="viewNo"></c:set>-->
+				<c:set value="${bbsDto.viewNo}" var="viewNo"></c:set>
 				<c:choose>
 					<c:when test="${bbsDto.noticeYn eq 'Y'}">공지</c:when>
 					<c:otherwise><c:out value="${viewNo}" escapeXml="true"></c:out></c:otherwise>
